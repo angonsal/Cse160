@@ -50,12 +50,17 @@ function handleDrawEvent(){
 
 	// Clear canvas 
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	ctx.fillStyle = 'black';
+	ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 	//Read Values
-	x = document.getElementById("xvalue").value;
-	y = document.getElementById("yvalue").value;
+	var x = document.getElementById("xvalue").value;
+	var y = document.getElementById("yvalue").value;
+
 
 	//New lines 
+	var v1 = new Vector3([x,y,0]); 
+	drawVector(v1, "red");
 	
 }
 

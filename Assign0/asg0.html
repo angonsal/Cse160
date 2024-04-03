@@ -17,10 +17,17 @@
 		<!--  Add an interface for the user to specify and draw the v1 vector -->
 
 		<!--  Vector 1 -->
+		<div>
 		<label for="v1">v1: x  </label>
-		<input type="text" id="xvalue" name="xvalue">
-		<label for="v1">v1: y  </label>
-		<input type="text" id="yvalue" name="yvalue">
+		<input type="number" id="xvalue" name="xvalue">
+
+		<label for="v1">y  </label>
+		<input type="number" id="yvalue" name="yvalue">
+		</div>
+		<div>
+		<button onclick="handleDrawEvent()">Draw</button>
+
+		</div>
 
 		<!--  handleDrawEvent -->
 		
