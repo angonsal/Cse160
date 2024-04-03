@@ -57,10 +57,16 @@ function handleDrawEvent(){
 	var x = document.getElementById("xvalue").value;
 	var y = document.getElementById("yvalue").value;
 
+	var x1 = document.getElementById("xvalue1").value;
+	var y1 = document.getElementById("yvalue1").value;
+
 
 	//New lines 
 	var v1 = new Vector3([x,y,0]); 
 	drawVector(v1, "red");
+
+	var v2 = new Vector3([x1,y1,0]); 
+	drawVector(v2, "blue");
 	
 }
 
