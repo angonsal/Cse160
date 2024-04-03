@@ -3,12 +3,28 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-	<title>Draw a blue rectangle (canvas version)</title>
+		<title>Draw a blue rectangle (canvas version)</title>
 	</head>
 
 	<body onload="main()">
-	<canvas id="example" width="400" height="400"> 
-	Please use a browser that supports "canvas" </canvas>
-	<script src="asg0.js"></script>
+		<canvas id="example" width="400" height="400"> 
+			Please use a browser that supports "canvas" 
+		</canvas>
+		<!-- Loading given matrix library -->
+		<script src="lib/cuon-matrix-cse160.js"></script>
+		<script src="asg0.js"></script>
+
+		<!--  Add an interface for the user to specify and draw the v1 vector -->
+
+		<!--  Vector 1 -->
+		<label for="v1">v1: x  </label>
+		<input type="text" id="xvalue" name="xvalue">
+		<label for="v1">v1: y  </label>
+		<input type="text" id="yvalue" name="yvalue">
+
+		<!--  handleDrawEvent -->
+		
+
+	
 	</body> 
 </html>
