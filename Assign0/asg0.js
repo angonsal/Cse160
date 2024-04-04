@@ -70,6 +70,52 @@ function handleDrawEvent(){
 	
 }
 
+function handleDrawOperationEvent(){
+	
+	// Clear canvas 
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	ctx.fillStyle = 'black';
+	ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+	//Read Values
+	var x = document.getElementById("xvalue").value;
+	var y = document.getElementById("yvalue").value;
+
+	var x1 = document.getElementById("xvalue1").value;
+	var y1 = document.getElementById("yvalue1").value;
+
+	//New lines 
+	var v1 = new Vector3([x,y,0]); 
+	drawVector(v1, "red");
+
+	var v2 = new Vector3([x1,y1,0]); 
+	drawVector(v2, "blue");
+
+
+	var operation = document.getElementById("operation").value;
+	var scale = document.getElementById("scalar").value;
+
+	if (operation == "add") {
+		var v3 = v1.add(v2)
+		drawVector(v3, "green");
+	}
+
+	if (operation == "sub") {
+		var v3 = v1.sub(v2)
+		drawVector(v3, "green");
+	}
+
+	if (operation == "mul") {
+		var v3 = v1.mul(scale)
+		drawVector(v3, "green");
+	}
+
+	if (operation == "div") {
+		var v3 = v1.div(scale)
+		drawVector(v3, "green");
+	}
+}
+
 
 
 
