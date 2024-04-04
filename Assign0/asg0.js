@@ -133,6 +133,34 @@ function handleDrawOperationEvent(){
 		drawVector(v4, "green");
 	}
 
+	if (operation == "dot") {
+		let ans = angleBetween(v1, v2); 
+		console.log("Angle: ", ans); 
+	}
+
+}
+
+//dot(v1, v2) = ||v1|| * ||v2|| * cos(alpha)
+function angleBetween(v1, v2) {
+	let dot = Vector3.dot(v1, v2); 
+
+	// get magnitudes of v1 and v2
+	let magv1 = v1.magnitude(); 
+	let magv2 = v2.magnitude(); 
+
+	// multiply the magnitudes 
+	let magnitudes = magv1 * magv2; 
+
+	//dot/multiplied magnitudes = cos(alpha)
+	let cosangle = dot / magnitudes;
+
+	//get the radiens, then convert to degrees
+	// radiens * (180/pi) 
+	let radiens = Math.acos(cosangle); 
+	let degree = radiens * (180/Math.PI); 
+
+	return degree; 
+
 }
 
 

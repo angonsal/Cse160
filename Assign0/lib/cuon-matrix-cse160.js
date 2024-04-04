@@ -104,9 +104,11 @@ class Vector3 {
     static dot(other1, other2) {
         // Insert your code here.
         let d = 0; // Modify this line to calculate this vector's magnitude.
-
+        for (let i=0; i < other1.elements.length; i++){
+          d += other1.elements[i]* other2.elements[i]; 
+      }
         // Don't delete the return statement.
-        return d;
+      return d;
     }
 
     /**
@@ -153,7 +155,7 @@ class Vector3 {
       }
       // Don't delete the return statement.
       return this;
-    }
+    };
 }
 
 class Vector4 {
