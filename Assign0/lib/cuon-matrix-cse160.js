@@ -128,10 +128,16 @@ class Vector3 {
       */
     magnitude() {
         // Insert your code here.
-        let m = 0; // Modify this line to calculate this vector's magnitude.
+
+      // Magnitude = sqrt (x^2 + y^2 + z^2)
+      let m = 0; // Modify this line to calculate this vector's magnitude.
+      for (let i=0; i < this.elements.length; i++){
+        m += this.elements[i] ** 2 ; 
+      }
+      let mag = Math.sqrt(m); 
 
         // Don't delete the return statement.
-        return m;
+      return mag;
     };
 
     /**
@@ -141,10 +147,13 @@ class Vector3 {
     normalize() {
         // Insert your code here.
         // This function should change this vector (this.elements) and not create a new vector.
-
-        // Don't delete the return statement.
-        return this;
-    };
+      let magnitude = this.magnitude();
+      for (let i=0; i < this.elements.length; i++){
+        this.elements[i] /= magnitude; 
+      }
+      // Don't delete the return statement.
+      return this;
+    }
 }
 
 class Vector4 {

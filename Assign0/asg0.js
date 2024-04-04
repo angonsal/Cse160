@@ -118,6 +118,21 @@ function handleDrawOperationEvent(){
 		drawVector(v3, "green");
 		drawVector(v4, "green");
 	}
+
+	if (operation == "mag") {
+		var v3 = v1.magnitude()
+		var v4 = v2.magnitude()
+		console.log("Magnitude:", v3); 
+		console.log("Magnitude:", v4);
+	}
+
+	if (operation == "norm") {
+		var v3 = v1.normalize()
+		var v4 = v2.normalize()
+		drawVector(v3, "green");
+		drawVector(v4, "green");
+	}
+
 }
 
 
