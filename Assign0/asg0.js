@@ -107,12 +107,16 @@ function handleDrawOperationEvent(){
 
 	if (operation == "mul") {
 		var v3 = v1.mul(scale)
+		var v4 = v2.mul(scale)
 		drawVector(v3, "green");
+		drawVector(v4, "green");
 	}
 
 	if (operation == "div") {
 		var v3 = v1.div(scale)
+		var v4 = v2.div(scale)
 		drawVector(v3, "green");
+		drawVector(v4, "green");
 	}
 }
 
