@@ -138,6 +138,11 @@ function handleDrawOperationEvent(){
 		console.log("Angle: ", ans); 
 	}
 
+	if (operation == "area") {
+		let ans = areaTriangle(v1, v2); 
+		console.log("Area: ", ans); 
+	}
+
 }
 
 //dot(v1, v2) = ||v1|| * ||v2|| * cos(alpha)
@@ -160,6 +165,20 @@ function angleBetween(v1, v2) {
 	let degree = radiens * (180/Math.PI); 
 
 	return degree; 
+
+}
+
+//||v1 x v2]]  equals to the area of the parallelogram(bh)
+function areaTriangle(v1, v2) {
+	let area = Vector3.cross(v1,v2);
+
+	//get the magnitude
+	let mag = area.magnitude();
+
+	//get area of triangle (bh * 1/2)
+	let triangleArea = mag/2; 
+
+	return triangleArea; 
 
 }
 

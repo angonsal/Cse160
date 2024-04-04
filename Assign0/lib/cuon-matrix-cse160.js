@@ -120,6 +120,24 @@ class Vector3 {
         // This function should create and return a new vector.
         let v3 = new Vector3(); // Modify this line to calculate cross product between other1 and other2.
 
+        // organize and label the elements
+        //v1  
+        let a = other1.elements[0]; 
+        let b = other1.elements[1]; 
+        let c = other1.elements[2]; 
+
+        //v2
+        let d = other2.elements[0]; 
+        let e = other2.elements[1]; 
+        let f = other2.elements[2];
+
+        // 1 = bf-ce; 2 = cd-af; 3 = ae-bd
+        v3.elements[0] = ((b*f) - (c*e));
+        v3.elements[1] = ((c*d) - (a*f));
+        v3.elements[2] = ((a*e) - (b*d));
+
+
+
         // Don't delete the return statement.
         return v3;
     }
