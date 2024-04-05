@@ -18,8 +18,8 @@ function main() {
 	// ctx.fillRect(120, 10, 150, 150); // Fill a rectangle with the color
 
 	// Black Canvas 
-	var v1 = new Vector3([2.25, 2.25, 0]); 
-	drawVector(v1, "red");
+	// var v1 = new Vector3([2.25, 2.25, 0]); 
+	// drawVector(v1, "red");
 	
 	ctx.fillStyle = 'black';
 	ctx.fillRect(0, 0, canvas.width, canvas.height);
