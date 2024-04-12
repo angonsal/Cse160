@@ -87,6 +87,7 @@ function addActionsHTMLUI(){
   document.getElementById("triangle").onclick = function() {g_selectedType = TRIANGLE;};
   document.getElementById("circle").onclick = function() {g_selectedType = CIRCLE;};
 
+  //FOR DRAWING
   document.getElementById("drawing").onclick = function() {butterfly()};
 
 
@@ -202,6 +203,7 @@ function butterfly(){
     gl.clear(gl.COLOR_BUFFER_BIT);
     g_shapesList=[];
 
+    //WINGS
     // LAVENDER
     wingA = [-1,0.8, -0.7, 1, -0.4, 0.8];
     wingB = [1, 0.8, 0.7, 1, 0.4, 0.8];
@@ -297,8 +299,25 @@ function butterfly(){
         drawTriangle(g_shapesList[i]);
     }
 
+    //BODY
+    // LIGHT BROWN
+    bottom = [-0.22, 0.21, 0.22, 0.21, 0, -0.1];
+    top = [-0.4, 0.8, 0.4, 0.8, -1, 0.8];
 
+    g_shapesList.push(bottom);
+    g_shapesList.push(top);
+    for(var i = 18; i < 20; i++){
+        gl.uniform4f(u_FragColor, 0.7, 0.5, 0.3, 1.0);
+        drawTriangle(g_shapesList[i]);
+    }
 
+    // leftSide = [-0.22, 0.21, 0.22, 0.21, 0, -0.1];
+    // rightSide = [-0.22, 0.21, 0.22, 0.21, 0, -0.1];
+    // g_shapesList.push(wingA);
+    // for(var i = 20; i < 22; i++){
+    //     gl.uniform4f(u_FragColor, 0.4, 0.2, 0.1, 1.0);
+    //     drawTriangle(g_shapesList[i]);
+    // }
 
 
 
