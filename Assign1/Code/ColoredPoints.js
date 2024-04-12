@@ -65,14 +65,22 @@ function connectVariablesToGLSL(){
     return;
   }
 }
+const POINT = 0;
+const TRIANGLE = 1; 
 
 let g_selectedColor = [1.0, 1.0, 1.0, 1.0];
 let g_SelectedSize = 5; 
+let g_selectedType = POINT; 
+
+
 function addActionsHTMLUI(){
   //Button
   document.getElementById("green").onclick = function() {g_selectedColor = [0.0, 1.0, 0.0, 1.0];};
   document.getElementById("red").onclick = function() {g_selectedColor = [1.0, 0.0, 0.0, 1.0];};
   document.getElementById("clear").onclick = function() {g_shapesList = []; renderAllShapes();};
+
+  document.getElementById("point").onclick = function() {g_selectedType = POINT;};
+  document.getElementById("triangle").onclick = function() {g_selectedType = TRIANGLE;};
 
   //Slider
   document.getElementById("redSlide").addEventListener('mouseup', function() {g_selectedColor[0] = this.value/100;});
@@ -107,7 +115,15 @@ var g_shapesList = [];
 function click(ev) {
   [x,y] = convertCoordinatesEventToGL(ev);
   // Store the coordinates to g_points array
-  let point = new Point(); 
+  let point; 
+  if (g_selectedType === POINT){
+    point = new Point(); 
+  }
+  else if (g_selectedType === TRIANGLE) {
+    point = new Triangle(); 
+  }
+
+  // let point = new Triangle(); 
   // g_points.push([x,y]);
   // g_colors.push(g_selectedColor.slice());
   // g_sizes.push(g_SelectedSize);
