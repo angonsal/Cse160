@@ -203,73 +203,97 @@ function butterfly(){
     g_shapesList=[];
 
     // LAVENDER
-    tipWingTriangles = [-1,0.8, -0.7, 1, -0.4, 0.8];
-    tipWingTriangles2 = [1, 0.8, 0.7, 1, 0.4, 0.8];
-    g_shapesList.push(tipWingTriangles);
-    g_shapesList.push(tipWingTriangles2);
+    wingA = [-1,0.8, -0.7, 1, -0.4, 0.8];
+    wingB = [1, 0.8, 0.7, 1, 0.4, 0.8];
+    g_shapesList.push(wingA);
+    g_shapesList.push(wingB);
 
     for(var i = 0; i < 2; i++){
         gl.uniform4f(u_FragColor, 0.714, 0.643, 0.882, 1.0);
         drawTriangle(g_shapesList[i]);
     }
 
-    // BABY BLUE
-    TopsideA = [-1, 0.8, -0.8, 0.65, -1, 0.65];
-    TopsideB = [1, 0.8, 0.8, 0.65, 1, 0.65];
-    g_shapesList.push(TopsideA);
-    g_shapesList.push(TopsideB);
+    // PASTEL ORANGE
+    wingA = [-1, 0.8, -0.8, 0.65, -1, 0.65];
+    wingB = [1, 0.8, 0.8, 0.65, 1, 0.65];
+    g_shapesList.push(wingA);
+    g_shapesList.push(wingB);
 
     for(var i = 2; i < 4; i++){
-        gl.uniform4f(u_FragColor, 0.537, 0.812, 0.941, 1.0);
+        gl.uniform4f(u_FragColor, 1.0, 0.7, 0.5, 1.0);
         drawTriangle(g_shapesList[i]);
     }
 
     // PASTEL GREEN
-    TopA = [-0.22, 0.21, -0.4, 0.8, -1,0.8];
-    TopB = [0.22, 0.21, 0.4, 0.8, 1, 0.8];
-    g_shapesList.push(TopA);
-    g_shapesList.push(TopB);
+    wingA = [-0.22, 0.21, -0.4, 0.8, -1,0.8];
+    wingB = [0.22, 0.21, 0.4, 0.8, 1, 0.8];
+    g_shapesList.push(wingA);
+    g_shapesList.push(wingB);
 
     for(var i = 4; i < 6; i++){
         gl.uniform4f(u_FragColor, 0.6, 0.8, 0.6, 1.0);
         drawTriangle(g_shapesList[i]);
     }
 
-    // PASTEL ORANGE
-    TopMiniA = [-0.83, 0.46, -1, 0.65, -0.8, 0.65];
-    TopMiniB = [0.83, 0.46, 1, 0.65, 0.8, 0.65];
-    g_shapesList.push(TopMiniA);
-    g_shapesList.push(TopMiniB);
+    // BABY BLUE
+    wingA = [-0.83, 0.46, -1, 0.65, -0.8, 0.65];
+    wingB = [0.83, 0.46, 1, 0.65, 0.8, 0.65];
+    g_shapesList.push(wingA);
+    g_shapesList.push(wingB);
 
     for(var i = 6; i < 8; i++){
-        gl.uniform4f(u_FragColor, 1.0, 0.7, 0.5, 1.0);
+        gl.uniform4f(u_FragColor, 0.537, 0.812, 0.941, 1.0);
         drawTriangle(g_shapesList[i]);
     }
 
     //PASTEL YELLOW
-    longBoi1 = [-0.83, 0.46, -0.22, 0.21, -0.8, 0.65]; 
-    longBoi2 = [0.83, 0.46, 0.22, 0.21, 0.8, 0.65]
-    g_shapesList.push(longBoi1);
-    g_shapesList.push(longBoi2);
+    wingA = [-0.83, 0.46, -0.22, 0.21, -0.8, 0.65]; 
+    wingB = [0.83, 0.46, 0.22, 0.21, 0.8, 0.65]
+    g_shapesList.push(wingA);
+    g_shapesList.push(wingB);
     for(var i = 8; i < 10; i++){
         gl.uniform4f(u_FragColor, 1.0, 1.0, 0.8, 1.0);
         drawTriangle(g_shapesList[i]);
     }
 
     //ROYAL BLUE
-    bottom1 = [-0.83, 0.46, -1, 0.4, -0.83, 0.18];
-    bottom2 = [0.83, 0.46, 1, 0.4, 0.83, 0.18];
-    g_shapesList.push(bottom1);
-    g_shapesList.push(bottom2);
+    wingA = [-0.83, 0.46, -1, 0.4, -0.83, 0.18];
+    wingB = [0.83, 0.46, 1, 0.4, 0.83, 0.18];
+    g_shapesList.push(wingA);
+    g_shapesList.push(wingB);
     for(var i = 10; i < 12; i++){
         gl.uniform4f(u_FragColor, 0.25, 0.41, 0.88, 1.0);
         drawTriangle(g_shapesList[i]);
     }
 
-    bottomLong = [-1, 0.4, -1, -0.2, -0.3, -0.5]; 
-    g_shapesList.push(bottomLong);
+    //PEACH
+    wingA = [-1, 0.4, -1, -0.2, -0.3, -0.5]; 
+    wingB = [1, 0.4, 1, -0.2, 0.3, -0.5];
+    g_shapesList.push(wingA);
+    g_shapesList.push(wingB);
+
     for(var i = 12; i < 14; i++){
         gl.uniform4f(u_FragColor, 1.0, 0.8, 0.6, 1.0);
+        drawTriangle(g_shapesList[i]);
+    }
+
+    //STRAWBERRY 
+    wingA = [-0.83, 0.46, -0.83, 0.18, -0.22, 0.21];
+    wingB = [0.83, 0.46, 0.83, 0.18, 0.22, 0.21];
+    g_shapesList.push(wingA);
+    g_shapesList.push(wingB);
+    for(var i = 14; i < 16; i++){
+        gl.uniform4f(u_FragColor, 1.0, 0.4, 0.4, 1.0);
+        drawTriangle(g_shapesList[i]);
+    }
+
+    //VIOLET 
+    wingA = [-0.83, 0.18, -0.22, 0.21, -0.3, -0.5];
+    wingB = [0.83, 0.18, 0.22, 0.21, 0.3, -0.5];
+    g_shapesList.push(wingA);
+    g_shapesList.push(wingB);
+    for(var i = 16; i < 18; i++){
+        gl.uniform4f(u_FragColor, 0.6, 0.4, 0.8, 1.0);
         drawTriangle(g_shapesList[i]);
     }
 
