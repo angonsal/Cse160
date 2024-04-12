@@ -65,12 +65,17 @@ function connectVariablesToGLSL(){
     return;
   }
 }
+//constants 
 const POINT = 0;
 const TRIANGLE = 1; 
+const CIRCLE = 2; 
 
+
+//more global variables 
 let g_selectedColor = [1.0, 1.0, 1.0, 1.0];
 let g_SelectedSize = 5; 
 let g_selectedType = POINT; 
+let g_segment = 10; 
 
 
 function addActionsHTMLUI(){
@@ -81,6 +86,8 @@ function addActionsHTMLUI(){
 
   document.getElementById("point").onclick = function() {g_selectedType = POINT;};
   document.getElementById("triangle").onclick = function() {g_selectedType = TRIANGLE;};
+  document.getElementById("circle").onclick = function() {g_selectedType = CIRCLE;};
+
 
   //Slider
   document.getElementById("redSlide").addEventListener('mouseup', function() {g_selectedColor[0] = this.value/100;});
@@ -116,11 +123,15 @@ function click(ev) {
   [x,y] = convertCoordinatesEventToGL(ev);
   // Store the coordinates to g_points array
   let point; 
-  if (g_selectedType === POINT){
+  if (g_selectedType == POINT){
     point = new Point(); 
   }
-  else if (g_selectedType === TRIANGLE) {
+  else if (g_selectedType == TRIANGLE) {
     point = new Triangle(); 
+  }
+  else{
+    point = new Circle();
+    point.segments = g_segment; 
   }
 
   // let point = new Triangle(); 
