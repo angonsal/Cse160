@@ -302,26 +302,42 @@ function butterfly(){
     //BODY
     // LIGHT BROWN
     bottom = [-0.22, 0.21, 0.22, 0.21, 0, -0.1];
-    top = [-0.4, 0.8, 0.4, 0.8, -1, 0.8];
-
     g_shapesList.push(bottom);
-    g_shapesList.push(top);
-    for(var i = 18; i < 20; i++){
+    for(var i = 18; i < 19; i++){
         gl.uniform4f(u_FragColor, 0.7, 0.5, 0.3, 1.0);
         drawTriangle(g_shapesList[i]);
     }
 
-    // leftSide = [-0.22, 0.21, 0.22, 0.21, 0, -0.1];
-    // rightSide = [-0.22, 0.21, 0.22, 0.21, 0, -0.1];
-    // g_shapesList.push(wingA);
-    // for(var i = 20; i < 22; i++){
-    //     gl.uniform4f(u_FragColor, 0.4, 0.2, 0.1, 1.0);
-    //     drawTriangle(g_shapesList[i]);
-    // }
+    face = [-0.22, 0.45, 0.22, 0.45, 0, 0.8];
+    g_shapesList.push(face);
+    for(var i = 19; i < 20; i++){
+        gl.uniform4f(u_FragColor, 0.4, 0.2, 0.1, 1.0);
+        drawTriangle(g_shapesList[i]);
+    }
+
+    lefHalf = [-0.22, 0.45, -0.22, 0.21, 0.22, 0.21]; 
+    g_shapesList.push(lefHalf);
+    for(var i = 20; i < 21; i++){
+        gl.uniform4f(u_FragColor, 0.545, 0.271, 0.075, 1.0);
+        drawTriangle(g_shapesList[i]);
+    }
+
+    rightHald = [-0.22, 0.45, 0.22, 0.45, 0.22, 0.21]; 
+    g_shapesList.push(rightHald);
+    for(var i = 21; i < 22; i++){
+        gl.uniform4f(u_FragColor, 0.6, 0.4, 0.2, 1.0);
+        drawTriangle(g_shapesList[i]);
+    }
 
 
-
-
+    wingTipA = [-0.3, -0.5, -0.5, -0.41, -0.5, -0.8 ]; 
+    wingTipB = [0.3, -0.5, 0.5, -0.41, 0.5, -0.8];
+    g_shapesList.push(wingTipA);
+    g_shapesList.push(wingTipB);
+    for(var i = 22; i < 24; i++){
+       gl.uniform4f(u_FragColor, 0.31, 0.18, 0.31, 1.0);
+        drawTriangle(g_shapesList[i]);
+    }
 
 
 
