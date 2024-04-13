@@ -82,6 +82,10 @@ function addActionsHTMLUI(){
   // document.getElementById("green").onclick = function() {g_selectedColor = [0.0, 1.0, 0.0, 1.0];};
   // document.getElementById("red").onclick = function() {g_selectedColor = [1.0, 0.0, 0.0, 1.0];};
   document.getElementById("clear").onclick = function() {g_shapesList = []; renderAllShapes();};
+  document.getElementById("clear").addEventListener("click", function() {
+    var audio = document.getElementById("oof");
+    audio.play();
+  });
 
   document.getElementById("point").onclick = function() {g_selectedType = POINT;};
   document.getElementById("triangle").onclick = function() {g_selectedType = TRIANGLE;};
@@ -89,7 +93,10 @@ function addActionsHTMLUI(){
 
   //FOR DRAWING
   document.getElementById("drawing").onclick = function() {butterfly()};
-  // document.getElementById("start").onclick = function() {dino()};
+  document.getElementById("drawing").addEventListener("click", function() {
+    var audio = document.getElementById("silly");
+    audio.play();
+  });
 
   //Slider
   document.getElementById("redSlide").addEventListener('mouseup', function() {g_selectedColor[0] = this.value/100;});
@@ -97,6 +104,8 @@ function addActionsHTMLUI(){
   document.getElementById("blueSlide").addEventListener('mouseup', function() {g_selectedColor[2] = this.value/100;});
   document.getElementById("sizeSlide").addEventListener('mouseup', function() {g_SelectedSize = this.value;});
   document.getElementById("segmentSlide").addEventListener('mouseup', function() {g_selectedSegment = this.value;});
+
+  
 
 }
   
@@ -318,7 +327,6 @@ function butterfly(){
 
     //WING TAIL 
     // GRAPE COLOR
-
     wingTipA = [-0.3, -0.5, -0.5, -0.41, -0.5, -0.8 ]; 
     wingTipB = [0.3, -0.5, 0.5, -0.41, 0.5, -0.8];
     g_shapesList.push(wingTipA);
