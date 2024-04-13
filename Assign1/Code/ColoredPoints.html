@@ -3,6 +3,19 @@
   <head>
     <meta charset="utf-8" />
     <title>Change a point color</title>
+    <style>
+      #webgl {
+        cursor: url('cursor.png') 10 50, auto;
+      }
+      .color-slider:hover {
+          cursor: url('changing_colors.png'), auto;
+      }
+      #drawing:hover {
+        cursor: url('slay.png'), auto;
+      }
+
+  </style>
+    
   </head>
 
   <body onload="main()">
@@ -11,9 +24,9 @@
     </canvas>
     <p>
 
-    <p id = "numdot"> XXX </p>
-    <button type="button" id="green">Green</button>
-    <button type="button" id="red">Red</button>
+    <!-- <p id = "numdot"> XXX </p> -->
+    <!-- <button type="button" id="green">Green</button>
+    <button type="button" id="red">Red</button> -->
     <button type="button" id="clear">Clear</button>
 
     <p>
@@ -21,18 +34,21 @@
     <button type="button" id="triangle">Triangle</button>
     <button type="button" id="circle">Circle</button>
 
+
     <p>
-    Red <input type="range" min="0" max="100" value="100" class="slider" id="redSlide">
+    Red <input type="range" min="0" max="100" value="100" class="color-slider" id="redSlide">
     <p>
-    Green <input type="range" min="0" max="100" value="100" class="slider" id="greenSlide">
+    Green <input type="range" min="0" max="100" value="100" class="color-slider" id="greenSlide">
     <p>
-    Blue <input type="range" min="0" max="100" value="100" class="slider" id="blueSlide">
+    Blue <input type="range" min="0" max="100" value="100" class="color-slider" id="blueSlide">
     <p>
     Size <input type="range" min="5" max="40" value="5" class="slider" id="sizeSlide">
     (Circles) Segment Count: <input type="range" min="5" max="40" value="5" class="slider" id="segmentSlide">
     <p>
-
     <button type="button" id="drawing">Cool Drawing</button>
+    <button type="button" id="dot">Dot to Dot!</button>
+    <p>
+
 
     <script src="../lib/webgl-utils.js"></script>
     <script src="../lib/webgl-debug.js"></script>
@@ -40,6 +56,9 @@
     <script src="Triangle.js"></script>
     <script src="Circle.js"></script>
     <script src="Points.js"></script>
+    <script src="DotToDot.js"></script>
     <script src="ColoredPoints.js"></script>
+
+
   </body>
 </html>

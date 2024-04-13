@@ -79,8 +79,8 @@ let g_selectedSegment = 10;
 
 function addActionsHTMLUI(){
   //Button
-  document.getElementById("green").onclick = function() {g_selectedColor = [0.0, 1.0, 0.0, 1.0];};
-  document.getElementById("red").onclick = function() {g_selectedColor = [1.0, 0.0, 0.0, 1.0];};
+  // document.getElementById("green").onclick = function() {g_selectedColor = [0.0, 1.0, 0.0, 1.0];};
+  // document.getElementById("red").onclick = function() {g_selectedColor = [1.0, 0.0, 0.0, 1.0];};
   document.getElementById("clear").onclick = function() {g_shapesList = []; renderAllShapes();};
 
   document.getElementById("point").onclick = function() {g_selectedType = POINT;};
@@ -89,7 +89,7 @@ function addActionsHTMLUI(){
 
   //FOR DRAWING
   document.getElementById("drawing").onclick = function() {butterfly()};
-
+  // document.getElementById("start").onclick = function() {dino()};
 
   //Slider
   document.getElementById("redSlide").addEventListener('mouseup', function() {g_selectedColor[0] = this.value/100;});
@@ -117,9 +117,7 @@ function main() {
   gl.clear(gl.COLOR_BUFFER_BIT);
 }
 
-// var g_points = [];  // The array for the position of a mouse press
-// var g_colors = [];  // The array to store the color of a point
-// var g_sizes = []; // The array to store the size of the point
+
 
 var g_shapesList = [];
 
@@ -138,23 +136,12 @@ function click(ev) {
     point.segments = g_selectedSegment; 
   }
 
-  // let point = new Triangle(); 
-  // g_points.push([x,y]);
-  // g_colors.push(g_selectedColor.slice());
-  // g_sizes.push(g_SelectedSize);
 
   point.position = [x,y]; 
   point.color = g_selectedColor.slice(); 
   point.size = g_SelectedSize; 
   g_shapesList.push(point); 
   
-  // if (x >= 0.0 && y >= 0.0) {      // First quadrant
-  //   g_colors.push([1.0, 0.0, 0.0, 1.0]);  // Red
-  // } else if (x < 0.0 && y < 0.0) { // Third quadrant
-  //   g_colors.push([0.0, 1.0, 0.0, 1.0]);  // Green
-  // } else {                         // Others
-  //   g_colors.push([1.0, 1.0, 1.0, 1.0]);  // White
-  // }
 
   renderAllShapes(); 
 
@@ -186,7 +173,7 @@ function renderAllShapes(){
   }
 
   var duration = performance.now() - startTime;
-  sendTextToHTML("numdot: " + len + " ms: " + Math.floor(duration) + " fps: " + Math.floor(10000/duration), "numdot");
+  // sendTextToHTML("numdot: " + len + " ms: " + Math.floor(duration) + " fps: " + Math.floor(10000/duration), "numdot");
 }
 
 function sendTextToHTML(text, htmlID){
@@ -300,7 +287,7 @@ function butterfly(){
     }
 
     //BODY
-    // LIGHT BROWN
+    // SHADES OF BROWN BROWN
     bottom = [-0.22, 0.21, 0.22, 0.21, 0, -0.1];
     g_shapesList.push(bottom);
     for(var i = 18; i < 19; i++){
@@ -329,6 +316,8 @@ function butterfly(){
         drawTriangle(g_shapesList[i]);
     }
 
+    //WING TAIL 
+    // GRAPE COLOR
 
     wingTipA = [-0.3, -0.5, -0.5, -0.41, -0.5, -0.8 ]; 
     wingTipB = [0.3, -0.5, 0.5, -0.41, 0.5, -0.8];
