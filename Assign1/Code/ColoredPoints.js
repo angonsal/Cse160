@@ -92,7 +92,8 @@ function addActionsHTMLUI(){
   document.getElementById("circle").onclick = function() {g_selectedType = CIRCLE;};
 
   //FOR DRAWING
-  document.getElementById("drawing").onclick = function() {butterfly()};
+  document.getElementById("drawing").onclick = function() {butterfly();};
+
   document.getElementById("drawing").addEventListener("click", function() {
     var audio = document.getElementById("silly");
     audio.play();
@@ -167,6 +168,8 @@ function convertCoordinatesEventToGL(ev){
   return([x, y]);
   
 }
+
+
 
 function renderAllShapes(){
   var startTime = performance.now();
@@ -334,9 +337,11 @@ function butterfly(){
     for(var i = 22; i < 24; i++){
        gl.uniform4f(u_FragColor, 0.31, 0.18, 0.31, 1.0);
         drawTriangle(g_shapesList[i]);
+    
     }
 
-
+    //Minor bug fixed
+    g_shapesList = [];
 
 }
 
