@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Change a point color</title>
+    <style>
+      #webgl {
+        cursor: url('cursor.png') 10 30, auto;
+      }
+      .color-slider:hover {
+          cursor: url('changing_colors.png'), auto;
+      }
+      #drawing:hover {
+        cursor: url('slay.png'), auto;
+      }
+      .margin-text {
+        margin-left: 20px;
+        margin-right: 20px;
+      }
+
+  </style>
+    
+  </head>
+
+  <body onload="main()">
+    <canvas id="webgl" width="400" height="400">
+    Please use a browser that supports "canvas"
+    </canvas>
+    <p>
+
+    <!-- <p id = "numdot"> XXX </p> -->
+    <!-- <button type="button" id="green">Green</button>
+    <button type="button" id="red">Red</button> -->
+    <button type="button" id="clear">Clear</button>
+    <audio id="oof">
+      <source src="oof.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+
+    <p>
+    <button type="button" id="point">Square</button>
+    <button type="button" id="triangle">Triangle</button>
+    <button type="button" id="circle">Circle</button>
+
+
+    <p>
+    Red <input type="range" min="0" max="100" value="100" class="color-slider" id="redSlide">
+    <p>
+    Green <input type="range" min="0" max="100" value="100" class="color-slider" id="greenSlide">
+    <p>
+    Blue <input type="range" min="0" max="100" value="100" class="color-slider" id="blueSlide">
+    <p>
+    Size <input type="range" min="5" max="40" value="5" class="slider" id="sizeSlide">
+    (Circles) Segment Count: <input type="range" min="5" max="40" value="5" class="slider" id="segmentSlide">
+    <p>
+    <button type="button" id="drawing">Cool Drawing</button>
+    <audio id="silly">
+      <source src="metalGear.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+
+    <button type="button" id="dot">Connect the Dots!</button>
+    <audio id="dotSound">
+      <source src="hehe.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+  </audio>
+    <p>
+
+    <div class="margin-text">
+      <h2> Ashley Gonsalves</h2>
+      <p> angonsal@ucsc.edu</p>
+      <h3> Notes To Grader</h3>
+      <p> This assignment was pretty fun! For my drawing, I made a geometric butterfly. See the picture below for reference. To make my webpage awesome, the first thing I did was change the cursors for different elements. When the cursor is on the canvas, the cursor is a pencil. When on the RGB sliders, the cursor is a paint palatte. When on the "cool drawing" button the cursor turns into a pink magic wand. All of these cursors are png files from google; I downloaded them and resized them to be usable cursors. I have linked them below. I also added some sound effects to a couple buttons. For the clear button I added the Roblox "oof" sound effect. For the cool drawing button I added the sound effect from Metal Gear. For the "Connect the Dots!" button I added a meme sound effect. I linked the sound effects below.</p>
+
+
+      <p>The main thing I did to make my page awesome was create a connect the dot feature. As a kid, I used to love connect the dots so I tried to encorperate it in this project. I created 8 different drawings using points. When the "Connect the Dots!" button is clicked, the dots appear on the screen and the user can draw to connect them. Each time the button is pressed, a new drawing appears. Drawings include basic shapes like a square, triangle, but also include a house, a heart, and a peace sign.</p>
+
+
+
+      <img src="drawing.png" alt="Butterfly made with 24 triangles">
+
+    <p>
+      <h4> Cursor Links </h4>
+      <a href="https://pixcap.com/cdn/library/templates/90db0094-29c7-4c8f-bafc-c37ce71f98f9/thumbnail/96f71b61-6a91-44f2-9964-b40ad268dbfc_transparent_null_400.webp" target="_blank">pencil cursor</a>
+      <a href="https://cdn-icons-png.flaticon.com/512/167/167723.png" target="_blank">paint palatte cursor</a>
+      <a href="https://www.cursor.cc/cursor3d/23101.png" target="_blank">pretty pink wand cursor</a>
+      <h4> Sound Links </h4>
+      <a href="https://www.youtube.com/watch?v=3w-2gUSus34" target="_blank">oof sound</a>
+      <a href="https://www.youtube.com/watch?v=An7ZD-s6aHY" target="_blank">Metal Gear sound</a>
+      <a href="https://www.youtube.com/watch?v=VUfvRciny_Y" target="_blank">meme sound</a>
+    </p>
+
+    </div>
+
+
+    <script src="../lib/webgl-utils.js"></script>
+    <script src="../lib/webgl-debug.js"></script>
+    <script src="../lib/cuon-utils.js"></script>
+    <script src="Triangle.js"></script>
+    <script src="Circle.js"></script>
+    <script src="Points.js"></script>
+    <script src="DotToDot.js"></script>
+    <script src="ColoredPoints.js"></script>
+
+
+  </body>
+</html>
