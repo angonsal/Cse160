@@ -113,7 +113,11 @@ function pattern() {
   dotSound.play();
   
   const currentPattern = dotPatterns[index];
+
+  //  Clear the list 
   g_shapesList = [];
+
+  // Loop and get each point 
   for (let i = 0; i < currentPattern.length; i++) {
     const point = new Point();
     point.position = currentPattern[i];
@@ -123,7 +127,10 @@ function pattern() {
   }
   renderAllShapes();
 
+  // Increment and go to next pattern
   index++;
+
+  // Reset to 0 after last pattern
   if (index >= dotPatterns.length) {
     index = 0;
   }
