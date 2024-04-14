@@ -75,7 +75,7 @@ const dotPatterns = [
     [0, 0.5]    
   ],
 
-  //Face
+  //Peace sign
   [  
     [0, 0.9],
     [0.5, 0.7],
@@ -91,8 +91,9 @@ const dotPatterns = [
     [-0.5, 0.7],
 
     [0,0],
-    [0.5, 0.3],
-    [-0.5, 0.3],
+    [0,0.4],
+    [0.5, -0.3],
+    [-0.5, -0.3],
   ], 
 
   // Raindrop
@@ -106,8 +107,11 @@ const dotPatterns = [
 ];
 
 let index = 0;
+const dotSound = document.getElementById("dotSound");
 
 function pattern() {
+  dotSound.play();
+  
   const currentPattern = dotPatterns[index];
   g_shapesList = [];
   for (let i = 0; i < currentPattern.length; i++) {
