@@ -1,6 +1,5 @@
 import * as THREE from 'https://cdn.skypack.dev/three@0.129.0/build/three.module.js';
 import { OrbitControls } from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/controls/OrbitControls.js';
-import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/GLTFLoader.js';
 import { OBJLoader } from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/OBJLoader.js';
 import { MTLLoader } from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/MTLLoader.js';
 
@@ -62,8 +61,6 @@ const middleRingColor = new THREE.MeshBasicMaterial({ color: 0xffff00 });
 const middle = new THREE.Mesh(middleRing, middleRingColor);
 middle.position.set(-10, 14, 0);
 // middle.rotation.y = Math.PI / 2;
-
-
 scene.add(middle);
 
 const leftRing = new THREE.TorusGeometry(2, 0.2, 16, 32);
@@ -84,6 +81,7 @@ scene.add(right);
 const controls = new OrbitControls(camera, canvas);
 controls.target.set(0, 5, 0);
 controls.update();
+
 // Render loop
 function animate(time) {
 
