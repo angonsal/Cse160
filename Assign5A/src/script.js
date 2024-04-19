@@ -4,13 +4,13 @@ import * as THREE from 'https://cdn.skypack.dev/three@0.129.0/build/three.module
 import { OrbitControls } from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/GLTFLoader.js';
 import { OBJLoader } from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/OBJLoader.js';
-
+import { MTLLoader } from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/MTLLoader.js';
 
 
 // Setting up  
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.set(25, 8);
+camera.position.set(40, 8);
 const canvas = document.querySelector('#c');
 const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('c') });
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -25,21 +25,19 @@ const texture = loader.load("../resources/images/quid.jpeg", () => {
     scene.background = rt.texture;
 });
 
-
-
 // Grass
-const grassBuild = new THREE.BoxGeometry(40, 2, 40);
+const grassBuild = new THREE.BoxGeometry(70, 2, 50);
 const grassColor = new THREE.MeshBasicMaterial({ color: 0x005300  });
 const grass = new THREE.Mesh(grassBuild, grassColor);
 scene.add(grass);
 grass.position.set(0, -2, 0)
 
 // quaffle
-const sphereGeometry = new THREE.SphereGeometry(1, 32, 32);
-const sphereMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
-const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
-sphere.position.set(-3, 0, 0);
-scene.add(sphere);
+const quaffleBuild = new THREE.SphereGeometry(1, 32, 32);
+const quaffleColor = new THREE.MeshBasicMaterial({ color: 0x3B0B0B }); 
+const quaffle = new THREE.Mesh(quaffleBuild, quaffleColor);
+quaffle.position.set(27, 0, 0);
+scene.add(quaffle);
 
 // wood
 const woodBuild = new THREE.CylinderGeometry(0.5, 0.5, 14);
@@ -88,9 +86,37 @@ controls.target.set(0, 5, 0);
 controls.update();
 // Render loop
 function animate() {
+
+    // add spinning quidditch balls animation here later 
+    // add spinning broom 
     requestAnimationFrame(animate);
     renderer.render(scene, camera);
 }
+
+// Objects setup
+const mtlLoader = new MTLLoader();
+const objectsloader = new OBJLoader();
+
+mtlLoader.load('../resources/models/Orange cat/12221_Cat_v1_l3.mtl',
+    function (materials) {
+        objectsloader.setMaterials(materials);
+        objectsloader.load('../resources/models/Orange cat/12221_Cat_v1_l3.obj',
+            function (obj) {
+                obj.position.set(-20, -1, 5); 
+                obj.scale.set(0.1, 0.1, 0.1);
+                obj.rotation.set(11, 0, 8);
+                scene.add(obj);
+            }
+        );
+    }
+);
+
+const directionalLight = new THREE.DirectionalLight(0xffffff, 0.75);
+directionalLight.position.set(40, 20, 10); 
+scene.add(directionalLight);
+
+
+
 
 // Texture setup
 const textureLoader = new THREE.TextureLoader();
