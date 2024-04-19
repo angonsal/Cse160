@@ -63,7 +63,9 @@ const middleRing = new THREE.TorusGeometry(2, 0.2, 16, 32);
 const middleRingColor = new THREE.MeshBasicMaterial({ color: 0xffff00 });
 const middle = new THREE.Mesh(middleRing, middleRingColor);
 middle.position.set(-10, 14, 0);
-middle.rotation.y = Math.PI / 2;
+// middle.rotation.y = Math.PI / 2;
+
+
 scene.add(middle);
 
 const leftRing = new THREE.TorusGeometry(2, 0.2, 16, 32);
@@ -85,10 +87,13 @@ const controls = new OrbitControls(camera, canvas);
 controls.target.set(0, 5, 0);
 controls.update();
 // Render loop
-function animate() {
+function animate(time) {
 
     // add spinning quidditch balls animation here later 
     // add spinning broom 
+    time *= 0.001; 
+    middle.rotation.y = time;
+
     requestAnimationFrame(animate);
     renderer.render(scene, camera);
 }
@@ -101,19 +106,23 @@ mtlLoader.load('../resources/models/Orange cat/12221_Cat_v1_l3.mtl',
     function (materials) {
         objectsloader.setMaterials(materials);
         objectsloader.load('../resources/models/Orange cat/12221_Cat_v1_l3.obj',
-            function (obj) {
-                obj.position.set(-20, -1, 5); 
-                obj.scale.set(0.1, 0.1, 0.1);
-                obj.rotation.set(11, 0, 8);
-                scene.add(obj);
+            function (cat) {
+                cat.position.set(-20, -1, 5); 
+                cat.scale.set(0.1, 0.1, 0.1);
+                cat.rotation.set(11, 0, 8);
+                scene.add(cat);
+
+                //SOURCE OF DIRECTIONAL LIGHT 
+                const lightcat = new THREE.DirectionalLight(0xffffff, 1);
+                lightcat.target = cat; 
+                scene.add(lightcat);
             }
         );
     }
 );
 
-const directionalLight = new THREE.DirectionalLight(0xffffff, 0.75);
-directionalLight.position.set(40, 20, 10); 
-scene.add(directionalLight);
+
+
 
 
 
