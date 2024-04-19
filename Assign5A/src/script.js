@@ -119,10 +119,6 @@ mtlLoader.load('../resources/models/Orange cat/12221_Cat_v1_l3.mtl',
 
 
 
-
-
-
-
 // Texture setup
 const textureLoader = new THREE.TextureLoader();
 const grassy = textureLoader.load('../resources/images/grass.jpeg');
