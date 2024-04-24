@@ -86,30 +86,26 @@ let g_selectedColor = [1.0, 1.0, 1.0, 1.0];
 let g_SelectedSize = 5; 
 let g_selectedType = POINT; 
 let g_selectedSegment = 10;
-let g_globalAngle = 0; 
+let g_globalAngle = 0;
+let g_joint_A = 0;
+let g_joint_B = 0;
+let g_animation1 = false; 
+let g_animation2 = false; 
+
 
 function addActionsHTMLUI(){
-  //Button
-  // document.getElementById("green").onclick = function() {g_selectedColor = [0.0, 1.0, 0.0, 1.0];};
-  // document.getElementById("red").onclick = function() {g_selectedColor = [1.0, 0.0, 0.0, 1.0];};
-  document.getElementById("clear").onclick = function() {g_shapesList = []; renderScene();};
-  
-  document.getElementById("point").onclick = function() {g_selectedType = POINT;};
-  document.getElementById("triangle").onclick = function() {g_selectedType = TRIANGLE;};
-  document.getElementById("circle").onclick = function() {g_selectedType = CIRCLE;};
+  //Joint sliders
+  document.getElementById("jointASlide").addEventListener('mousemove', function() {g_joint_A = this.value; renderScene(); });
+  document.getElementById("jointBSlide").addEventListener('mousemove', function() {g_joint_B = this.value; renderScene(); });
 
-  //FOR DRAWING
-  document.getElementById("drawing").onclick = function() {butterfly();};
-
-  
-
-  //Slider
-  document.getElementById("redSlide").addEventListener('mouseup', function() {g_selectedColor[0] = this.value/100;});
-  document.getElementById("greenSlide").addEventListener('mouseup', function() {g_selectedColor[1] = this.value/100;});
-  document.getElementById("blueSlide").addEventListener('mouseup', function() {g_selectedColor[2] = this.value/100;});
+  // Angle Slider 
   document.getElementById("angleSlide").addEventListener('mousemove', function() {g_globalAngle = this.value; renderScene(); });
 
-  
+  // On and off animation buttons 
+  document.getElementById("off").onclick = function() {g_animation1 = false}; 
+  document.getElementById("on").onclick = function() {g_animation1 = true};
+  document.getElementById("off2").onclick = function() {g_animation2 = false}; 
+  document.getElementById("on2").onclick = function() {g_animation2 = true};
 
 }
   
@@ -129,7 +125,12 @@ function main() {
   // Clear <canvas>
   // gl.clear(gl.COLOR_BUFFER_BIT);
   renderScene();
+  requestAnimationFrame(tick);
+
 }
+
+var g_startTime = performance.now()/1000.0;
+var g_seconds = performance.now()/1000.0-g_startTime;
 
 
 
@@ -173,6 +174,26 @@ function convertCoordinatesEventToGL(ev){
   
 }
 
+function tick(){
+
+  g_seconds=performance.now()/1000.0-g_startTime;
+
+  updateAnimationAngles();
+
+  renderScene(); 
+
+  requestAnimationFrame(tick);
+}
+
+function updateAnimationAngles(){
+  if(g_animation1){
+    g_joint_A = (45*Math.sin(g_seconds));
+  }
+  if(g_animation2){
+    g_joint_B = (45*Math.sin(g_seconds));
+  } 
+
+}
 
 function renderScene(){
   
@@ -189,23 +210,42 @@ function renderScene(){
 
   var body = new Cube(); 
   body.color = [1.0, 0.0, 0.0, 1.0]; 
-  body.matrix.translate(-.25, -.5, 0.0); 
-  body.matrix.scale(0.5, 1, .5); 
+  body.matrix.translate(-.25, -.75, 0.0); 
+  body.matrix.rotate(-5,1,0,0); 
+  body.matrix.scale(0.5, 0.3, .5); 
   body.render();
 
   var leftArm = new Cube(); 
   leftArm.color = [1,1,0,1]; 
-  leftArm.matrix.setTranslate(.7, 0, 0.0); 
-  leftArm.matrix.rotate(45, 0, 0, 1); 
+  leftArm.matrix.setTranslate(0, -0.5, 0.0); 
+  leftArm.matrix.rotate(-5, 1, 0, 0); 
+
+  leftArm.matrix.rotate(-g_joint_A,0,0,1);
+
+  // if(g_animation1){
+  //   leftArm.matrix.rotate(45*Math.sin(g_seconds), 0,0,1);
+  // } else{
+  //   leftArm.matrix.rotate(-g_joint_A,0,0,1);
+  // }
+
+  // leftArm.matrix.rotate(-g_joint_A,0,0,1);
+  // leftArm.matrix.rotate(45*Math.sin(g_seconds), 0,0,1);
+
+  var jointACoordinate = new Matrix4(leftArm.matrix);
   leftArm.matrix.scale(0.25, .7, .5); 
+  leftArm.matrix.translate(-0.5,0,0); 
   leftArm.render(); 
 
   var box = new Cube(); 
   box.color = [1,0,1,1];
-  box.matrix.translate(0,0,-0.50, 0); 
-  box.matrix.rotate(-30, 1, 0, 0); 
-  box.matrix.scale(0.5, 0.5, 0.5); 
+  box.matrix = jointACoordinate;
+  box.matrix.translate(0, .65, 0); 
+  box.matrix.rotate(g_joint_B, 0, 0, 1); 
+  box.matrix.scale(0.3, 0.3, 0.3); 
+  box.matrix.translate(-0.5, 0, -0.001); 
   box.render();
+
+
 
 
   var duration = performance.now() - startTime;
