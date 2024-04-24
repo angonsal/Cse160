@@ -34,6 +34,7 @@ function setupWebGL() {
     console.log('Failed to get the rendering context for WebGL');
     return;
     }
+  gl.enable(gl.DEPTH_TEST); 
   }
 
 
@@ -91,7 +92,7 @@ function addActionsHTMLUI(){
   //Button
   // document.getElementById("green").onclick = function() {g_selectedColor = [0.0, 1.0, 0.0, 1.0];};
   // document.getElementById("red").onclick = function() {g_selectedColor = [1.0, 0.0, 0.0, 1.0];};
-  document.getElementById("clear").onclick = function() {g_shapesList = []; renderAllShapes();};
+  document.getElementById("clear").onclick = function() {g_shapesList = []; renderScene();};
   
   document.getElementById("point").onclick = function() {g_selectedType = POINT;};
   document.getElementById("triangle").onclick = function() {g_selectedType = TRIANGLE;};
@@ -106,7 +107,7 @@ function addActionsHTMLUI(){
   document.getElementById("redSlide").addEventListener('mouseup', function() {g_selectedColor[0] = this.value/100;});
   document.getElementById("greenSlide").addEventListener('mouseup', function() {g_selectedColor[1] = this.value/100;});
   document.getElementById("blueSlide").addEventListener('mouseup', function() {g_selectedColor[2] = this.value/100;});
-  document.getElementById("angleSlide").addEventListener('mousemove', function() {g_globalAngle = this.value; renderAllShapes(); });
+  document.getElementById("angleSlide").addEventListener('mousemove', function() {g_globalAngle = this.value; renderScene(); });
 
   
 
@@ -127,7 +128,7 @@ function main() {
 
   // Clear <canvas>
   // gl.clear(gl.COLOR_BUFFER_BIT);
-  renderAllShapes();
+  renderScene();
 }
 
 
@@ -156,7 +157,7 @@ function click(ev) {
   g_shapesList.push(point); 
   
 
-  renderAllShapes(); 
+  renderScene(); 
 
 }
 
@@ -173,7 +174,7 @@ function convertCoordinatesEventToGL(ev){
 }
 
 
-function renderAllShapes(){
+function renderScene(){
   
   var startTime = performance.now();
 
@@ -181,7 +182,8 @@ function renderAllShapes(){
   gl.uniformMatrix4fv(u_GlobalRotateMatrix, false, globalRotMat.elements);
 
   // Clear <canvas>
-  gl.clear(gl.COLOR_BUFFER_BIT);
+  gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+  gl.clear(gl.COLOR_BUFFER_BIT); 
 
   // drawTriangle3D([-1.0, 0.0, 0.0,  -0.5, -1.0, 1.0,   0.0, 0.0, 0.0]);
 
