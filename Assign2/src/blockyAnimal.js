@@ -92,13 +92,15 @@ let g_joint_B = 0;
 let g_joint_C = 0; 
 let g_joint_D = 0;
 let g_joint_E = 0;
+let g_joint_F = 0; 
+let g_joint_G = 0; 
 let g_animation1 = false; 
 
 
 function addActionsHTMLUI(){
   //Joint sliders
   document.getElementById("jointASlide").addEventListener('mousemove', function() {g_joint_A = this.value; renderScene(); });
-  document.getElementById("jointBSlide").addEventListener('mousemove', function() {g_joint_B = this.value; renderScene(); });
+  document.getElementById("jointBSlide").addEventListener('mousemove', function() {g_joint_C = this.value; renderScene(); });
 
   // Angle Slider 
   document.getElementById("angleSlide").addEventListener('mousemove', function() {g_globalAngle = this.value; renderScene(); });
@@ -187,9 +189,13 @@ function tick(){
 
 function updateAnimationAngles(){
   if(g_animation1){
-    g_joint_A = (10*Math.sin(g_seconds));
-    g_joint_B = (10*Math.sin(g_seconds));
-    g_joint_C =  (10*Math.sin(g_seconds));
+    g_joint_A = (20*Math.sin(g_seconds));
+    g_joint_B = (20*Math.sin(g_seconds));
+    g_joint_C =  (10* Math.sin(g_seconds));
+    g_joint_D =  (10* Math.sin(g_seconds));
+    g_joint_E = (10* Math.sin(g_seconds));
+    g_joint_F = (10* Math.sin(g_seconds));
+    g_joint_G = (2* Math.sin(g_seconds));
   }
 
 }
@@ -394,10 +400,28 @@ function renderScene(){
   var leftForearm = new Cube();
   leftForearm.color = [0.63, 0.63, 0.63, 1.0];
   leftForearm.matrix = jointACoordinate;
-  leftForearm.matrix.translate(-0.4 * scaleFactor, 0 * scaleFactor, 0 * scaleFactor);
+  leftForearm.matrix.translate(-0.38 * scaleFactor, 0 * scaleFactor, 0 * scaleFactor);
   leftForearm.matrix.rotate(-g_joint_C,0,0,1);
+  var jointCCoordinate = new Matrix4(leftForearm.matrix);
   leftForearm.matrix.scale(-0.3 * scaleFactor, 0.12 * scaleFactor, 0.1 * scaleFactor);
   leftForearm.render();
+
+  var leftWrist = new Cube();
+  leftWrist.color = [0.63, 0.63, 0.63, 1.0];
+  leftWrist.matrix = jointCCoordinate; 
+  leftWrist.matrix.translate(-0.28 * scaleFactor, 0 * scaleFactor, 0 * scaleFactor);
+  leftWrist.matrix.rotate(-g_joint_F,0,0,1);
+  var jointFCoordinate = new Matrix4(leftWrist.matrix);
+  leftWrist.matrix.scale(-0.12 * scaleFactor, 0.12 * scaleFactor, 0.1 * scaleFactor);
+  leftWrist.render();
+
+  var leftHand = new Cube; 
+  leftHand.color = [1,1,1, 1.0];
+  leftHand.matrix = jointFCoordinate; 
+  leftHand.matrix.translate(-0.1215 * scaleFactor, 0 * scaleFactor, 0 * scaleFactor);
+  leftHand.matrix.rotate(-g_joint_G,0,0,1);
+  leftHand.matrix.scale(-0.12 * scaleFactor, 0.12 * scaleFactor, 0.1 * scaleFactor);
+  leftHand.render();
 
 
   var rightArm = new Cube();
@@ -411,10 +435,28 @@ function renderScene(){
   var rightForearm = new Cube();
   rightForearm.color = [0.63, 0.63, 0.63, 1.0];
   rightForearm.matrix = jointBCoordinate;
-  rightForearm.matrix.translate(0.4001 * scaleFactor, 0 * scaleFactor, 0 * scaleFactor); 
-  rightForearm.matrix.rotate(g_joint_C, 0, 0, 1); 
+  rightForearm.matrix.translate(0.38 * scaleFactor, 0 * scaleFactor, 0 * scaleFactor); 
+  rightForearm.matrix.rotate(g_joint_D, 0, 0, 1); 
+  var jointDCoordinate = new Matrix4(rightForearm.matrix);
   rightForearm.matrix.scale(0.3 * scaleFactor, 0.12 * scaleFactor, 0.1 * scaleFactor); 
   rightForearm.render();
+
+  var redWrist = new Cube();
+  redWrist.color = [0.63, 0.63, 0.63, 1.0];
+  redWrist.matrix = jointDCoordinate;
+  redWrist.matrix.translate(0.35 * scaleFactor, 0 * scaleFactor, 0 * scaleFactor);
+  redWrist.matrix.rotate(g_joint_E,0,0,1);
+  var jointECoordinate = new Matrix4(redWrist.matrix);
+  redWrist.matrix.scale(-0.12 * scaleFactor, 0.12 * scaleFactor, 0.1 * scaleFactor);
+  redWrist.render();
+
+  var rightHand = new Cube; 
+  rightHand.color = [1,1,1, 1.0];
+  rightHand.matrix = jointECoordinate; 
+  rightHand.matrix.translate(0.1215 * scaleFactor, 0 * scaleFactor, 0 * scaleFactor);
+  rightHand.matrix.rotate(-g_joint_G,0,0,1);
+  rightHand.matrix.scale(-0.12 * scaleFactor, 0.12 * scaleFactor, 0.1 * scaleFactor);
+  rightHand.render();
 
 
   var tail = new TriangularPrism();
