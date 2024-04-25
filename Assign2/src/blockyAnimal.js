@@ -107,7 +107,12 @@ function addActionsHTMLUI(){
 
   // On and off animation buttons 
   document.getElementById("off").onclick = function() {g_animation1 = false}; 
-  document.getElementById("on").onclick = function() {g_animation1 = true};
+  // document.getElementById("on").onclick = function() {g_animation1 = true};
+  document.getElementById("on").addEventListener("click", function() {
+    g_animation1 = true;
+    var audio = document.getElementById("meepmeep");
+    audio.play();
+  });
 
 }
   
@@ -122,7 +127,7 @@ function main() {
   canvas.onmousemove = function(ev) { if (ev.buttons ==1) {click(ev)}};
 
   // Specify the color for clearing <canvas>
-  gl.clearColor(0.0, 0.0, 0.0, 1.0);
+  gl.clearColor(0.529, 0.808, 0.922, 1.0);
 
   // Clear <canvas>
   // gl.clear(gl.COLOR_BUFFER_BIT);
@@ -477,7 +482,6 @@ function renderScene(){
   surrender.render();
 
 
-
   var tail = new TriangularPrism();
   tail.color = [0.85, 0.85, 0.85, 1.0];
   tail.matrix.translate(0.06 * scaleFactor, -0.1 * scaleFactor, 0.35 * scaleFactor); 
@@ -511,32 +515,15 @@ function renderScene(){
   leftEarPink.matrix.rotate(-10, 0.8, 0, 0); 
   leftEarPink.render();
 
+  //BACKGROUND
+  var ground1 = new TriangularPrism(); 
+  ground1.color = [0.82, 0.71, 0.55, 1.0];
+  ground1.matrix.translate(1.5 * scaleFactor, -2 * scaleFactor, 0.092 * scaleFactor); 
+  ground1.matrix.scale(-3 * scaleFactor, 2.1 * scaleFactor, 3 * scaleFactor); 
+  ground1.render();
+
+
   
-
-
-
-
-
-
-  // var leftArm = new Cube(); 
-  // leftArm.color = [1,1,0,1]; 
-  // leftArm.matrix.setTranslate(0, -0.5, 0.0); 
-  // leftArm.matrix.rotate(-5, 1, 0, 0); 
-  // leftArm.matrix.rotate(-g_joint_A,0,0,1);
-  // var jointACoordinate = new Matrix4(leftArm.matrix);
-  // leftArm.matrix.scale(0.25, .7, .5); 
-  // leftArm.matrix.translate(-0.5,0,0); 
-  // leftArm.render(); 
-
-  // var box = new Cube(); 
-  // box.color = [1,0,1,1];
-  // box.matrix = jointACoordinate;
-  // box.matrix.translate(0, .65, 0); 
-  // box.matrix.rotate(g_joint_B, 0, 0, 1); 
-  // box.matrix.scale(0.3, 0.3, 0.3); 
-  // box.matrix.translate(-0.5, 0, -0.001); 
-  // box.render();
-
 
 
 
