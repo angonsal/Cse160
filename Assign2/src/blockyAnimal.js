@@ -90,6 +90,8 @@ let g_globalAngle = 0;
 let g_joint_A = 0;
 let g_joint_B = 0;
 let g_joint_C = 0; 
+let g_joint_D = 0;
+let g_joint_E = 0;
 let g_animation1 = false; 
 
 
@@ -206,7 +208,7 @@ function renderScene(){
   // drawTriangle3D([-1.0, 0.0, 0.0,  -0.5, -1.0, 1.0,   0.0, 0.0, 0.0]);
 
   //made it too big and didn't want to change every dimension sorry
-  var scaleFactor = 0.6;
+  var scaleFactor = 0.5;
 
   var body = new Cube();
   body.color = [0.63, 0.63, 0.63, 1.0];
@@ -422,6 +424,31 @@ function renderScene(){
   tail.matrix.scale(-0.1 * scaleFactor, 0.9 * scaleFactor, 0.5 * scaleFactor); 
   tail.render();
 
+  var leftEar = new TriangularPrism();
+  leftEar.color = [0.85, 0.85, 0.85, 1.0];
+  leftEar.matrix.translate(-0.1 * scaleFactor, 0.9 * scaleFactor, 0.1 * scaleFactor); 
+  leftEar.matrix.scale(-0.4 * scaleFactor, 1.7 * scaleFactor, 0.5 * scaleFactor); 
+  leftEar.render();
+
+  var rightEar = new TriangularPrism();
+  rightEar.color = [0.85, 0.85, 0.85, 1.0];
+  rightEar.matrix.translate(0.5 * scaleFactor, 0.9 * scaleFactor, 0.1 * scaleFactor);
+  rightEar.matrix.scale(-0.4 * scaleFactor, 1.7 * scaleFactor, 0.5 * scaleFactor); 
+  rightEar.render();
+
+  var rightEarPink = new TriangularPrism();
+  rightEarPink.color = [1.0, 0.8, 0.8, 1.0];
+  rightEarPink.matrix.translate(0.4 * scaleFactor, 0.9 * scaleFactor, 0.09 * scaleFactor);
+  rightEarPink.matrix.scale(-0.2 * scaleFactor, 1.4 * scaleFactor, 0.1 * scaleFactor); 
+  rightEarPink.matrix.rotate(-10, 0.8, 0, 0); 
+  rightEarPink.render();
+
+  var leftEarPink = new TriangularPrism();
+  leftEarPink.color = [1.0, 0.8, 0.8, 1.0];
+  leftEarPink.matrix.translate(-0.2 * scaleFactor, 0.9 * scaleFactor, 0.092 * scaleFactor); 
+  leftEarPink.matrix.scale(-0.2 * scaleFactor, 1.4 * scaleFactor, 0.1 * scaleFactor); 
+  leftEarPink.matrix.rotate(-10, 0.8, 0, 0); 
+  leftEarPink.render();
 
   
 
