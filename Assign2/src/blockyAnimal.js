@@ -89,8 +89,8 @@ let g_selectedSegment = 10;
 let g_globalAngle = 0;
 let g_joint_A = 0;
 let g_joint_B = 0;
+let g_joint_C = 0; 
 let g_animation1 = false; 
-let g_animation2 = false; 
 
 
 function addActionsHTMLUI(){
@@ -104,8 +104,6 @@ function addActionsHTMLUI(){
   // On and off animation buttons 
   document.getElementById("off").onclick = function() {g_animation1 = false}; 
   document.getElementById("on").onclick = function() {g_animation1 = true};
-  document.getElementById("off2").onclick = function() {g_animation2 = false}; 
-  document.getElementById("on2").onclick = function() {g_animation2 = true};
 
 }
   
@@ -187,11 +185,10 @@ function tick(){
 
 function updateAnimationAngles(){
   if(g_animation1){
-    g_joint_A = (45*Math.sin(g_seconds));
+    g_joint_A = (10*Math.sin(g_seconds));
+    g_joint_B = (10*Math.sin(g_seconds));
+    g_joint_C =  (10*Math.sin(g_seconds));
   }
-  if(g_animation2){
-    g_joint_B = (45*Math.sin(g_seconds));
-  } 
 
 }
 
@@ -208,102 +205,215 @@ function renderScene(){
 
   // drawTriangle3D([-1.0, 0.0, 0.0,  -0.5, -1.0, 1.0,   0.0, 0.0, 0.0]);
 
-  //made it too big and didn't know what to do 
+  //made it too big and didn't want to change every dimension sorry
+  var scaleFactor = 0.6;
+
   var body = new Cube();
   body.color = [0.63, 0.63, 0.63, 1.0];
-  body.matrix.translate(-0.14, -0.4, 0.0); 
+  body.matrix.translate(-0.14 * scaleFactor, -0.4 * scaleFactor, 0.0);
   body.matrix.rotate(0, 0, 1, 0);
-  body.matrix.scale(0.15, 0.15, 0.3);
+  body.matrix.scale(0.15 * scaleFactor, 0.15 * scaleFactor, 0.35 * scaleFactor);
   body.render();
 
   var body2 = new Cube();
   body2.color = [0.63, 0.63, 0.63, 1.0];
-  body2.matrix.translate(0, -0.4, 0.0);
+  body2.matrix.translate(0, -0.4 * scaleFactor, 0.0);
   body2.matrix.rotate(0, 0, 1, 0);
-  body2.matrix.scale(0.15, 0.15, 0.3);
+  body2.matrix.scale(0.15 * scaleFactor, 0.15 * scaleFactor, 0.35 * scaleFactor);
   body2.render();
 
   var body3 = new Cube();
   body3.color = [0.63, 0.63, 0.63, 1.0];
-  body3.matrix.translate(-0.25, -0.3, 0.0); 
+  body3.matrix.translate(-0.25 * scaleFactor, -0.3 * scaleFactor, 0.0);
   body3.matrix.rotate(0, 0, 1, 0);
-  body3.matrix.scale(0.15, 0.21, 0.3);
+  body3.matrix.scale(0.15 * scaleFactor, 0.21 * scaleFactor, 0.35 * scaleFactor);
   body3.render();
 
   var body4 = new Cube();
   body4.color = [0.63, 0.63, 0.63, 1.0];
-  body4.matrix.translate(0.25, -0.3, 0.0); 
-  body4.matrix.scale(-0.15, 0.21, 0.3);
+  body4.matrix.translate(0.25 * scaleFactor, -0.3 * scaleFactor, 0.0);
+  body4.matrix.scale(-0.15 * scaleFactor, 0.21 * scaleFactor, 0.35 * scaleFactor);
   body4.render();
 
   var body5 = new Cube();
   body5.color = [0.63, 0.63, 0.63, 1.0];
-  body5.matrix.translate(0.3, -0.09, 0.0); 
-  body5.matrix.scale(-0.15, 0.19, 0.3);
+  body5.matrix.translate(0.3 * scaleFactor, -0.09 * scaleFactor, 0.0);
+  body5.matrix.scale(-0.15 * scaleFactor, 0.19 * scaleFactor, 0.3 * scaleFactor);
   body5.render();
 
   var body6 = new Cube();
   body6.color = [0.63, 0.63, 0.63, 1.0];
-  body6.matrix.translate(-0.15, -0.09, 0.0); 
-  body6.matrix.scale(-0.15, 0.19, 0.3);
+  body6.matrix.translate(-0.15 * scaleFactor, -0.09 * scaleFactor, 0.0);
+  body6.matrix.scale(-0.15 * scaleFactor, 0.19 * scaleFactor, 0.3 * scaleFactor);
   body6.render();
 
   var body7 = new Cube();
   body7.color = [0.63, 0.63, 0.63, 1.0];
-  body7.matrix.translate(-0.1, 0.1, 0.0); 
-  body7.matrix.scale(-0.15, 0.2, 0.3);
+  body7.matrix.translate(-0.1 * scaleFactor, 0.1 * scaleFactor, 0.0);
+  body7.matrix.scale(-0.15 * scaleFactor, 0.2 * scaleFactor, 0.3 * scaleFactor);
   body7.render();
 
   var body8 = new Cube();
   body8.color = [0.63, 0.63, 0.63, 1.0];
-  body8.matrix.translate(0.12, 0.1, 0.0); 
-  body8.matrix.scale(0.15, 0.2, 0.3); 
+  body8.matrix.translate(0.12 * scaleFactor, 0.1 * scaleFactor, 0.0);
+  body8.matrix.scale(0.15 * scaleFactor, 0.2 * scaleFactor, 0.3 * scaleFactor);
   body8.render();
 
-  var whiteBlock = new Cube();
-  whiteBlock.color = [1, 1, 1, 1];
-  whiteBlock.matrix.translate(-0.1, 0.1, 0.0); 
-  whiteBlock.matrix.scale(0.22, 0.2, 0.3); 
-  whiteBlock.render();
+  var neck = new Cube();
+  neck.color = [0.63, 0.63, 0.63, 1.0];
+  neck.matrix.translate(0.2 * scaleFactor, 0.3 * scaleFactor, 0.0);
+  neck.matrix.scale(-0.35 * scaleFactor, 0.2 * scaleFactor, 0.3 * scaleFactor);
+  neck.render();
+
+  var upperStomach = new Cube();
+  upperStomach.color = [1, 1, 1, 1];
+  upperStomach.matrix.translate(-0.1 * scaleFactor, 0.1 * scaleFactor, 0.0);
+  upperStomach.matrix.scale(0.22 * scaleFactor, 0.2 * scaleFactor, 0.3 * scaleFactor);
+  upperStomach.render();
 
   var stomach = new Cube();
   stomach.color = [1, 1, 1, 1];
-  stomach.matrix.translate(-0.1, -0.25, 0); 
-  stomach.matrix.scale(0.2, 0.17, 0.3);
+  stomach.matrix.translate(-0.1 * scaleFactor, -0.25 * scaleFactor, 0);
+  stomach.matrix.scale(0.2 * scaleFactor, 0.17 * scaleFactor, 0.3 * scaleFactor);
   stomach.render();
 
   var stomach2 = new Cube();
   stomach2.color = [1, 1, 1, 1];
-  stomach2.matrix.translate(-0.15, -0.09, 0); 
-  stomach2.matrix.scale(0.3, 0.19, 0.3);
+  stomach2.matrix.translate(-0.15 * scaleFactor, -0.09 * scaleFactor, 0);
+  stomach2.matrix.scale(0.3 * scaleFactor, 0.19 * scaleFactor, 0.3 * scaleFactor);
   stomach2.render();
-
 
   var leftLeg = new Cube();
   leftLeg.color = [0.63, 0.63, 0.63, 1.0];
-  leftLeg.matrix.translate(-0.14, -0.9, 0.1);
-  // leftLeg.matrix.rotate(-38,0,0,1);
-  leftLeg.matrix.scale(0.12, 0.5, 0.1);
+  leftLeg.matrix.translate(-0.14 * scaleFactor, -0.99 * scaleFactor, 0.1 * scaleFactor);
+  leftLeg.matrix.scale(0.12 * scaleFactor, 0.65 * scaleFactor, 0.1 * scaleFactor);
   leftLeg.render();
 
   var rightLeg = new Cube();
   rightLeg.color = [0.63, 0.63, 0.63, 1.0];
-  rightLeg.matrix.translate(0.15, -0.9, 0.1); 
-  rightLeg.matrix.scale(-0.12, 0.5, 0.1); 
+  rightLeg.matrix.translate(0.15 * scaleFactor, -0.99 * scaleFactor, 0.1 * scaleFactor);
+  rightLeg.matrix.scale(-0.12 * scaleFactor, 0.65 * scaleFactor, 0.1 * scaleFactor);
   rightLeg.render();
 
-  var leftFoot = new Cube(); 
+  var leftFoot = new Cube();
   leftFoot.color = [1, 1, 1, 1];
-  leftFoot.matrix.translate(-0.29, -0.9, 0.1);
-  leftFoot.matrix.scale(0.15, 0.1, 0.1);
+  leftFoot.matrix.translate(-0.29 * scaleFactor, -0.99 * scaleFactor, 0.1 * scaleFactor);
+  leftFoot.matrix.scale(0.15 * scaleFactor, 0.1 * scaleFactor, 0.1 * scaleFactor);
   leftFoot.render();
 
-
-  var rightFoot = new Cube(); 
+  var rightFoot = new Cube();
   rightFoot.color = [1, 1, 1, 1];
-  rightFoot.matrix.translate(0.3, -0.9, 0.1); 
-  rightFoot.matrix.scale(-0.15, 0.1, 0.1); 
+  rightFoot.matrix.translate(0.3 * scaleFactor, -0.99 * scaleFactor, 0.1 * scaleFactor);
+  rightFoot.matrix.scale(-0.15 * scaleFactor, 0.1 * scaleFactor, 0.1 * scaleFactor);
   rightFoot.render();
+
+  var leftCheek = new Cube();
+  leftCheek.color = [0.85, 0.85, 0.85, 1.0];
+  leftCheek.matrix.translate(-0.1 * scaleFactor, 0.25 * scaleFactor, -0.1 * scaleFactor);
+  leftCheek.matrix.scale(-0.25 * scaleFactor, 0.15 * scaleFactor, 0.1 * scaleFactor);
+  leftCheek.render();
+
+  var leftUpperCheek = new Cube();
+  leftUpperCheek.color = [0.85, 0.85, 0.85, 1.0];
+  leftUpperCheek.matrix.translate(-0.1 * scaleFactor, 0.4 * scaleFactor, -0.1 * scaleFactor);
+  leftUpperCheek.matrix.scale(-0.4 * scaleFactor, 0.14 * scaleFactor, 0.1 * scaleFactor);
+  leftUpperCheek.render();
+
+  var rightCheek = new Cube();
+  rightCheek.color = [0.85, 0.85, 0.85, 1.0];
+  rightCheek.matrix.translate(0.12 * scaleFactor, 0.25 * scaleFactor, -0.1 * scaleFactor);
+  rightCheek.matrix.scale(0.25 * scaleFactor, 0.15 * scaleFactor, 0.1 * scaleFactor);
+  rightCheek.render();
+
+  var leftUpperRightCheek = new Cube();
+  leftUpperRightCheek.color = [0.85, 0.85, 0.85, 1.0];
+  leftUpperRightCheek.matrix.translate(0.12 * scaleFactor, 0.4 * scaleFactor, -0.1 * scaleFactor); 
+  leftUpperRightCheek.matrix.scale(0.4 * scaleFactor, 0.14 * scaleFactor, 0.1 * scaleFactor); 
+  leftUpperRightCheek.render();
+
+  var chin = new Cube();
+  chin.color = [0.85, 0.85, 0.85, 1.0];
+  chin.matrix.translate(0.12 * scaleFactor, 0.25 * scaleFactor, -0.1 * scaleFactor);
+  chin.matrix.scale(-0.22 * scaleFactor, 0.25 * scaleFactor, 0.1 * scaleFactor);
+  chin.render();
+
+  var nose = new Cube(); 
+  nose.color = [1.0, 0.8, 0.8, 1.0];
+  nose.matrix.translate(0.12 * scaleFactor, 0.5 * scaleFactor, -0.1 * scaleFactor);
+  nose.matrix.scale(-0.22 * scaleFactor, 0.18 * scaleFactor, 0.1 * scaleFactor);
+  nose.render();
+
+  var upperface = new Cube(); 
+  upperface.color = [0.85, 0.85, 0.85, 1.0];
+  upperface.matrix.translate(-0.2 * scaleFactor, 0.54 * scaleFactor, -0.1 * scaleFactor);
+  upperface.matrix.scale(-0.22 * scaleFactor, 0.35 * scaleFactor, 0.1 * scaleFactor);
+  upperface.render();
+
+  var upperface2 = new Cube(); 
+  upperface2.color = [0.85, 0.85, 0.85, 1.0];
+  upperface2.matrix.translate(0.22 * scaleFactor, 0.54 * scaleFactor, -0.1 * scaleFactor);
+  upperface2.matrix.scale(0.22 * scaleFactor, 0.35 * scaleFactor, 0.1 * scaleFactor);
+  upperface2.render();
+
+  var eye1 = new Cube();
+  eye1.color = [0, 0, 0.5, 1.0];
+  eye1.matrix.translate(0.12 * scaleFactor, 0.54 * scaleFactor, -0.1 * scaleFactor);
+  eye1.matrix.scale(0.1 * scaleFactor, 0.13 * scaleFactor, 0.1 * scaleFactor);
+  eye1.render();
+
+  var eye2 = new Cube();
+  eye2.color = [0, 0, 0.5, 1.0];
+  eye2.matrix.translate(-0.1 * scaleFactor, 0.54 * scaleFactor, -0.1 * scaleFactor);
+  eye2.matrix.scale(-0.1 * scaleFactor, 0.13 * scaleFactor, 0.1 * scaleFactor);
+  eye2.render();
+
+
+  var forehead = new Cube(); 
+  forehead.color = [0.85, 0.85, 0.85, 1.0];
+  forehead.matrix.translate(-0.2 * scaleFactor, 0.68 * scaleFactor, -0.1 * scaleFactor);
+  forehead.matrix.scale(0.44 * scaleFactor, 0.25 * scaleFactor, 0.1 * scaleFactor);
+  forehead.render();
+
+  var skull = new Cube(); 
+  skull.color = [0.85, 0.85, 0.85, 1.0];
+  skull.matrix.translate(-0.2 * scaleFactor, 0.5 * scaleFactor, 0 * scaleFactor);
+  skull.matrix.scale(0.44 * scaleFactor, 0.45 * scaleFactor, 0.4 * scaleFactor);
+  skull.render();
+
+  var leftArm = new Cube();
+  leftArm.color = [0.63, 0.63, 0.63, 1.0];
+  leftArm.matrix.translate(-0.2 * scaleFactor, -0.08 * scaleFactor, 0.1 * scaleFactor);
+  leftArm.matrix.rotate(-g_joint_A,0,0,1);
+  var jointACoordinate = new Matrix4(leftArm.matrix);
+  leftArm.matrix.scale(-0.4 * scaleFactor, 0.12 * scaleFactor, 0.1 * scaleFactor);
+  leftArm.render();
+
+  var leftForearm = new Cube();
+  leftForearm.color = [0.63, 0.63, 0.63, 1.0];
+  leftForearm.matrix = jointACoordinate;
+  leftForearm.matrix.translate(-0.4 * scaleFactor, 0 * scaleFactor, 0 * scaleFactor);
+  leftForearm.matrix.rotate(-g_joint_C,0,0,1);
+  leftForearm.matrix.scale(-0.3 * scaleFactor, 0.12 * scaleFactor, 0.1 * scaleFactor);
+  leftForearm.render();
+
+
+  var rightArm = new Cube();
+  rightArm.color = [0.63, 0.63, 0.63, 1.0];
+  rightArm.matrix.translate(0.22 * scaleFactor, -0.08 * scaleFactor, 0.1 * scaleFactor);
+  rightArm.matrix.rotate(g_joint_B,0,0,1); 
+  var jointBCoordinate = new Matrix4(rightArm.matrix);
+  rightArm.matrix.scale(0.4 * scaleFactor, 0.12 * scaleFactor, 0.1 * scaleFactor);
+  rightArm.render();
+
+  var rightForearm = new Cube();
+  rightForearm.color = [0.63, 0.63, 0.63, 1.0];
+  rightForearm.matrix = jointBCoordinate;
+  rightForearm.matrix.translate(0.4001 * scaleFactor, 0 * scaleFactor, 0 * scaleFactor); // Negate x-coordinate
+  rightForearm.matrix.rotate(g_joint_C, 0, 0, 1); // Rotation angle remains the same
+  rightForearm.matrix.scale(0.3 * scaleFactor, 0.12 * scaleFactor, 0.1 * scaleFactor); // Negate x-coordinate
+  rightForearm.render();
+
+
 
 
 
