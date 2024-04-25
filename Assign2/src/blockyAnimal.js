@@ -349,6 +349,7 @@ function renderScene(){
   upperface.matrix.scale(-0.22 * scaleFactor, 0.35 * scaleFactor, 0.1 * scaleFactor);
   upperface.render();
 
+
   var upperface2 = new Cube(); 
   upperface2.color = [0.85, 0.85, 0.85, 1.0];
   upperface2.matrix.translate(0.22 * scaleFactor, 0.54 * scaleFactor, -0.1 * scaleFactor);
@@ -376,8 +377,8 @@ function renderScene(){
 
   var skull = new Cube(); 
   skull.color = [0.85, 0.85, 0.85, 1.0];
-  skull.matrix.translate(-0.2 * scaleFactor, 0.5 * scaleFactor, 0 * scaleFactor);
-  skull.matrix.scale(0.44 * scaleFactor, 0.45 * scaleFactor, 0.4 * scaleFactor);
+  skull.matrix.translate(-0.4 * scaleFactor, 0.45 * scaleFactor, 0 * scaleFactor);
+  skull.matrix.scale(0.8 * scaleFactor, 0.45 * scaleFactor, 0.4 * scaleFactor);
   skull.render();
 
   var leftArm = new Cube();
@@ -408,13 +409,21 @@ function renderScene(){
   var rightForearm = new Cube();
   rightForearm.color = [0.63, 0.63, 0.63, 1.0];
   rightForearm.matrix = jointBCoordinate;
-  rightForearm.matrix.translate(0.4001 * scaleFactor, 0 * scaleFactor, 0 * scaleFactor); // Negate x-coordinate
-  rightForearm.matrix.rotate(g_joint_C, 0, 0, 1); // Rotation angle remains the same
-  rightForearm.matrix.scale(0.3 * scaleFactor, 0.12 * scaleFactor, 0.1 * scaleFactor); // Negate x-coordinate
+  rightForearm.matrix.translate(0.4001 * scaleFactor, 0 * scaleFactor, 0 * scaleFactor); 
+  rightForearm.matrix.rotate(g_joint_C, 0, 0, 1); 
+  rightForearm.matrix.scale(0.3 * scaleFactor, 0.12 * scaleFactor, 0.1 * scaleFactor); 
   rightForearm.render();
 
 
+  var tail = new TriangularPrism();
+  tail.color = [0.85, 0.85, 0.85, 1.0];
+  tail.matrix.translate(0.06 * scaleFactor, -0.1 * scaleFactor, 0.35 * scaleFactor); 
+  tail.matrix.rotate(90,45,0,1); 
+  tail.matrix.scale(-0.1 * scaleFactor, 0.9 * scaleFactor, 0.5 * scaleFactor); 
+  tail.render();
 
+
+  
 
 
 

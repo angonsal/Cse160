@@ -1,89 +1,52 @@
-class Triangle{
-  constructor(){
-    this.type = 'triangle'; 
-    this.position = [0.0, 0.0, 0.0];
-    this.color = [1.0, 1.0, 1.0, 1.0]; 
-    this.size = 5; 
-  }
+class TriangularPrism {
+    constructor() {
+        this.type = 'triangularPrism';
+        this.color = [1.0, 1.0, 1.0, 1.0]; // RGBA color
+        this.matrix = new Matrix4(); // Transformation matrix
+    }
 
-  render(){   
-    var xy = this.position;
-    var rgba = this.color;
-    var size = this.size;
+    render() {
+        var rgba = this.color;
 
+        // Pass the color to the shader
+        gl.uniform4f(u_FragColor, rgba[0], rgba[1], rgba[2], rgba[3]);
 
-    
-    // Pass the color of a point to u_FragColor variable
-    gl.uniform4f(u_FragColor, rgba[0], rgba[1], rgba[2], rgba[3]);
+        // Pass the transformation matrix to the shader
+        gl.uniformMatrix4fv(u_ModelMatrix, false, this.matrix.elements);
 
-    //size
-    gl.uniform1f(u_size, size);
+        // Front Face
+        drawTriangle3D([0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.5, 0.5, 0.0]);
 
-    //Draw 
-    var d = this.size/200.0; 
-    drawTriangle( [xy[0], xy[1], xy[0]+d, xy[1], xy[0], xy[1]+d]);
-  }
+        // Right Face
+        drawTriangle3D([0.0, 0.0, 0.0, 0.5, 0.0, 0.5, 0.5, 0.5, 0.0]);
+
+        // Left Face
+        drawTriangle3D([0.5, 0.0, 0.5, 1.0, 0.0, 0.0, 0.5, 0.5, 0.0]);
+
+        // Top Face (Adjusted for roundness)
+        gl.uniform4f(u_FragColor, rgba[0] * 0.5, rgba[1] * 0.5, rgba[2] * 0.5, rgba[3]);
+        drawTriangle3D([0.0, 0.0, 0.0, 0.5, 0.1, 0.5, 1.0, 0.0, 0.0]);
+    }
 }
-
-
-function drawTriangle(vertices) {
-  // The number of vertices
-  var n = 3; 
-
-  // Create a buffer object
-  var vertexBuffer = gl.createBuffer();
-  if (!vertexBuffer) {
-    console.log('Failed to create the buffer object');
-    return -1;
-  }
-
-  // Bind the buffer object to target
-  gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
-
-  // Write date into the buffer object
-  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.DYNAMIC_DRAW);
-
-  // Assign the buffer object to a_Position variable
-  gl.vertexAttribPointer(a_Position, 2, gl.FLOAT, false, 0, 0);
-
-  // Enable the assignment to a_Position variable
-  gl.enableVertexAttribArray(a_Position);
-
-  gl.drawArrays(gl.TRIANGLES, 0, n);
-
-  return n;
-}
-
 
 function drawTriangle3D(vertices) {
-  // The number of vertices
-  var n = 3; 
+    var n = 3; //vertices number
+    //buffer creation
+    var vertexBuffer = gl.createBuffer();
+    if (!vertexBuffer) {
+        console.log('Failed to create the buffer object');
+        return -1;
+    }
+    // Bind the buffer object to target
+    gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
 
-  // Create a buffer object
-  var vertexBuffer = gl.createBuffer();
-  if (!vertexBuffer) {
-    console.log('Failed to create the buffer object');
-    return -1;
-  }
+    // Write date into the buffer object
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.DYNAMIC_DRAW);
 
-  // Bind the buffer object to target
-  gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+    gl.vertexAttribPointer(a_Position, 3, gl.FLOAT, false, 0, 0);
 
-  // Write date into the buffer object
-  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.DYNAMIC_DRAW);
+    // Enable the assignment to a_Position variable
+    gl.enableVertexAttribArray(a_Position);
 
-  // Assign the buffer object to a_Position variable
-  gl.vertexAttribPointer(a_Position, 3, gl.FLOAT, false, 0, 0);
-
-  // Enable the assignment to a_Position variable
-  gl.enableVertexAttribArray(a_Position);
-
-  gl.drawArrays(gl.TRIANGLES, 0, n);
-
-  return n;
+    gl.drawArrays(gl.TRIANGLES, 0, n);
 }
-
-
-
-
-
