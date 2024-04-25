@@ -94,6 +94,10 @@ let g_joint_D = 0;
 let g_joint_E = 0;
 let g_joint_F = 0; 
 let g_joint_G = 0; 
+var camera = false; 
+var mousedown = false;
+var camcoordX = 0;
+var camcoordY = 0;
 let g_animation1 = false; 
 
 
@@ -210,6 +214,15 @@ function renderScene(){
   var startTime = performance.now();
 
   var globalRotMat = new Matrix4().rotate(g_globalAngle, 0, 1, 0); 
+
+  if (camera) {
+    globalRotMat.rotate(camcoordY, 1, 0, 0) 
+                .rotate(camcoordX, 0, 1, 0);
+  } 
+  else {
+    globalRotMat.rotate(g_globalAngle, 0, 1, 0);
+  }
+
   gl.uniformMatrix4fv(u_GlobalRotateMatrix, false, globalRotMat.elements);
 
   // Clear <canvas>
@@ -521,6 +534,14 @@ function renderScene(){
   ground1.matrix.translate(1.5 * scaleFactor, -2 * scaleFactor, 0.092 * scaleFactor); 
   ground1.matrix.scale(-3 * scaleFactor, 2.1 * scaleFactor, 3 * scaleFactor); 
   ground1.render();
+
+  var ground2 = new TriangularPrism(); 
+  ground2.color = [0.82, 0.71, 0.55, 1.0];
+  ground2.matrix.translate(-1.5 * scaleFactor, -2 * scaleFactor, 0.1 * scaleFactor);
+  ground2.matrix.rotate(180, 0, 1, 0);
+  ground2.matrix.scale(-3 * scaleFactor, 2.1 * scaleFactor, 3 * scaleFactor); 
+  ground2.render();
+
 
 
   
