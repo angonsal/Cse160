@@ -86,4 +86,3 @@ function drawTriangle3D(vertices) {
 
 
 
-
