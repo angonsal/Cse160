@@ -1,5 +1,4 @@
-class TriangularPrism 
-{
+class TriangularPrism {
     constructor() 
     {
         this.type = 'triangularPrism';
@@ -7,8 +6,7 @@ class TriangularPrism
         this.matrix = new Matrix4(); // Transformation matrix
     }
 
-    render() 
-    {
+    render(){
         var rgba = this.color;
 
         gl.uniform4f(u_FragColor, rgba[0], rgba[1], rgba[2], rgba[3]);
