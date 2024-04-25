@@ -1,8 +1,8 @@
 class TriangularPrism {
     constructor() {
         this.type = 'triangularPrism';
-        this.color = [1.0, 1.0, 1.0, 1.0]; // RGBA color
-        this.matrix = new Matrix4(); // Transformation matrix
+        this.color = [1.0, 1.0, 1.0, 1.0]; 
+        this.matrix = new Matrix4(); 
     }
 
     render() {

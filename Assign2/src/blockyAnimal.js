@@ -189,8 +189,8 @@ function tick(){
 
 function updateAnimationAngles(){
   if(g_animation1){
-    g_joint_A = (20*Math.sin(g_seconds));
-    g_joint_B = (20*Math.sin(g_seconds));
+    g_joint_A = (11.5*Math.sin(g_seconds));
+    g_joint_B = (11.5*Math.sin(g_seconds));
     g_joint_C =  (10* Math.sin(g_seconds));
     g_joint_D =  (10* Math.sin(g_seconds));
     g_joint_E = (10* Math.sin(g_seconds));
@@ -217,58 +217,58 @@ function renderScene(){
   var scaleFactor = 0.5;
 
   var body = new Cube();
-  body.color = [0.63, 0.63, 0.63, 1.0];
+  body.color = [0.58, 0.435, 0.31, 1.0];
   body.matrix.translate(-0.14 * scaleFactor, -0.4 * scaleFactor, 0.0);
   body.matrix.rotate(0, 0, 1, 0);
   body.matrix.scale(0.15 * scaleFactor, 0.15 * scaleFactor, 0.35 * scaleFactor);
   body.render();
 
   var body2 = new Cube();
-  body2.color = [0.63, 0.63, 0.63, 1.0];
+  body2.color = [0.58, 0.435, 0.31, 1.0];
   body2.matrix.translate(0, -0.4 * scaleFactor, 0.0);
   body2.matrix.rotate(0, 0, 1, 0);
   body2.matrix.scale(0.15 * scaleFactor, 0.15 * scaleFactor, 0.35 * scaleFactor);
   body2.render();
 
   var body3 = new Cube();
-  body3.color = [0.63, 0.63, 0.63, 1.0];
+  body3.color = [0.58, 0.435, 0.31, 1.0];
   body3.matrix.translate(-0.25 * scaleFactor, -0.3 * scaleFactor, 0.0);
   body3.matrix.rotate(0, 0, 1, 0);
   body3.matrix.scale(0.15 * scaleFactor, 0.21 * scaleFactor, 0.35 * scaleFactor);
   body3.render();
 
   var body4 = new Cube();
-  body4.color = [0.63, 0.63, 0.63, 1.0];
+  body4.color = [0.58, 0.435, 0.31, 1.0];
   body4.matrix.translate(0.25 * scaleFactor, -0.3 * scaleFactor, 0.0);
   body4.matrix.scale(-0.15 * scaleFactor, 0.21 * scaleFactor, 0.35 * scaleFactor);
   body4.render();
 
   var body5 = new Cube();
-  body5.color = [0.63, 0.63, 0.63, 1.0];
+  body5.color = [0.58, 0.435, 0.31, 1.0];
   body5.matrix.translate(0.3 * scaleFactor, -0.09 * scaleFactor, 0.0);
   body5.matrix.scale(-0.15 * scaleFactor, 0.19 * scaleFactor, 0.3 * scaleFactor);
   body5.render();
 
   var body6 = new Cube();
-  body6.color = [0.63, 0.63, 0.63, 1.0];
+  body6.color = [0.58, 0.435, 0.31, 1.0];
   body6.matrix.translate(-0.15 * scaleFactor, -0.09 * scaleFactor, 0.0);
   body6.matrix.scale(-0.15 * scaleFactor, 0.19 * scaleFactor, 0.3 * scaleFactor);
   body6.render();
 
   var body7 = new Cube();
-  body7.color = [0.63, 0.63, 0.63, 1.0];
+  body7.color = [0.58, 0.435, 0.31, 1.0];
   body7.matrix.translate(-0.1 * scaleFactor, 0.1 * scaleFactor, 0.0);
   body7.matrix.scale(-0.15 * scaleFactor, 0.2 * scaleFactor, 0.3 * scaleFactor);
   body7.render();
 
   var body8 = new Cube();
-  body8.color = [0.63, 0.63, 0.63, 1.0];
+  body8.color = [0.58, 0.435, 0.31, 1.0];
   body8.matrix.translate(0.12 * scaleFactor, 0.1 * scaleFactor, 0.0);
   body8.matrix.scale(0.15 * scaleFactor, 0.2 * scaleFactor, 0.3 * scaleFactor);
   body8.render();
 
   var neck = new Cube();
-  neck.color = [0.63, 0.63, 0.63, 1.0];
+  neck.color = [0.58, 0.435, 0.31, 1.0];
   neck.matrix.translate(0.2 * scaleFactor, 0.3 * scaleFactor, 0.0);
   neck.matrix.scale(-0.35 * scaleFactor, 0.2 * scaleFactor, 0.3 * scaleFactor);
   neck.render();
@@ -292,13 +292,13 @@ function renderScene(){
   stomach2.render();
 
   var leftLeg = new Cube();
-  leftLeg.color = [0.63, 0.63, 0.63, 1.0];
+  leftLeg.color = [0.58, 0.435, 0.31, 1.0];
   leftLeg.matrix.translate(-0.14 * scaleFactor, -0.99 * scaleFactor, 0.1 * scaleFactor);
   leftLeg.matrix.scale(0.12 * scaleFactor, 0.65 * scaleFactor, 0.1 * scaleFactor);
   leftLeg.render();
 
   var rightLeg = new Cube();
-  rightLeg.color = [0.63, 0.63, 0.63, 1.0];
+  rightLeg.color = [0.58, 0.435, 0.31, 1.0];
   rightLeg.matrix.translate(0.15 * scaleFactor, -0.99 * scaleFactor, 0.1 * scaleFactor);
   rightLeg.matrix.scale(-0.12 * scaleFactor, 0.65 * scaleFactor, 0.1 * scaleFactor);
   rightLeg.render();
@@ -316,81 +316,81 @@ function renderScene(){
   rightFoot.render();
 
   var leftCheek = new Cube();
-  leftCheek.color = [0.85, 0.85, 0.85, 1.0];
+  leftCheek.color = [0.714, 0.537, 0.376, 1.0]
   leftCheek.matrix.translate(-0.1 * scaleFactor, 0.25 * scaleFactor, -0.1 * scaleFactor);
   leftCheek.matrix.scale(-0.25 * scaleFactor, 0.15 * scaleFactor, 0.1 * scaleFactor);
   leftCheek.render();
 
   var leftUpperCheek = new Cube();
-  leftUpperCheek.color = [0.85, 0.85, 0.85, 1.0];
+  leftUpperCheek.color = [0.714, 0.537, 0.376, 1.0]
   leftUpperCheek.matrix.translate(-0.1 * scaleFactor, 0.4 * scaleFactor, -0.1 * scaleFactor);
   leftUpperCheek.matrix.scale(-0.4 * scaleFactor, 0.14 * scaleFactor, 0.1 * scaleFactor);
   leftUpperCheek.render();
 
   var rightCheek = new Cube();
-  rightCheek.color = [0.85, 0.85, 0.85, 1.0];
+  rightCheek.color = [0.714, 0.537, 0.376, 1.0]
   rightCheek.matrix.translate(0.12 * scaleFactor, 0.25 * scaleFactor, -0.1 * scaleFactor);
   rightCheek.matrix.scale(0.25 * scaleFactor, 0.15 * scaleFactor, 0.1 * scaleFactor);
   rightCheek.render();
 
   var leftUpperRightCheek = new Cube();
-  leftUpperRightCheek.color = [0.85, 0.85, 0.85, 1.0];
+  leftUpperRightCheek.color = [0.714, 0.537, 0.376, 1.0]
   leftUpperRightCheek.matrix.translate(0.12 * scaleFactor, 0.4 * scaleFactor, -0.1 * scaleFactor); 
   leftUpperRightCheek.matrix.scale(0.4 * scaleFactor, 0.14 * scaleFactor, 0.1 * scaleFactor); 
   leftUpperRightCheek.render();
 
   var chin = new Cube();
-  chin.color = [0.85, 0.85, 0.85, 1.0];
+  chin.color = [0.714, 0.537, 0.376, 1.0]
   chin.matrix.translate(0.12 * scaleFactor, 0.25 * scaleFactor, -0.1 * scaleFactor);
   chin.matrix.scale(-0.22 * scaleFactor, 0.25 * scaleFactor, 0.1 * scaleFactor);
   chin.render();
 
   var nose = new Cube(); 
-  nose.color = [1.0, 0.8, 0.8, 1.0];
+  nose.color = [0.4, 0.2, 0.1, 1.0]; 
   nose.matrix.translate(0.12 * scaleFactor, 0.5 * scaleFactor, -0.1 * scaleFactor);
   nose.matrix.scale(-0.22 * scaleFactor, 0.18 * scaleFactor, 0.1 * scaleFactor);
   nose.render();
 
   var upperface = new Cube(); 
-  upperface.color = [0.85, 0.85, 0.85, 1.0];
+  upperface.color = [0.714, 0.537, 0.376, 1.0]
   upperface.matrix.translate(-0.2 * scaleFactor, 0.54 * scaleFactor, -0.1 * scaleFactor);
   upperface.matrix.scale(-0.22 * scaleFactor, 0.35 * scaleFactor, 0.1 * scaleFactor);
   upperface.render();
 
 
   var upperface2 = new Cube(); 
-  upperface2.color = [0.85, 0.85, 0.85, 1.0];
+  upperface2.color = [0.714, 0.537, 0.376, 1.0]
   upperface2.matrix.translate(0.22 * scaleFactor, 0.54 * scaleFactor, -0.1 * scaleFactor);
   upperface2.matrix.scale(0.22 * scaleFactor, 0.35 * scaleFactor, 0.1 * scaleFactor);
   upperface2.render();
 
   var eye1 = new Cube();
-  eye1.color = [0, 0, 0.5, 1.0];
+  eye1.color = [0.9, 0.8, 0.2, 1.0]; 
   eye1.matrix.translate(0.12 * scaleFactor, 0.54 * scaleFactor, -0.1 * scaleFactor);
-  eye1.matrix.scale(0.1 * scaleFactor, 0.13 * scaleFactor, 0.1 * scaleFactor);
+  eye1.matrix.scale(0.1 * scaleFactor, 0.138 * scaleFactor, 0.1 * scaleFactor);
   eye1.render();
 
   var eye2 = new Cube();
-  eye2.color = [0, 0, 0.5, 1.0];
+  eye2.color = [0.9, 0.8, 0.2, 1.0]; 
   eye2.matrix.translate(-0.1 * scaleFactor, 0.54 * scaleFactor, -0.1 * scaleFactor);
-  eye2.matrix.scale(-0.1 * scaleFactor, 0.13 * scaleFactor, 0.1 * scaleFactor);
+  eye2.matrix.scale(-0.1 * scaleFactor, 0.138 * scaleFactor, 0.1 * scaleFactor);
   eye2.render();
 
 
   var forehead = new Cube(); 
-  forehead.color = [0.85, 0.85, 0.85, 1.0];
+  forehead.color = [0.714, 0.537, 0.376, 1.0]
   forehead.matrix.translate(-0.2 * scaleFactor, 0.68 * scaleFactor, -0.1 * scaleFactor);
   forehead.matrix.scale(0.44 * scaleFactor, 0.25 * scaleFactor, 0.1 * scaleFactor);
   forehead.render();
 
   var skull = new Cube(); 
-  skull.color = [0.85, 0.85, 0.85, 1.0];
+  skull.color = [0.714, 0.537, 0.376, 1.0]
   skull.matrix.translate(-0.4 * scaleFactor, 0.45 * scaleFactor, 0 * scaleFactor);
   skull.matrix.scale(0.8 * scaleFactor, 0.45 * scaleFactor, 0.4 * scaleFactor);
   skull.render();
 
   var leftArm = new Cube();
-  leftArm.color = [0.63, 0.63, 0.63, 1.0];
+  leftArm.color = [0.58, 0.435, 0.31, 1.0];
   leftArm.matrix.translate(-0.2 * scaleFactor, -0.08 * scaleFactor, 0.1 * scaleFactor);
   leftArm.matrix.rotate(-g_joint_A,0,0,1);
   var jointACoordinate = new Matrix4(leftArm.matrix);
@@ -398,7 +398,7 @@ function renderScene(){
   leftArm.render();
 
   var leftForearm = new Cube();
-  leftForearm.color = [0.63, 0.63, 0.63, 1.0];
+  leftForearm.color = [0.58, 0.435, 0.31, 1.0];
   leftForearm.matrix = jointACoordinate;
   leftForearm.matrix.translate(-0.38 * scaleFactor, 0 * scaleFactor, 0 * scaleFactor);
   leftForearm.matrix.rotate(-g_joint_C,0,0,1);
@@ -407,7 +407,7 @@ function renderScene(){
   leftForearm.render();
 
   var leftWrist = new Cube();
-  leftWrist.color = [0.63, 0.63, 0.63, 1.0];
+  leftWrist.color = [0.58, 0.435, 0.31, 1.0];
   leftWrist.matrix = jointCCoordinate; 
   leftWrist.matrix.translate(-0.28 * scaleFactor, 0 * scaleFactor, 0 * scaleFactor);
   leftWrist.matrix.rotate(-g_joint_F,0,0,1);
@@ -415,7 +415,7 @@ function renderScene(){
   leftWrist.matrix.scale(-0.12 * scaleFactor, 0.12 * scaleFactor, 0.1 * scaleFactor);
   leftWrist.render();
 
-  var leftHand = new Cube; 
+  var leftHand = new Cube(); 
   leftHand.color = [1,1,1, 1.0];
   leftHand.matrix = jointFCoordinate; 
   leftHand.matrix.translate(-0.1215 * scaleFactor, 0 * scaleFactor, 0 * scaleFactor);
@@ -425,7 +425,7 @@ function renderScene(){
 
 
   var rightArm = new Cube();
-  rightArm.color = [0.63, 0.63, 0.63, 1.0];
+  rightArm.color = [0.58, 0.435, 0.31, 1.0];
   rightArm.matrix.translate(0.22 * scaleFactor, -0.08 * scaleFactor, 0.1 * scaleFactor);
   rightArm.matrix.rotate(g_joint_B,0,0,1); 
   var jointBCoordinate = new Matrix4(rightArm.matrix);
@@ -433,7 +433,7 @@ function renderScene(){
   rightArm.render();
 
   var rightForearm = new Cube();
-  rightForearm.color = [0.63, 0.63, 0.63, 1.0];
+  rightForearm.color = [0.58, 0.435, 0.31, 1.0];
   rightForearm.matrix = jointBCoordinate;
   rightForearm.matrix.translate(0.38 * scaleFactor, 0 * scaleFactor, 0 * scaleFactor); 
   rightForearm.matrix.rotate(g_joint_D, 0, 0, 1); 
@@ -442,7 +442,7 @@ function renderScene(){
   rightForearm.render();
 
   var redWrist = new Cube();
-  redWrist.color = [0.63, 0.63, 0.63, 1.0];
+  redWrist.color = [0.58, 0.435, 0.31, 1.0];
   redWrist.matrix = jointDCoordinate;
   redWrist.matrix.translate(0.35 * scaleFactor, 0 * scaleFactor, 0 * scaleFactor);
   redWrist.matrix.rotate(g_joint_E,0,0,1);
@@ -450,13 +450,32 @@ function renderScene(){
   redWrist.matrix.scale(-0.12 * scaleFactor, 0.12 * scaleFactor, 0.1 * scaleFactor);
   redWrist.render();
 
-  var rightHand = new Cube; 
+  var rightHand = new Cube(); 
   rightHand.color = [1,1,1, 1.0];
   rightHand.matrix = jointECoordinate; 
   rightHand.matrix.translate(0.1215 * scaleFactor, 0 * scaleFactor, 0 * scaleFactor);
   rightHand.matrix.rotate(-g_joint_G,0,0,1);
+  var jointE2Coordinate = new Matrix4(rightHand.matrix);
   rightHand.matrix.scale(-0.12 * scaleFactor, 0.12 * scaleFactor, 0.1 * scaleFactor);
   rightHand.render();
+
+  var woodStick = new Cube(); 
+  woodStick.color = [0.4, 0.2, 0.1, 1.0]; 
+  woodStick.matrix = jointE2Coordinate; 
+  woodStick.matrix.translate(-0.1 * scaleFactor, -0.2 * scaleFactor, -0.1 * scaleFactor);
+  woodStick.matrix.rotate(-g_joint_G,0,0,1);
+  var jointSurrenderCoordinate = new Matrix4(woodStick.matrix);
+  woodStick.matrix.scale(-0.12 * scaleFactor, 1.4 * scaleFactor, 0.1 * scaleFactor);
+  woodStick.render();
+
+  var surrender = new TriangularPrism(); 
+  surrender.matrix = jointSurrenderCoordinate; 
+  surrender.matrix.translate(-0.12 * scaleFactor, 1.1 * scaleFactor, -0.01 * scaleFactor);
+  surrender.matrix.rotate(-g_joint_G,0,0,1);
+  surrender.matrix.scale(1 * scaleFactor, 0.5* scaleFactor, 0.1 * scaleFactor);
+  surrender.matrix.rotate(45,0,0,1);
+  surrender.render();
+
 
 
   var tail = new TriangularPrism();
@@ -467,13 +486,13 @@ function renderScene(){
   tail.render();
 
   var leftEar = new TriangularPrism();
-  leftEar.color = [0.85, 0.85, 0.85, 1.0];
+  leftEar.color = [0.714, 0.537, 0.376, 1.0]
   leftEar.matrix.translate(-0.1 * scaleFactor, 0.9 * scaleFactor, 0.1 * scaleFactor); 
   leftEar.matrix.scale(-0.4 * scaleFactor, 1.7 * scaleFactor, 0.5 * scaleFactor); 
   leftEar.render();
 
   var rightEar = new TriangularPrism();
-  rightEar.color = [0.85, 0.85, 0.85, 1.0];
+  rightEar.color = [0.714, 0.537, 0.376, 1.0]
   rightEar.matrix.translate(0.5 * scaleFactor, 0.9 * scaleFactor, 0.1 * scaleFactor);
   rightEar.matrix.scale(-0.4 * scaleFactor, 1.7 * scaleFactor, 0.5 * scaleFactor); 
   rightEar.render();
