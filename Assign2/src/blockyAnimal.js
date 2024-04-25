@@ -208,42 +208,127 @@ function renderScene(){
 
   // drawTriangle3D([-1.0, 0.0, 0.0,  -0.5, -1.0, 1.0,   0.0, 0.0, 0.0]);
 
-  var body = new Cube(); 
-  body.color = [1.0, 0.0, 0.0, 1.0]; 
-  body.matrix.translate(-.25, -.75, 0.0); 
-  body.matrix.rotate(-5,1,0,0); 
-  body.matrix.scale(0.5, 0.3, .5); 
+  //made it too big and didn't know what to do 
+  var body = new Cube();
+  body.color = [0.63, 0.63, 0.63, 1.0];
+  body.matrix.translate(-0.14, -0.4, 0.0); 
+  body.matrix.rotate(0, 0, 1, 0);
+  body.matrix.scale(0.15, 0.15, 0.3);
   body.render();
 
-  var leftArm = new Cube(); 
-  leftArm.color = [1,1,0,1]; 
-  leftArm.matrix.setTranslate(0, -0.5, 0.0); 
-  leftArm.matrix.rotate(-5, 1, 0, 0); 
+  var body2 = new Cube();
+  body2.color = [0.63, 0.63, 0.63, 1.0];
+  body2.matrix.translate(0, -0.4, 0.0);
+  body2.matrix.rotate(0, 0, 1, 0);
+  body2.matrix.scale(0.15, 0.15, 0.3);
+  body2.render();
 
-  leftArm.matrix.rotate(-g_joint_A,0,0,1);
+  var body3 = new Cube();
+  body3.color = [0.63, 0.63, 0.63, 1.0];
+  body3.matrix.translate(-0.25, -0.3, 0.0); 
+  body3.matrix.rotate(0, 0, 1, 0);
+  body3.matrix.scale(0.15, 0.21, 0.3);
+  body3.render();
 
-  // if(g_animation1){
-  //   leftArm.matrix.rotate(45*Math.sin(g_seconds), 0,0,1);
-  // } else{
-  //   leftArm.matrix.rotate(-g_joint_A,0,0,1);
-  // }
+  var body4 = new Cube();
+  body4.color = [0.63, 0.63, 0.63, 1.0];
+  body4.matrix.translate(0.25, -0.3, 0.0); 
+  body4.matrix.scale(-0.15, 0.21, 0.3);
+  body4.render();
 
+  var body5 = new Cube();
+  body5.color = [0.63, 0.63, 0.63, 1.0];
+  body5.matrix.translate(0.3, -0.09, 0.0); 
+  body5.matrix.scale(-0.15, 0.19, 0.3);
+  body5.render();
+
+  var body6 = new Cube();
+  body6.color = [0.63, 0.63, 0.63, 1.0];
+  body6.matrix.translate(-0.15, -0.09, 0.0); 
+  body6.matrix.scale(-0.15, 0.19, 0.3);
+  body6.render();
+
+  var body7 = new Cube();
+  body7.color = [0.63, 0.63, 0.63, 1.0];
+  body7.matrix.translate(-0.1, 0.1, 0.0); 
+  body7.matrix.scale(-0.15, 0.2, 0.3);
+  body7.render();
+
+  var body8 = new Cube();
+  body8.color = [0.63, 0.63, 0.63, 1.0];
+  body8.matrix.translate(0.12, 0.1, 0.0); 
+  body8.matrix.scale(0.15, 0.2, 0.3); 
+  body8.render();
+
+  var whiteBlock = new Cube();
+  whiteBlock.color = [1, 1, 1, 1];
+  whiteBlock.matrix.translate(-0.1, 0.1, 0.0); 
+  whiteBlock.matrix.scale(0.22, 0.2, 0.3); 
+  whiteBlock.render();
+
+  var stomach = new Cube();
+  stomach.color = [1, 1, 1, 1];
+  stomach.matrix.translate(-0.1, -0.25, 0); 
+  stomach.matrix.scale(0.2, 0.17, 0.3);
+  stomach.render();
+
+  var stomach2 = new Cube();
+  stomach2.color = [1, 1, 1, 1];
+  stomach2.matrix.translate(-0.15, -0.09, 0); 
+  stomach2.matrix.scale(0.3, 0.19, 0.3);
+  stomach2.render();
+
+
+  var leftLeg = new Cube();
+  leftLeg.color = [0.63, 0.63, 0.63, 1.0];
+  leftLeg.matrix.translate(-0.14, -0.9, 0.1);
+  // leftLeg.matrix.rotate(-38,0,0,1);
+  leftLeg.matrix.scale(0.12, 0.5, 0.1);
+  leftLeg.render();
+
+  var rightLeg = new Cube();
+  rightLeg.color = [0.63, 0.63, 0.63, 1.0];
+  rightLeg.matrix.translate(0.15, -0.9, 0.1); 
+  rightLeg.matrix.scale(-0.12, 0.5, 0.1); 
+  rightLeg.render();
+
+  var leftFoot = new Cube(); 
+  leftFoot.color = [1, 1, 1, 1];
+  leftFoot.matrix.translate(-0.29, -0.9, 0.1);
+  leftFoot.matrix.scale(0.15, 0.1, 0.1);
+  leftFoot.render();
+
+
+  var rightFoot = new Cube(); 
+  rightFoot.color = [1, 1, 1, 1];
+  rightFoot.matrix.translate(0.3, -0.9, 0.1); 
+  rightFoot.matrix.scale(-0.15, 0.1, 0.1); 
+  rightFoot.render();
+
+
+
+
+
+
+
+  // var leftArm = new Cube(); 
+  // leftArm.color = [1,1,0,1]; 
+  // leftArm.matrix.setTranslate(0, -0.5, 0.0); 
+  // leftArm.matrix.rotate(-5, 1, 0, 0); 
   // leftArm.matrix.rotate(-g_joint_A,0,0,1);
-  // leftArm.matrix.rotate(45*Math.sin(g_seconds), 0,0,1);
+  // var jointACoordinate = new Matrix4(leftArm.matrix);
+  // leftArm.matrix.scale(0.25, .7, .5); 
+  // leftArm.matrix.translate(-0.5,0,0); 
+  // leftArm.render(); 
 
-  var jointACoordinate = new Matrix4(leftArm.matrix);
-  leftArm.matrix.scale(0.25, .7, .5); 
-  leftArm.matrix.translate(-0.5,0,0); 
-  leftArm.render(); 
-
-  var box = new Cube(); 
-  box.color = [1,0,1,1];
-  box.matrix = jointACoordinate;
-  box.matrix.translate(0, .65, 0); 
-  box.matrix.rotate(g_joint_B, 0, 0, 1); 
-  box.matrix.scale(0.3, 0.3, 0.3); 
-  box.matrix.translate(-0.5, 0, -0.001); 
-  box.render();
+  // var box = new Cube(); 
+  // box.color = [1,0,1,1];
+  // box.matrix = jointACoordinate;
+  // box.matrix.translate(0, .65, 0); 
+  // box.matrix.rotate(g_joint_B, 0, 0, 1); 
+  // box.matrix.scale(0.3, 0.3, 0.3); 
+  // box.matrix.translate(-0.5, 0, -0.001); 
+  // box.render();
 
 
 
