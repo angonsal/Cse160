@@ -94,10 +94,12 @@ let g_joint_D = 0;
 let g_joint_E = 0;
 let g_joint_F = 0; 
 let g_joint_G = 0; 
-var camera = false; 
-var mousedown = false;
+var camera = true; 
+var mouseDown = false;
 var camcoordX = 0;
 var camcoordY = 0;
+var recX = null; 
+var recY = null; 
 let g_animation1 = false; 
 
 
@@ -125,18 +127,14 @@ function main() {
   setupWebGL();
   connectVariablesToGLSL(); 
   addActionsHTMLUI();
-
-  // Register function (event handler) to be called on a mouse press
-  canvas.onmousedown = click;
-  canvas.onmousemove = function(ev) { if (ev.buttons ==1) {click(ev)}};
-
+  initMouseHandlers();
   // Specify the color for clearing <canvas>
   gl.clearColor(0.529, 0.808, 0.922, 1.0);
 
   // Clear <canvas>
   // gl.clear(gl.COLOR_BUFFER_BIT);
   renderScene();
-  requestAnimationFrame(tick);
+  requestAnimationFrame(tick); 
 
 }
 
@@ -209,19 +207,49 @@ function updateAnimationAngles(){
 
 }
 
+function initMouseHandlers() {
+  canvas.onmousedown = function(event) {
+    if (event.shiftKey) {
+      renderScene();  
+      return;  
+    }
+      if (!camera) return;
+      mouseDown = true;
+      lastMouseX = event.clientX;
+      lastMouseY = event.clientY;
+  };
+
+  document.onmouseup = function(event) {
+      mouseDown = false;
+  };
+
+  canvas.onmousemove = function(event) {
+      if (!mouseDown) return;
+      var newX = event.clientX;
+      var newY = event.clientY;
+
+      var deltaX = newX - recX;
+      var deltaY = newY - recY;
+
+      camcoordX -= deltaX / 4; 
+      camcoordY -= deltaY / 4; 
+
+      recX = newX;
+      recY = newY;
+
+      renderScene(); 
+  };
+}
+
+
 function renderScene(){
   
   var startTime = performance.now();
 
   var globalRotMat = new Matrix4().rotate(g_globalAngle, 0, 1, 0); 
 
-  if (camera) {
-    globalRotMat.rotate(camcoordY, 1, 0, 0) 
-                .rotate(camcoordX, 0, 1, 0);
-  } 
-  else {
-    globalRotMat.rotate(g_globalAngle, 0, 1, 0);
-  }
+  globalRotMat.rotate(camcoordY, 1, 0, 0) 
+          .rotate(camcoordX, 0, 1, 0);
 
   gl.uniformMatrix4fv(u_GlobalRotateMatrix, false, globalRotMat.elements);
 
