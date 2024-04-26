@@ -98,8 +98,6 @@ var camera = true;
 var mouseDown = false;
 var camcoordX = 0;
 var camcoordY = 0;
-var recX = null; 
-var recY = null; 
 let g_animation1 = false; 
 
 // for click animation
@@ -213,40 +211,48 @@ function updateAnimationAngles(){
 
 }
 
-function orientation() {
-  canvas.onmousedown = function(event) {
-    if (event.shiftKey) {
-      boolean = !boolean;
-      renderScene();  
-      return;  
-    }
-      if (!camera) return;
-      mouseDown = true;
-      lastMouseX = event.clientX;
-      lastMouseY = event.clientY;
-  };
+var newX = null; 
+var newY = null; 
 
-  document.onmouseup = function(event) {
-      mouseDown = false;
-  };
-
-  canvas.onmousemove = function(event) {
-      if (!mouseDown) return;
-      var newX = event.clientX;
-      var newY = event.clientY;
-
-      var deltaX = newX - recX;
-      var deltaY = newY - recY;
-
-      camcoordX -= deltaX / 4; 
-      camcoordY -= deltaY / 4; 
-
-      recX = newX;
-      recY = newY;
-
-      renderScene(); 
-  };
+function handleMouseDown(event) {
+  if (event.shiftKey) {
+    boolean = !boolean;
+    renderScene();  
+    return;  
+  }
+  if (!camera) return;
+  mouseDown = true;
+  lastMouseX = event.clientX;
+  lastMouseY = event.clientY;
 }
+
+function handleMouseUp(event) {
+  mouseDown = false;
+}
+
+function handleMouseMove(event) {
+  if (!mouseDown) return;
+  var x = event.clientX;
+  var y = event.clientY;
+
+  var x1 = x - newX;
+  var y2 = y - newY;
+
+  camcoordX -= x1 / 4; 
+  camcoordY -= y2 / 4; 
+
+  newX = x;
+  newY = y;
+
+  renderScene(); 
+}
+
+function orientation() {
+  canvas.addEventListener("mousedown", handleMouseDown);
+  document.addEventListener("mouseup", handleMouseUp);
+  canvas.addEventListener("mousemove", handleMouseMove);
+}
+
 
 
 function renderScene(){
@@ -264,7 +270,6 @@ function renderScene(){
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
   gl.clear(gl.COLOR_BUFFER_BIT); 
 
-  // drawTriangle3D([-1.0, 0.0, 0.0,  -0.5, -1.0, 1.0,   0.0, 0.0, 0.0]);
 
   //made it too big and didn't want to change every dimension sorry
   var scaleFactor = 0.5;
@@ -592,11 +597,6 @@ function renderScene(){
   ground2.matrix.rotate(180, 0, 1, 0);
   ground2.matrix.scale(-3 * scaleFactor, 2.1 * scaleFactor, 3 * scaleFactor); 
   ground2.render();
-
-
-
-  
-
 
 
   var duration = performance.now() - startTime;
