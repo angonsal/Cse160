@@ -526,7 +526,7 @@ function renderScene(){
   woodStick.matrix.scale(-0.12 * scaleFactor, 1.4 * scaleFactor, 0.1 * scaleFactor);
   woodStick.render();
 
-  var surrender = new TriangularPrism(); 
+  var surrender = new Pyramid(); 
   surrender.matrix = jointSurrenderCoordinate; 
   surrender.matrix.translate(-0.12 * scaleFactor, 1.1 * scaleFactor, -0.01 * scaleFactor);
   surrender.matrix.rotate(-g_joint_G,0,0,1);
@@ -535,14 +535,14 @@ function renderScene(){
   surrender.render();
 
 
-  var tail = new TriangularPrism();
+  var tail = new Pyramid();
   tail.color = [0.85, 0.85, 0.85, 1.0];
   tail.matrix.translate(0.06 * scaleFactor, -0.1 * scaleFactor, 0.35 * scaleFactor); 
   tail.matrix.rotate(90,45,0,1); 
   tail.matrix.scale(-0.1 * scaleFactor, 0.9 * scaleFactor, 0.5 * scaleFactor); 
   tail.render();
 
-  var leftEar = new TriangularPrism();
+  var leftEar = new Pyramid();
   if(boolean){
     leftEar.matrix.rotate(10, 1,0,0);
     leftEar.matrix.rotate(math, 1,0,0);
@@ -552,7 +552,7 @@ function renderScene(){
   leftEar.matrix.scale(-0.4 * scaleFactor, 1.7 * scaleFactor, 0.5 * scaleFactor); 
   leftEar.render();
 
-  var rightEar = new TriangularPrism();
+  var rightEar = new Pyramid();
   if(boolean){
     rightEar.matrix.rotate(10, 1,0,0);
     rightEar.matrix.rotate(math, 1,0,0);
@@ -562,7 +562,7 @@ function renderScene(){
   rightEar.matrix.scale(-0.4 * scaleFactor, 1.7 * scaleFactor, 0.5 * scaleFactor); 
   rightEar.render();
 
-  var rightEarPink = new TriangularPrism();
+  var rightEarPink = new Pyramid();
   if(boolean){
     rightEarPink.matrix.rotate(10, 1,0,0);
     rightEarPink.matrix.rotate(math, 1,0,0);
@@ -573,7 +573,7 @@ function renderScene(){
   rightEarPink.matrix.rotate(-10, 0.8, 0, 0); 
   rightEarPink.render();
 
-  var leftEarPink = new TriangularPrism();
+  var leftEarPink = new Pyramid();
   if(boolean){
     leftEarPink.matrix.rotate(10, 1,0,0);
     leftEarPink.matrix.rotate(math, 1,0,0);
@@ -585,13 +585,13 @@ function renderScene(){
   leftEarPink.render();
 
   //BACKGROUND
-  var ground1 = new TriangularPrism(); 
+  var ground1 = new Pyramid(); 
   ground1.color = [0.82, 0.71, 0.55, 1.0];
   ground1.matrix.translate(1.5 * scaleFactor, -2 * scaleFactor, 0.092 * scaleFactor); 
   ground1.matrix.scale(-3 * scaleFactor, 2.1 * scaleFactor, 3 * scaleFactor); 
   ground1.render();
 
-  var ground2 = new TriangularPrism(); 
+  var ground2 = new Pyramid(); 
   ground2.color = [0.82, 0.71, 0.55, 1.0];
   ground2.matrix.translate(-1.5 * scaleFactor, -2 * scaleFactor, 0.1 * scaleFactor);
   ground2.matrix.rotate(180, 0, 1, 0);
