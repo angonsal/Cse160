@@ -101,6 +101,8 @@ var camcoordY = 0;
 var recX = null; 
 var recY = null; 
 let g_animation1 = false; 
+
+// for click animation
 var boolean = false;
 var math = 0; 
 
@@ -584,12 +586,12 @@ function renderScene(){
   ground1.matrix.scale(-3 * scaleFactor, 2.1 * scaleFactor, 3 * scaleFactor); 
   ground1.render();
 
-  var ground2 = new TriangularPrism(); 
-  ground2.color = [0.82, 0.71, 0.55, 1.0];
-  ground2.matrix.translate(-1.5 * scaleFactor, -2 * scaleFactor, 0.1 * scaleFactor);
-  ground2.matrix.rotate(180, 0, 1, 0);
-  ground2.matrix.scale(-3 * scaleFactor, 2.1 * scaleFactor, 3 * scaleFactor); 
-  ground2.render();
+  // var ground2 = new TriangularPrism(); 
+  // ground2.color = [0.82, 0.71, 0.55, 1.0];
+  // ground2.matrix.translate(-1.5 * scaleFactor, -2 * scaleFactor, 0.1 * scaleFactor);
+  // ground2.matrix.rotate(180, 0, 1, 0);
+  // ground2.matrix.scale(-3 * scaleFactor, 2.1 * scaleFactor, 3 * scaleFactor); 
+  // ground2.render();
 
 
 
