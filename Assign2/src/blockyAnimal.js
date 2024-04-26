@@ -132,7 +132,7 @@ function main() {
   setupWebGL();
   connectVariablesToGLSL(); 
   addActionsHTMLUI();
-  initMouseHandlers();
+  orientation();
   // Specify the color for clearing <canvas>
   gl.clearColor(0.529, 0.808, 0.922, 1.0);
 
@@ -213,7 +213,7 @@ function updateAnimationAngles(){
 
 }
 
-function initMouseHandlers() {
+function orientation() {
   canvas.onmousedown = function(event) {
     if (event.shiftKey) {
       boolean = !boolean;
