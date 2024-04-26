@@ -1,6 +1,6 @@
 class Pyramid {
     constructor() {
-        this.type = 'triangularPrism';
+        this.type = 'Pyramid';
         this.color = [1.0, 1.0, 1.0, 1.0]; 
         this.matrix = new Matrix4(); 
     }
