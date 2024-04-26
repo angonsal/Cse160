@@ -206,9 +206,7 @@ function updateAnimationAngles(){
     g_joint_E = (10* Math.sin(g_seconds));
     g_joint_F = (10* Math.sin(g_seconds));
     g_joint_G = (2* Math.sin(g_seconds));
-    math = (14* -Math.sin(g_seconds));
-
-
+    math = (8* -Math.sin(g_seconds));
   }
 
 }
@@ -539,6 +537,7 @@ function renderScene(){
 
   var leftEar = new TriangularPrism();
   if(boolean){
+    leftEar.matrix.rotate(10, 1,0,0);
     leftEar.matrix.rotate(math, 1,0,0);
   }
   leftEar.color = [0.714, 0.537, 0.376, 1.0]
@@ -548,6 +547,7 @@ function renderScene(){
 
   var rightEar = new TriangularPrism();
   if(boolean){
+    rightEar.matrix.rotate(10, 1,0,0);
     rightEar.matrix.rotate(math, 1,0,0);
   }
   rightEar.color = [0.714, 0.537, 0.376, 1.0]
@@ -557,6 +557,7 @@ function renderScene(){
 
   var rightEarPink = new TriangularPrism();
   if(boolean){
+    rightEarPink.matrix.rotate(10, 1,0,0);
     rightEarPink.matrix.rotate(math, 1,0,0);
   }
   rightEarPink.color = [1.0, 0.8, 0.8, 1.0];
@@ -567,6 +568,7 @@ function renderScene(){
 
   var leftEarPink = new TriangularPrism();
   if(boolean){
+    leftEarPink.matrix.rotate(10, 1,0,0);
     leftEarPink.matrix.rotate(math, 1,0,0);
   }
   leftEarPink.color = [1.0, 0.8, 0.8, 1.0];
