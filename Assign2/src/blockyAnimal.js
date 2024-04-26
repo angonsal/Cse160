@@ -101,12 +101,15 @@ var camcoordY = 0;
 var recX = null; 
 var recY = null; 
 let g_animation1 = false; 
+var boolean = false;
+var math = 0; 
 
 
 function addActionsHTMLUI(){
   //Joint sliders
   document.getElementById("jointASlide").addEventListener('mousemove', function() {g_joint_A = this.value; renderScene(); });
   document.getElementById("jointBSlide").addEventListener('mousemove', function() {g_joint_C = this.value; renderScene(); });
+  document.getElementById("jointCSlide").addEventListener('mousemove', function() {g_joint_F = this.value; renderScene(); });
 
   // Angle Slider 
   document.getElementById("angleSlide").addEventListener('mousemove', function() {g_globalAngle = this.value; renderScene(); });
@@ -203,6 +206,9 @@ function updateAnimationAngles(){
     g_joint_E = (10* Math.sin(g_seconds));
     g_joint_F = (10* Math.sin(g_seconds));
     g_joint_G = (2* Math.sin(g_seconds));
+    math = (14* -Math.sin(g_seconds));
+
+
   }
 
 }
@@ -210,6 +216,7 @@ function updateAnimationAngles(){
 function initMouseHandlers() {
   canvas.onmousedown = function(event) {
     if (event.shiftKey) {
+      boolean = !boolean;
       renderScene();  
       return;  
     }
@@ -531,27 +538,39 @@ function renderScene(){
   tail.render();
 
   var leftEar = new TriangularPrism();
+  if(boolean){
+    leftEar.matrix.rotate(math, 1,0,0);
+  }
   leftEar.color = [0.714, 0.537, 0.376, 1.0]
-  leftEar.matrix.translate(-0.1 * scaleFactor, 0.9 * scaleFactor, 0.1 * scaleFactor); 
+  leftEar.matrix.translate(-0.1 * scaleFactor, 0.90 * scaleFactor, 0.1 * scaleFactor); 
   leftEar.matrix.scale(-0.4 * scaleFactor, 1.7 * scaleFactor, 0.5 * scaleFactor); 
   leftEar.render();
 
   var rightEar = new TriangularPrism();
+  if(boolean){
+    rightEar.matrix.rotate(math, 1,0,0);
+  }
   rightEar.color = [0.714, 0.537, 0.376, 1.0]
-  rightEar.matrix.translate(0.5 * scaleFactor, 0.9 * scaleFactor, 0.1 * scaleFactor);
+  rightEar.matrix.translate(0.5 * scaleFactor, 0.90 * scaleFactor, 0.1 * scaleFactor);
   rightEar.matrix.scale(-0.4 * scaleFactor, 1.7 * scaleFactor, 0.5 * scaleFactor); 
   rightEar.render();
 
   var rightEarPink = new TriangularPrism();
+  if(boolean){
+    rightEarPink.matrix.rotate(math, 1,0,0);
+  }
   rightEarPink.color = [1.0, 0.8, 0.8, 1.0];
-  rightEarPink.matrix.translate(0.4 * scaleFactor, 0.9 * scaleFactor, 0.09 * scaleFactor);
+  rightEarPink.matrix.translate(0.4 * scaleFactor, 0.90 * scaleFactor, 0.09 * scaleFactor);
   rightEarPink.matrix.scale(-0.2 * scaleFactor, 1.4 * scaleFactor, 0.1 * scaleFactor); 
   rightEarPink.matrix.rotate(-10, 0.8, 0, 0); 
   rightEarPink.render();
 
   var leftEarPink = new TriangularPrism();
+  if(boolean){
+    leftEarPink.matrix.rotate(math, 1,0,0);
+  }
   leftEarPink.color = [1.0, 0.8, 0.8, 1.0];
-  leftEarPink.matrix.translate(-0.2 * scaleFactor, 0.9 * scaleFactor, 0.092 * scaleFactor); 
+  leftEarPink.matrix.translate(-0.2 * scaleFactor, 0.90 * scaleFactor, 0.092 * scaleFactor); 
   leftEarPink.matrix.scale(-0.2 * scaleFactor, 1.4 * scaleFactor, 0.1 * scaleFactor); 
   leftEarPink.matrix.rotate(-10, 0.8, 0, 0); 
   leftEarPink.render();
