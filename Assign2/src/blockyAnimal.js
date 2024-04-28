@@ -101,7 +101,7 @@ var camcoordY = 0;
 let g_animation1 = false; 
 
 // for click animation
-var boolean = false;
+var shiftAnimate = false;
 var math = 0; 
 
 
@@ -136,7 +136,7 @@ function main() {
 
   // Clear <canvas>
   // gl.clear(gl.COLOR_BUFFER_BIT);
-  renderScene();
+  
   requestAnimationFrame(tick); 
 
 }
@@ -175,8 +175,9 @@ function click(ev) {
 }
 
 function convertCoordinatesEventToGL(ev){
-  var x = ev.clientX; // x coordinate of a mouse pointer
-  var y = ev.clientY; // y coordinate of a mouse pointer
+  // mouse pointer coordinate
+  var x = ev.clientX; 
+  var y = ev.clientY; 
   var rect = ev.target.getBoundingClientRect();
 
   x = ((x - rect.left) - canvas.width/2)/(canvas.width/2);
@@ -214,55 +215,67 @@ function updateAnimationAngles(){
 var newX = null; 
 var newY = null; 
 
+//WHAT IS WRONG AHHHHH
+// edit: fixed
+
 function handleMouseDown(event) {
-  if (event.shiftKey) {
-    boolean = !boolean;
-    renderScene();  
-    return;  
-  }
-  if (!camera) return;
-  mouseDown = true;
-  lastMouseX = event.clientX;
-  lastMouseY = event.clientY;
+    if (event.shiftKey) {
+        shiftAnimate = !shiftAnimate;
+        renderScene();  
+        return;  
+    }
+    if (!camera){
+
+      return;
+    }
+    mouseDown = true;
+    lastMouseX = event.clientX;
+    lastMouseY = event.clientY;
 }
 
 function handleMouseUp(event) {
-  mouseDown = false;
+    mouseDown = false;
 }
 
 function handleMouseMove(event) {
-  if (!mouseDown) return;
-  var x = event.clientX;
-  var y = event.clientY;
 
-  var x1 = x - newX;
-  var y2 = y - newY;
+  // edit: fixed logic ; next time i have to remmeber to be clearer with var names lol
+    if (!mouseDown) {
 
-  camcoordX -= x1 / 4; 
-  camcoordY -= y2 / 4; 
+      return;
+    }
+    var x = event.clientX;
+    var y = event.clientY;
 
-  newX = x;
-  newY = y;
+    var x1 = x - lastMouseX;
+    var y2 = y - lastMouseY;
 
-  renderScene(); 
+    // 3 or 4 is best ? 
+    camcoordX -= x1 / 3; 
+    camcoordY -= y2 / 3; 
+
+    lastMouseX = x;
+    lastMouseY = y;
+
+    renderScene(); 
 }
 
 function orientation() {
-  canvas.addEventListener("mousedown", handleMouseDown);
-  document.addEventListener("mouseup", handleMouseUp);
-  canvas.addEventListener("mousemove", handleMouseMove);
+    canvas.onmousedown = handleMouseDown;
+    document.onmouseup = handleMouseUp;
+    canvas.onmousemove = handleMouseMove;
 }
 
 
-
+// DO NOT CHANGE THIS
 function renderScene(){
   
   var startTime = performance.now();
 
   var globalRotMat = new Matrix4().rotate(g_globalAngle, 0, 1, 0); 
 
-  globalRotMat.rotate(camcoordY, 1, 0, 0) 
-          .rotate(camcoordX, 0, 1, 0);
+  globalRotMat.rotate(camcoordY, 1, 0, 0); 
+  globalRotMat.rotate(camcoordX, 0, 1, 0);
 
   gl.uniformMatrix4fv(u_GlobalRotateMatrix, false, globalRotMat.elements);
 
@@ -543,7 +556,7 @@ function renderScene(){
   tail.render();
 
   var leftEar = new Pyramid();
-  if(boolean){
+  if(shiftAnimate){
     leftEar.matrix.rotate(10, 1,0,0);
     leftEar.matrix.rotate(math, 1,0,0);
   }
@@ -553,7 +566,7 @@ function renderScene(){
   leftEar.render();
 
   var rightEar = new Pyramid();
-  if(boolean){
+  if(shiftAnimate){
     rightEar.matrix.rotate(10, 1,0,0);
     rightEar.matrix.rotate(math, 1,0,0);
   }
@@ -563,7 +576,7 @@ function renderScene(){
   rightEar.render();
 
   var rightEarPink = new Pyramid();
-  if(boolean){
+  if(shiftAnimate){
     rightEarPink.matrix.rotate(10, 1,0,0);
     rightEarPink.matrix.rotate(math, 1,0,0);
   }
@@ -574,7 +587,7 @@ function renderScene(){
   rightEarPink.render();
 
   var leftEarPink = new Pyramid();
-  if(boolean){
+  if(shiftAnimate){
     leftEarPink.matrix.rotate(10, 1,0,0);
     leftEarPink.matrix.rotate(math, 1,0,0);
   }
