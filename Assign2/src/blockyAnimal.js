@@ -213,8 +213,8 @@ function updateAnimationAngles(){
 
 }
 
-var lastX = null; 
-var lastY = null; 
+var lastMouseX = null; 
+var lastMouseY = null; 
 
 //WHAT IS WRONG AHHHHH
 // edit: fixed
@@ -230,8 +230,8 @@ function handleMouseDown(event) {
       return;
     }
     mouseDown = true;
-    lastX = event.clientX;
-    lastY = event.clientY;
+    lastMouseX = event.clientX;
+    lastMouseY = event.clientY;
 }
 
 function handleMouseUp(event) {
@@ -248,15 +248,15 @@ function handleMouseMove(event) {
     var x = event.clientX;
     var y = event.clientY;
 
-    var x1 = x - lastX;
-    var y1 = y - lastY;
+    var x1 = x - lastMouseX;
+    var y1 = y - lastMouseY;
 
     // 3 or 4 is best ? 
     camcoordX -= x1 / 3; 
     camcoordY -= y1 / 3; 
 
-    lastX = x;
-    lastY = y;
+    lastMouseX = x;
+    lastMouseY = y;
 
     renderScene(); 
 }
