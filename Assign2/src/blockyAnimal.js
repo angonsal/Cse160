@@ -213,8 +213,8 @@ function updateAnimationAngles(){
 
 }
 
-var newX = null; 
-var newY = null; 
+var lastX = null; 
+var lastY = null; 
 
 //WHAT IS WRONG AHHHHH
 // edit: fixed
@@ -230,8 +230,8 @@ function handleMouseDown(event) {
       return;
     }
     mouseDown = true;
-    lastMouseX = event.clientX;
-    lastMouseY = event.clientY;
+    lastX = event.clientX;
+    lastY = event.clientY;
 }
 
 function handleMouseUp(event) {
@@ -243,23 +243,24 @@ function handleMouseMove(event) {
   // edit: fixed logic ; next time i have to remmeber to be clearer with var names lol
     if (!mouseDown) {
 
-      return;
+      return;   
     }
     var x = event.clientX;
     var y = event.clientY;
 
-    var x1 = x - lastMouseX;
-    var y2 = y - lastMouseY;
+    var x1 = x - lastX;
+    var y1 = y - lastY;
 
     // 3 or 4 is best ? 
     camcoordX -= x1 / 3; 
-    camcoordY -= y2 / 3; 
+    camcoordY -= y1 / 3; 
 
-    lastMouseX = x;
-    lastMouseY = y;
+    lastX = x;
+    lastY = y;
 
     renderScene(); 
 }
+
 
 function orientation() {
   // changed back more comfy this way 
