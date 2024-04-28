@@ -262,9 +262,10 @@ function handleMouseMove(event) {
 }
 
 function orientation() {
-    canvas.onmousedown = handleMouseDown;
-    document.onmouseup = handleMouseUp;
-    canvas.onmousemove = handleMouseMove;
+  // changed back more comfy this way 
+  canvas.addEventListener('mousedown', handleMouseDown);
+  document.addEventListener('mouseup', handleMouseUp);
+  canvas.addEventListener('mousemove', handleMouseMove);
 }
 
 
