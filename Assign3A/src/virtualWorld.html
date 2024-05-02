@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>3D World</title>
+    <style>
+      .margin-text {
+        margin-left: 20px;
+        margin-right: 20px;
+      }
+
+  </style>
+    
+  </head>
+
+  <body onload="main()">
+    <canvas id="webgl" width="400" height="400">
+    Please use a browser that supports "canvas"
+    </canvas>
+    <p>
+
+    <p id = "numdot"> XXX </p>
+   
+
+
+    <p>
+    Joint 1 <input type="range" min="-20" max="38" value="0" class="slider" id="jointASlide">
+    <p>
+    Joint 2 <input type="range" min="0" max="45" value="0" class="slider" id="jointBSlide">
+    <p>
+    Camera Angle <input type="range" min="-180" max="180" value="5" class="slider" id="angleSlide">
+    <p>
+    <button type="button" id="on">Animation ON</button>
+    <button type="button" id="off">Animation OFF</button>
+    <button type="button" id="off2">Animation OFF1</button>
+    <button type="button" id="on2">Animation ON2</button>
+
+    
+    <p>
+
+    <div class="margin-text">
+      <h2> Ashley Gonsalves</h2>
+      <p> angonsal@ucsc.edu</p>
+      <h3> Notes To Grader</h3>
+      <p> This assignment was  </p>
+
+
+
+    </div>
+
+
+    <script src="../lib/webgl-utils.js"></script>
+    <script src="../lib/webgl-debug.js"></script>
+    <script src="../lib/cuon-utils.js"></script>
+    <script src="../lib/cuon-matrix-cse160.js"></script>
+    <script src="Triangle.js"></script>
+    <script src="Circle.js"></script>
+    <script src="Points.js"></script>
+    <script src="Cube.js"></script>
+    <script src="Pyramid.js"></script>
+    <script src="virtualWorld.js"></script>
+
+
+  </body>
+</html>
