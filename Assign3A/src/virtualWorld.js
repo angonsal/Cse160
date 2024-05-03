@@ -52,11 +52,6 @@ function setupWebGL() {
 }
 
 function initTextures(gl, n) {
-  var texture = gl.createTexture();   // Create a texture object
-  if (!texture) {
-    console.log('Failed to create the texture object');
-    return false;
-  }
 
   // Get the storage location of u_Sampler
   var u_Sampler0 = gl.getUniformLocation(gl.program, 'u_Sampler0');
@@ -70,14 +65,20 @@ function initTextures(gl, n) {
     return false;
   }
   // Register the event handler to be called on loading an image
-  image.onload = function(){ sendTexture(gl, n, texture, u_Sampler0, image); };
+  image.onload = function(){ sendTexture(image); };
   // Tell the browser to load an image
   image.src = '../resources/sky.jpeg';
 
   return true;
 }
 
-function sendTexture(gl, n, texture, u_Sampler0, image) {
+function sendTexture(image) {
+  var texture = gl.createTexture();   // Create a texture object
+  if (!texture) {
+    console.log('Failed to create the texture object');
+    return false;
+  }
+
   gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1); // Flip the image's y axis
   // Enable texture unit0
   gl.activeTexture(gl.TEXTURE0);
@@ -276,14 +277,14 @@ function renderScene(){
 
   var body = new Cube(); 
   body.color = [1.0, 0.0, 0.0, 1.0]; 
-  body.matrix.translate(-.25, -.75, 0.0); 
-  body.matrix.rotate(-5,1,0,0); 
-  body.matrix.scale(0.5, 0.3, .5); 
+  body.matrix.translate(-1, -1, 0.0); 
+  // body.matrix.rotate(-5,1,0,0); 
+  body.matrix.scale(2, 0.1, 0.4); 
   body.render();
 
   var leftArm = new Cube(); 
   leftArm.color = [1,1,0,1]; 
-  leftArm.matrix.setTranslate(0, -0.5, 0.0); 
+  leftArm.matrix.setTranslate(0, -0.9, 0.0); 
   leftArm.matrix.rotate(-5, 1, 0, 0); 
 
   leftArm.matrix.rotate(-g_joint_A,0,0,1);
