@@ -21,7 +21,11 @@ var FSHADER_SOURCE = `
   varying vec2 v_UV; 
   uniform vec4 u_FragColor;
   uniform sampler2D u_Sampler0;
-  uniform sampler2D u_Sampler1; 
+  uniform sampler2D u_Sampler1;
+  uniform sampler2D u_Sampler2; 
+  uniform sampler2D u_Sampler3; 
+
+ 
  
   uniform int u_whichTexture; 
   void main() {
@@ -36,6 +40,12 @@ var FSHADER_SOURCE = `
     }
     else if (u_whichTexture == 1) {
       gl_FragColor = texture2D(u_Sampler1, v_UV); 
+    }
+    else if (u_whichTexture == 2) {
+      gl_FragColor = texture2D(u_Sampler2, v_UV); 
+    }
+    else if (u_whichTexture == 3) {
+      gl_FragColor = texture2D(u_Sampler3, v_UV); 
     }
     else{
       gl_FragColor = vec4(1,.2,.2,1); 
@@ -54,6 +64,10 @@ let u_ModelMatrix;
 let u_GlobalRotateMatrix; 
 let u_Sampler0; 
 let u_Sampler1; 
+let u_Sampler2; 
+let u_Sampler3; 
+
+
 
 let u_whichTexture; 
 
@@ -84,6 +98,16 @@ function initTextures(gl, n) {
     console.log('Failed to get the storage location of u_Sampler1');
     return false;
   }
+  var u_Sampler2 = gl.getUniformLocation(gl.program, 'u_Sampler2');
+  if (!u_Sampler2) {
+    console.log('Failed to get the storage location of u_Sampler2');
+    return false;
+  }
+  var u_Sampler3 = gl.getUniformLocation(gl.program, 'u_Sampler3');
+  if (!u_Sampler3) {
+    console.log('Failed to get the storage location of u_Sampler3');
+    return false;
+  }
   var image = new Image();  // Create the image object
   if (!image) {
     console.log('Failed to create the image object');
@@ -102,6 +126,25 @@ function initTextures(gl, n) {
 
   image2.onload = function(){ sendTexture1(image2); }
   image2.src = '../resources/grass.jpeg';
+
+  var image3 = new Image();  // Create the image object
+  if (!image3) {
+    console.log('Failed to create the image object');
+    return false;
+  }
+
+  image3.onload = function(){ sendTexture2(image3); }
+  image3.src = '../resources/wee.png';
+
+  var image4 = new Image();  // Create the image object
+  if (!image4) {
+    console.log('Failed to create the image object');
+    return false;
+  }
+
+  image4.onload = function(){ sendTexture3(image4); }
+  image4.src = '../resources/stars.png';
+
 
 
 
@@ -156,6 +199,52 @@ function sendTexture1(image){
 
   // Set the texture unit 0 to the sampler
   gl.uniform1i(u_Sampler1, 1);
+}
+
+function sendTexture2(image){
+  var texture = gl.createTexture();   // create a texture object
+  if(!texture){
+      console.log('Failed to create the texture1 object');
+      return false;
+  }
+
+  // flip the image's Y axis
+  gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1);
+  // enable texture unit1
+  gl.activeTexture(gl.TEXTURE2);
+  // bind the texture object to the target
+  gl.bindTexture(gl.TEXTURE_2D, texture);
+
+  // Set the texture parameters
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+  // Set the texture image
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, image);
+
+  // Set the texture unit 0 to the sampler
+  gl.uniform1i(u_Sampler2, 2);
+}
+
+function sendTexture3(image){
+  var texture = gl.createTexture();   // create a texture object
+  if(!texture){
+      console.log('Failed to create the texture1 object');
+      return false;
+  }
+
+  // flip the image's Y axis
+  gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1);
+  // enable texture unit1
+  gl.activeTexture(gl.TEXTURE3);
+  // bind the texture object to the target
+  gl.bindTexture(gl.TEXTURE_2D, texture);
+
+  // Set the texture parameters
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+  // Set the texture image
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, image);
+
+  // Set the texture unit 0 to the sampler
+  gl.uniform1i(u_Sampler3, 3);
 }
 
 
@@ -231,6 +320,17 @@ function connectVariablesToGLSL(){
       return false;
   }
 
+  u_Sampler2 = gl.getUniformLocation(gl.program, 'u_Sampler2');
+  if (!u_Sampler2) {
+      console.log('Failed to get the storage location of u_Sampler2');
+      return false;
+  }
+  u_Sampler3 = gl.getUniformLocation(gl.program, 'u_Sampler3');
+  if (!u_Sampler3) {
+      console.log('Failed to get the storage location of u_Sampler3');
+      return false;
+  }
+
   var identityM = new Matrix4(); 
   gl.uniformMatrix4fv(u_ModelMatrix, false, identityM.elements);
 
@@ -262,17 +362,17 @@ let g_animation2 = false;
 
 function addActionsHTMLUI(){
   //Joint sliders
-  document.getElementById("jointASlide").addEventListener('mousemove', function() {g_joint_A = this.value; renderScene(); });
-  document.getElementById("jointBSlide").addEventListener('mousemove', function() {g_joint_B = this.value; renderScene(); });
+  // document.getElementById("jointASlide").addEventListener('mousemove', function() {g_joint_A = this.value; renderScene(); });
+  // document.getElementById("jointBSlide").addEventListener('mousemove', function() {g_joint_B = this.value; renderScene(); });
 
   // Angle Slider 
   document.getElementById("angleSlide").addEventListener('mousemove', function() {g_globalAngle = this.value; renderScene(); });
 
   // On and off animation buttons 
-  document.getElementById("off").onclick = function() {g_animation1 = false}; 
-  document.getElementById("on").onclick = function() {g_animation1 = true};
-  document.getElementById("off2").onclick = function() {g_animation2 = false}; 
-  document.getElementById("on2").onclick = function() {g_animation2 = true};
+  // document.getElementById("off").onclick = function() {g_animation1 = false}; 
+  // document.getElementById("on").onclick = function() {g_animation1 = true};
+  // document.getElementById("off2").onclick = function() {g_animation2 = false}; 
+  // document.getElementById("on2").onclick = function() {g_animation2 = true};
 
 }
   
@@ -340,7 +440,7 @@ function renderScene(){
   var startTime = performance.now();
 
   var viewMat = new Matrix4(); 
-  viewMat.setLookAt(0,0,-1, 0,0,0, 0,1,0);
+  viewMat.setLookAt(0,0,-2, 0,0,0, 0,1,0);
   gl.uniformMatrix4fv(u_ViewMatrix, false, viewMat.elements);
 
   var projMat = new Matrix4(); 
@@ -381,35 +481,52 @@ function renderScene(){
   skybox.matrix.translate(-.5, -.5, -.5);
   skybox.render();
 
-  // create skybox
-  // var skybox = new Cube();
-  // skybox.textureNum = 0; 
-  // skybox.matrix.translate(-.5, -.5, -0.1);
-  // skybox.matrix.scale(100, 100, 90); 
-  // skybox.render();
-
   var box = new Cube(); 
   box.color = [1,0,1,1]; 
-  box.textureNum = -2; 
+  box.textureNum = 2; 
   box.matrix.translate(0, .65, 0); 
   // box.matrix.rotate(0, 0, 0, 1); 
   box.matrix.scale(0.3, 0.3, 0.3); 
-  box.matrix.translate(0.8, -4.85, -0.2); 
+  box.matrix.translate(0.6, -4.65, -0.2); 
   box.render();
 
+  var box1 = new Cube(); 
+  box1.color = [1,0,1,1];
+  box1.textureNum = 2; 
+  box1.matrix.translate(0, .65, 0); 
+  // box.matrix.rotate(0, 0, 0, 1); 
+  box1.matrix.scale(0.3, 0.3, 0.3); 
+  box1.matrix.translate(-0.5, -4.65, -0.2); 
+  box1.render();
 
-  // sky.matrix.rotate(-5, 1, 0, 0); 
+  var box2 = new Cube(); 
+  box2.color = [0.8,0.7,0.6,1]; 
+  box2.textureNum = 3; 
+  box2.matrix.translate(0, .65, 0); 
+  // box.matrix.rotate(0, 0, 0, 1); 
+  box2.matrix.scale(0.3, 0.3, 0.3); 
+  box2.matrix.translate(0, -3.6, -0.2); 
+  box2.render();
 
-  // sky.matrix.rotate(0,0,0,1);
+  var box3 = new Cube(); 
+  box3.color = [0.8,0.7,0.6,1]; 
+  box3.textureNum = -2; 
+  box3.matrix.translate(0, .65, 0); 
+  // box.matrix.rotate(0, 0, 0, 1); 
+  box3.matrix.scale(0.3, 0.3, 0.3); 
+  box3.matrix.translate(-1.55, -4.65, -0.2); 
+  box3.render();
 
-  // if(g_animation1){
-  //   sky.matrix.rotate(45*Math.sin(g_seconds), 0,0,1);
-  // } else{
-  //   sky.matrix.rotate(-g_joint_A,0,0,1);
-  // }
+  var box4 = new Cube(); 
+  box4.color = [0.8,0.7,0.6,1]; 
+  box4.textureNum = -2; 
+  box4.matrix.translate(0, .65, 0); 
+  // box.matrix.rotate(0, 0, 0, 1); 
+  box4.matrix.scale(0.3, 0.3, 0.3); 
+  box4.matrix.translate(-2.6, -4.65, -0.2); 
+  box4.render();
 
-  // sky.matrix.rotate(-g_joint_A,0,0,1);
-  // sky.matrix.rotate(45*Math.sin(g_seconds), 0,0,1);
+
 
   var duration = performance.now() - startTime;
   sendTextToHTML(" ms: " + Math.floor(duration) + " fps: " + Math.floor(10000/duration), "numdot");
