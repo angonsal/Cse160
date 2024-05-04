@@ -66,10 +66,10 @@ let u_Sampler0;
 let u_Sampler1; 
 let u_Sampler2; 
 let u_Sampler3; 
-
-
 let u_whichTexture; 
 
+// WRITING SO I DONT FORGET: Game to find animal; when animal is found, user clikcs button and the animal will 
+// move to a new random location in the maze. 
 function setupWebGL() {
     // Retrieve <canvas> element
   canvas = document.getElementById('webgl');
@@ -365,13 +365,24 @@ function addActionsHTMLUI(){
   // document.getElementById("jointBSlide").addEventListener('mousemove', function() {g_joint_B = this.value; renderScene(); });
 
   // Angle Slider 
-  document.getElementById("angleSlide").addEventListener('mousemove', function() {g_globalAngle = this.value; renderScene(); });
+  // document.getElementById("angleSlide").addEventListener('mousemove', function() {g_globalAngle = this.value; renderScene(); });
 
   // On and off animation buttons 
   // document.getElementById("off").onclick = function() {g_animation1 = false}; 
   // document.getElementById("on").onclick = function() {g_animation1 = true};
   // document.getElementById("off2").onclick = function() {g_animation2 = false}; 
   // document.getElementById("on2").onclick = function() {g_animation2 = true};
+  document.getElementById("reset").addEventListener('click', function() {
+    // Reset camera position and orientation
+    g_eye = [0, 0.5, -6];
+    g_at = [0, 0, 0];
+    g_up = [0, 1, 0];
+    g_globalAngle = 0;
+    camcoordX = 0;
+    camcoordY = 0;
+    renderScene();
+});
+
 
 }
   

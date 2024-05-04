@@ -3,18 +3,65 @@
   <head>
     <meta charset="utf-8" />
     <title>3D World</title>
+    
+    <!-- button font  -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap">
     <style>
-      .margin-text {
-        margin-left: 20px;
-        margin-right: 20px;
+      body {
+          font-family: 'Times New Roman', serif;
+          color: #333; 
+          background-color: #dfc5e4; 
+         
       }
 
+      .margin-text {
+          margin-left: 20px;
+          margin-right: 20px;
+      }
+
+      .instructions {
+            font-size: 18px;
+            color: #1c0323;
+            margin-top: 10px;
+            position: absolute;
+            top: 0;
+            left: 720px;
+        }
+
+      h2 {
+          color: #1c0323; 
+      }
+
+      
+      h3 {
+          color: #1c0323;
+      }
+     
+      p {
+          line-height: 1.15; 
+      }
+
+      button {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 16px; 
+            color: white; 
+            background-color: #7964d8; 
+            border: none; 
+            padding: 10px 20px; 
+            cursor: pointer; 
+            border-radius: 5px; 
+        }
+
+       /* button hover color  */
+        button:hover {
+            background-color: #724b74; 
+        }
   </style>
     
   </head>
 
   <body onload="main()">
-    <canvas id="webgl" width="400" height="400">
+    <canvas id="webgl" width="700" height="700">
     Please use a browser that supports "canvas"
     </canvas>
     <p>
@@ -22,21 +69,19 @@
     <p id = "numdot"> XXX </p>
    
 
-
-    <!-- <p>
-    Joint 1 <input type="range" min="-20" max="38" value="0" class="slider" id="jointASlide">
-    <p>
-    Joint 2 <input type="range" min="0" max="45" value="0" class="slider" id="jointBSlide"> -->
-    <p>
-    Camera Angle <input type="range" min="-180" max="180" value="-40" class="slider" id="angleSlide">
-    <p>
-    <!-- <button type="button" id="on">Animation ON</button>
-    <button type="button" id="off">Animation OFF</button>
-    <button type="button" id="on2">Animation ON2</button>
-    <button type="button" id="off2">Animation OFF1</button> -->
+    <button type="button" id="reset">Start Position</button>
 
     
     <p>
+    <div class="instructions">
+      <p>Welcome! Try to find the bunny, he keeps running away :0! Once you find it, click the 'Start Position' button. He may 
+      or may not run away again...</p>
+      
+      <p>To navigate: 
+
+      </p>
+
+    </div>
 
     <div class="margin-text">
       <h2> Ashley Gonsalves</h2>
@@ -46,8 +91,6 @@
         videos I was able to figure it out. I added a skybox and grass, both with textures. I also added two blocks
       with a mario block texture, one with a star texture, and 2 of solid color. I am going to 
     try to implement a small game using this block in the next portion of the assignment.   </p>
-
-
 
     </div>
 
