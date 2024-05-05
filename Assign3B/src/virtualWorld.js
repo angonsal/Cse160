@@ -380,6 +380,7 @@ function addActionsHTMLUI(){
     g_globalAngle = 0;
     holdX = 0;
     holdY = 0;
+    resetMap(); 
     renderScene();
 });
 
@@ -539,34 +540,121 @@ function call() {
 }
 
 var g_map = [
-  [1,1,1,1,1,1,1,1],
-  [1,0,0,1,0,0,0,1], 
-  [1,0,0,1,1,0,0,1], 
-  [0,0,0,0,1,1,0,1], 
-  [1,0,1,1,1,0,0,1],
-  [1,0,1,0,1,0,0,1], 
-  [1,0,0,0,0,0,0,1],
-  [1,1,1,1,1,1,1,1],
+  [1,1,1,1,1,1,1,1,1,1,1,1],
+  [1,0,0,0,0,0,0,0,0,0,0,1], 
+  [1,0,0,1,1,1,1,1,1,1,0,1], 
+  [1,0,0,1,0,0,0,0,0,1,0,1], 
+  [1,0,0,1,0,0,0,0,0,1,0,1],
+  [1,1,1,1,0,0,1,1,1,1,0,1], 
+  [0,0,0,0,0,0,1,0,0,0,0,1],
+  [1,0,0,0,0,0,1,0,0,0,0,1], 
+  [1,0,0,0,0,0,1,1,1,1,0,1], 
+  [1,0,0,0,0,0,0,0,0,1,0,1], 
+  [1,0,0,0,0,0,0,0,0,0,0,1], 
+  [1,1,1,1,1,1,1,1,1,1,1,1],
 ];
 
+var g_map1 = [
+  [1,1,1,1,1,1,1,1,1,1,1,1],
+  [1,0,0,0,0,1,0,0,0,0,0,1], 
+  [1,0,0,0,0,1,1,1,1,1,0,1], 
+  [1,0,0,0,0,0,0,0,0,1,0,1], 
+  [1,0,1,1,1,1,1,0,0,1,0,1],
+  [1,0,1,0,0,0,1,0,0,1,0,1], 
+  [0,0,1,0,1,1,1,0,0,1,0,1],
+  [1,0,0,0,1,0,0,0,0,1,0,1], 
+  [1,0,0,0,1,0,0,0,0,1,0,1], 
+  [1,0,0,0,1,1,1,1,1,1,0,1], 
+  [1,0,0,0,0,0,0,0,0,0,0,1], 
+  [1,1,1,1,1,1,1,1,1,1,1,1],
+];
+
+var g_map2 = [
+  [1,1,1,1,1,1,1,1,1,1,1,1],
+  [1,0,0,0,0,0,0,0,0,0,0,1], 
+  [1,0,1,1,1,1,1,1,1,1,0,1], 
+  [1,0,1,0,0,0,0,0,0,0,0,1], 
+  [1,0,1,1,1,1,1,0,0,0,0,1],
+  [1,0,0,0,0,0,1,0,0,0,0,1], 
+  [0,0,0,0,0,0,1,0,0,0,0,1],
+  [1,1,1,0,0,0,1,1,1,0,0,1], 
+  [1,0,1,0,0,0,0,0,1,0,0,1], 
+  [1,0,1,1,1,1,1,1,1,0,0,1], 
+  [1,0,0,0,0,0,0,0,0,0,0,1], 
+  [1,1,1,1,1,1,1,1,1,1,1,1],
+];
+
+var g_map3 = [
+  [1,1,1,1,1,1,1,1,1,1,1,1],
+  [1,0,0,0,0,0,0,0,0,0,0,1], 
+  [1,0,0,0,1,1,1,1,1,0,0,1], 
+  [1,0,0,0,1,0,0,0,0,0,0,1], 
+  [1,0,0,0,1,0,1,1,1,1,0,1],
+  [1,1,1,1,1,0,0,0,0,0,0,1], 
+  [0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,1,1,1,1,0,0,0,0,0,0,1], 
+  [1,0,0,0,1,0,0,0,0,0,0,1], 
+  [1,0,0,0,1,1,1,1,1,0,0,1], 
+  [1,0,0,0,0,0,0,0,0,0,0,1], 
+  [1,1,1,1,1,1,1,1,1,1,1,1],
+];
+
+var g_map4 = [
+  [1,1,1,1,1,1,1,1,1,1,1,1],
+  [1,0,0,0,1,0,1,0,0,0,0,1], 
+  [1,0,1,0,1,0,1,0,1,0,0,1], 
+  [1,0,1,0,1,0,1,0,1,0,0,1], 
+  [1,0,1,0,1,0,1,0,1,0,0,1],
+  [1,1,1,0,1,0,1,0,1,0,0,1], 
+  [0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,1,1,0,1,0,0,0,0,0,0,1], 
+  [1,0,1,0,1,0,0,0,0,0,0,1], 
+  [1,0,1,0,1,1,1,1,1,1,0,1], 
+  [1,0,0,0,0,0,0,0,0,0,0,1], 
+  [1,1,1,1,1,1,1,1,1,1,1,1],
+];
+
+// To pick a random game map 
+function getRandomMap() {
+  var randomNumber = Math.floor(Math.random() * 5);
+  switch(randomNumber) {
+    case 0:
+      return g_map;
+    case 1:
+      return g_map1;
+    case 2:
+      return g_map2;
+    case 3:
+      return g_map3;
+    case 4:
+      return g_map4;
+  }
+}
+
+var picked = getRandomMap();
+
+function resetMap() {
+  picked = getRandomMap(); 
+  renderScene(); 
+}
+
+
+
 function drawMap(){
-  for (var x=0; x<8; x++){
-    for (var y=0; y<8; y++){
-      if (g_map[x][y]==1){
+  for (var x = 0; x < 12; x++){
+    for (var y = 0; y < 12; y++){
+      if (picked[x][y] == 1){
         var body = new Cube(); 
         body.textureNum = 2; 
-        body.matrix.translate(3-x, -0.73, -3.2+y); 
-        body.matrix.scale(0.7,0.9,0.7); 
+        // Adjust translation to fit within the scene
+        body.matrix.translate(5.5 - x, -0.73, -5.2 + y); 
+        body.matrix.scale(0.7, 0.9, 0.7); 
         body.render(); 
-        // var body2 = new Cube();
-        // body2.textureNum = 2;  
-        // body2.matrix.translate(2.5-x, -0.05, -3.2+y); 
-        // body2.matrix.scale(0.8,0.7,0.8); 
-        // body2.render(); 
       }
     }
   }
 }
+
 
 var g_camera = new Camera(); 
 var eye = g_camera.eye;
@@ -615,7 +703,7 @@ function renderScene() {
   grass.color = [1.0, 0.0, 0.0, 1.0]; 
   grass.textureNum=1;
   grass.matrix.translate(0, -.75, 0.0);  
-  grass.matrix.scale(10, 0, 10); 
+  grass.matrix.scale(15, 0, 15); 
   grass.matrix.translate(-.5, 0, -.5);
   grass.render();
   //draw sky
@@ -625,51 +713,6 @@ function renderScene() {
   skybox.matrix.scale(50, 50, 50); 
   skybox.matrix.translate(-.5, -.5, -.5);
   skybox.render();
-
-  var box = new Cube(); 
-  box.color = [1,0,1,1]; 
-  box.textureNum = 3; 
-  // box.matrix.translate(0, .65, 4); 
-  // box.matrix.rotate(0, 0, 0, 1); 
-  box.matrix.scale(0.7,0.9,0.7); 
-  box.matrix.translate(1.4, -0.8, -6); 
-  box.render();
-
-  var box1 = new Cube(); 
-  box1.color = [1,0,1,1];
-  box1.textureNum = 3; 
-  // box1.matrix.translate(3, .65, 3);  
-  // box.matrix.rotate(0, 0, 0, 1); 
-  box1.matrix.scale(0.7,0.9,0.7); 
-  box1.matrix.translate(-1.4, -0.8, -6); 
-  box1.render();
-
-  // var box2 = new Cube(); 
-  // box2.color = [0.8,0.7,0.6,1]; 
-  // box2.textureNum = 2; 
-  // box2.matrix.translate(0, .65, 0); 
-  // // box.matrix.rotate(0, 0, 0, 1); 
-  // box2.matrix.scale(0.3, 0.3, 0.3); 
-  // box2.matrix.translate(0, -3.6, -0.2); 
-  // box2.render();
-
-  // var box3 = new Cube(); 
-  // box3.color = [0.8,0.7,0.6,1]; 
-  // box3.textureNum = 2; 
-  // box3.matrix.translate(0, .65, 0); 
-  // // box.matrix.rotate(0, 0, 0, 1); 
-  // box3.matrix.scale(0.3, 0.3, 0.3); 
-  // box3.matrix.translate(-1.55, -4.65, -0.2); 
-  // box3.render();
-
-  // var box4 = new Cube(); 
-  // box4.color = [0.8,0.7,0.6,1]; 
-  // box4.textureNum = 2; 
-  // box4.matrix.translate(0, .65, 0); 
-  // // box.matrix.rotate(0, 0, 0, 1); 
-  // box4.matrix.scale(0.3, 0.3, 0.3); 
-  // box4.matrix.translate(-2.6, -4.65, -0.2); 
-  // box4.render();
 
 
 
