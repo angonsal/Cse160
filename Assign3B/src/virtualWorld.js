@@ -69,7 +69,7 @@ let u_Sampler3;
 let u_whichTexture; 
 
 // WRITING SO I DONT FORGET: Game to find animal; when animal is found, user clikcs button and the animal will 
-// move to a new random location in the maze. 
+// move to a new random location in the maze.
 function setupWebGL() {
     // Retrieve <canvas> element
   canvas = document.getElementById('webgl');
@@ -374,12 +374,12 @@ function addActionsHTMLUI(){
   // document.getElementById("on2").onclick = function() {g_animation2 = true};
   document.getElementById("reset").addEventListener('click', function() {
     // Reset camera position and orientation
-    g_eye = [0, 0.5, -6];
-    g_at = [0, 0, 0];
-    g_up = [0, 1, 0];
+    eye.elements = [0, 0.5, -6];
+    at.elements = [0, 0, 0];
+    up.elements = [0, 1, 0];
     g_globalAngle = 0;
-    camcoordX = 0;
-    camcoordY = 0;
+    holdX = 0;
+    holdY = 0;
     renderScene();
 });
 
@@ -391,7 +391,6 @@ function main() {
   setupWebGL();
   connectVariablesToGLSL(); 
   addActionsHTMLUI();
-  document.addEventListener('keydown', keydown);   
   initTextures(gl,0); 
   call(); 
   
@@ -452,48 +451,52 @@ var lastX = null;
 var lastY = null; 
 var camera = true; 
 var mouseDown = false;
-var camcoordX = 0;
-var camcoordY = 0;
+var holdX = 0;
+var holdY = 0;
 
 
 // let cameraX = 0;
 // let cameraZ = 0;
 //viewMat.setLookAt(0,1,-6, 0,0,0, 0,1,0);
-
-function keydown(ev){
-  // Make call lowercase to read better 
-   // Move eye and what the camera is looking at
-  switch(ev.key.toLowerCase()) {
+var g_camera = new Camera(); 
+function keydown(ev) {
+  // Move the camera based on the pressed key
+  switch (ev.key.toLowerCase()) {
       case "w":
-          g_eye[2] += 0.1;
-          g_at[2] += 0.1;  
+          g_camera.moveForward();
           break;
       case "a":
-          g_eye[0] += 0.1;
-          g_at[0] += 0.1;  
+          g_camera.moveLeft();
           break;
       case "s":
-          g_eye[2] -= 0.1; 
-          g_at[2] -= 0.1;  
+          g_camera.moveBackwards();
           break;
       case "d":
-          g_eye[0] -= 0.1; 
-          g_at[0] -= 0.1;  
+          g_camera.moveRight();
           break;
-    //  Q left and E right 
       case "q":
-          g_globalAngle += 5;
+          g_camera.panLeft();
           break;
       case "e":
-          g_globalAngle -= 5;
+          g_camera.panRight();
           break;
-  }
-  renderScene(); 
+      case "arrowup":
+        g_camera.turnUp();
+        // prevent webpage from moving
+        ev.preventDefault();
+        break;
+      case "arrowdown":
+        g_camera.turnDown();
+        // prevent webpage from moving
+        ev.preventDefault();
+        break;
+}
+  renderScene();
 }
 
 
 function handleMouseDown(event) {
-  if (!camera){
+  if (!g_camera){
     return;
   }
   
@@ -506,8 +509,7 @@ function handleMouseUp(event) {
   mouseDown = false;
 }
 
-function handleMouseMove(event) {
-
+function onMove(event) {
   if (!mouseDown) {
 
     return;   
@@ -518,9 +520,8 @@ function handleMouseMove(event) {
   var x1 = x - lastX;
   var y1 = y - lastY;
 
-  // 3 or 4 is best ? 
-  camcoordX -= x1 / 3; 
-  camcoordY -= y1 / 3; 
+  holdX -= x1 / 3; 
+  holdY -= y1 / 3; 
 
   lastX = x;
   lastY = y;
@@ -529,30 +530,39 @@ function handleMouseMove(event) {
 }
 
 
+
 function call() {
   canvas.addEventListener('mousedown', handleMouseDown);
   document.addEventListener('mouseup', handleMouseUp);
-  canvas.addEventListener('mousemove', handleMouseMove);
+  canvas.addEventListener('mousemove', onMove);
+  document.addEventListener('keydown', keydown);   
 }
-var g_eye =[0,0.5,-6]; 
-var g_at = [0,0,0]; 
-var g_up = [0,1,0]; 
 
-function renderScene(){
-  
+var g_camera = new Camera(); 
+var eye = g_camera.eye;
+var at = g_camera.at;
+var up = g_camera.up;
+
+function renderScene() {
   var startTime = performance.now();
 
-  var viewMat = new Matrix4(); 
-  viewMat.setLookAt(g_eye[0],g_eye[1],g_eye[2],  g_at[0],g_at[1],g_at[2],  g_up[0],g_up[1],g_up[2]);
-  gl.uniformMatrix4fv(u_ViewMatrix, false, viewMat.elements);
+  // Retrieve camera properties
 
-  var projMat = new Matrix4(); 
-  projMat.setPerspective(50, canvas.width/canvas.height, 1, 100);
+  // Set up view matrix
+  var viewMat = new Matrix4();
+  viewMat.setLookAt(eye.elements[0], eye.elements[1], eye.elements[2], at.elements[0], at.elements[1], at.elements[2], up.elements[0], up.elements[1], up.elements[2]);
+  gl.uniformMatrix4fv(u_ViewMatrix, false, viewMat.elements);
+  console.log("Eye coordinates:", eye[0]);
+
+
+  // Update other matrices as needed
+  var projMat = new Matrix4();
+  projMat.setPerspective(50, canvas.width / canvas.height, 1, 100);
   gl.uniformMatrix4fv(u_ProjectionMatrix, false, projMat.elements);
 
   var globalRotMat = new Matrix4().rotate(g_globalAngle, 0, 1, 0); 
-  globalRotMat.rotate(camcoordY, 1, 0, 0); 
-  globalRotMat.rotate(camcoordX, 0, 1, 0);
+  globalRotMat.rotate(holdY, 1, 0, 0); 
+  globalRotMat.rotate(holdX, 0, 1, 0);
   gl.uniformMatrix4fv(u_GlobalRotateMatrix, false, globalRotMat.elements);
 
   // Clear <canvas>
