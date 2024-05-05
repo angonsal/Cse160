@@ -538,6 +538,31 @@ function call() {
   document.addEventListener('keydown', keydown);   
 }
 
+var g_map = [
+  [1,1,1,1,1,1,1,1],
+  [1,0,0,0,0,0,0,1], 
+  [1,0,0,0,0,0,0,1], 
+  [1,0,0,1,1,0,0,1], 
+  [1,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,1], 
+  [1,0,0,0,1,0,0,1], 
+  [1,0,0,0,0,0,0,1],
+];
+
+function drawMap(){
+  for (var x=0; x<8; x++){
+    for (var y=0; y<8; y++){
+      if (g_map[x][y]==1){
+        var body = new Cube(); 
+        body.textureNum = 3; 
+        body.matrix.translate(4-x, -0.73, -4+y); 
+        body.matrix.scale(0.3,0.3,0.3); 
+        body.render(); 
+      }
+    }
+  }
+}
+
 var g_camera = new Camera(); 
 var eye = g_camera.eye;
 var at = g_camera.at;
@@ -579,7 +604,7 @@ function renderScene() {
   // grass.matrix.scale(100, 0.2, 100); 
   // grass.render();
 
-
+  drawMap();
   //draw floor
   var grass = new Cube();
   grass.color = [1.0, 0.0, 0.0, 1.0]; 
