@@ -114,7 +114,7 @@ function initTextures(gl, n) {
   }
   // Register the event handler to be called on loading an image
   image.onload = function(){ sendTexture(image); };
-  image.src = '../resources/sky.jpeg';
+  image.src = '../resources/sky1.jpeg';
 
 
   var image2 = new Image();  // Create the image object
@@ -374,13 +374,13 @@ function addActionsHTMLUI(){
   // document.getElementById("on2").onclick = function() {g_animation2 = true};
   document.getElementById("reset").addEventListener('click', function() {
     // Reset camera position and orientation
-    eye.elements = [0, 0.5, -6];
+    eye.elements = [0, 0.5, -14];
     at.elements = [0, 0, 0];
     up.elements = [0, 1, 0];
     g_globalAngle = 0;
     holdX = 0;
     holdY = 0;
-    resetMap(); 
+    // resetMap(); 
     renderScene();
 });
 
@@ -491,8 +491,49 @@ function keydown(ev) {
         // prevent webpage from moving
         ev.preventDefault();
         break;
-}
+  }
   renderScene();
+}
+
+
+function initMouseHandlers() {
+  //var factor = 0.0000001 / window.innerHeight; // Use the window's height to scale the mouse movement
+
+  canvas.onmousedown = function(event) {
+      mouseDown = true;
+      lastMouseX = event.clientX;
+      lastMouseY = event.clientY;
+  };
+
+  document.onmouseup = function(event) {
+      mouseDown = false;
+  };
+
+  //should only need to edit this portion to work with new camera
+  canvas.onmousemove = function(event) {
+      if (!mouseDown) return;
+      var newX = event.clientX;
+      var newY = event.clientY;
+      var dx =  (newX - lastMouseX);
+      var dy =  (newY - lastMouseY);
+      if(dx > 0){
+        g_camera.lookRight();
+      }
+      else if (dx < 0){
+        g_camera.lookLeft();
+      }
+      if(dy < 0){
+        g_camera.lookUp();
+      } 
+      else if (dy > 0){
+        g_camera.lookDown();
+      }
+
+      lastMouseX = newX;
+      lastMouseY = newY;
+
+      renderScene(); // Redraw the scene with new camera angles
+  };
 }
 
 
@@ -540,115 +581,51 @@ function call() {
 }
 
 var g_map = [
-  [1,1,1,1,1,1,1,1,1,1,1,1],
-  [1,0,0,0,0,0,0,0,0,0,0,1], 
-  [1,0,0,1,1,1,1,1,1,1,0,1], 
-  [1,0,0,1,0,0,0,0,0,1,0,1], 
-  [1,0,0,1,0,0,0,0,0,1,0,1],
-  [1,1,1,1,0,0,1,1,1,1,0,1], 
-  [0,0,0,0,0,0,1,0,0,0,0,1],
-  [1,0,0,0,0,0,1,0,0,0,0,1], 
-  [1,0,0,0,0,0,1,1,1,1,0,1], 
-  [1,0,0,0,0,0,0,0,0,1,0,1], 
-  [1,0,0,0,0,0,0,0,0,0,0,1], 
-  [1,1,1,1,1,1,1,1,1,1,1,1],
+  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1],
+  [1,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,1],
+  [1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,1,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1],
+  [1,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1],
+  [1,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,1,1,1,0,1],
+  [1,0,0,0,0,1,0,0,1,0,0,1,1,1,0,0,1,0,0,0,0,0,0,0,0,1,0,1,0,1,0,1],
+  [1,0,0,0,0,1,0,0,1,0,0,1,0,1,0,0,1,0,0,0,0,0,0,0,0,1,0,1,0,1,0,1],
+  [1,0,0,0,0,1,0,0,1,0,0,1,0,1,0,0,1,0,0,0,0,0,0,0,0,1,1,1,0,1,0,1],
+  [1,0,0,0,0,1,0,0,1,0,0,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1],
+  [1,1,1,1,1,1,0,0,1,0,0,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1],
+  [1,0,0,0,0,0,0,0,1,0,0,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1],
+  [1,1,1,1,1,1,0,0,1,0,0,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1],
+  [1,0,0,0,0,0,0,0,1,0,0,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,1,0,0,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,1,0,0,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,1,0,0,1,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,1,1,1,1,1,1,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,1,0,0,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 ];
-
-var g_map1 = [
-  [1,1,1,1,1,1,1,1,1,1,1,1],
-  [1,0,0,0,0,1,0,0,0,0,0,1], 
-  [1,0,0,0,0,1,1,1,1,1,0,1], 
-  [1,0,0,0,0,0,0,0,0,1,0,1], 
-  [1,0,1,1,1,1,1,0,0,1,0,1],
-  [1,0,1,0,0,0,1,0,0,1,0,1], 
-  [0,0,1,0,1,1,1,0,0,1,0,1],
-  [1,0,0,0,1,0,0,0,0,1,0,1], 
-  [1,0,0,0,1,0,0,0,0,1,0,1], 
-  [1,0,0,0,1,1,1,1,1,1,0,1], 
-  [1,0,0,0,0,0,0,0,0,0,0,1], 
-  [1,1,1,1,1,1,1,1,1,1,1,1],
-];
-
-var g_map2 = [
-  [1,1,1,1,1,1,1,1,1,1,1,1],
-  [1,0,0,0,0,0,0,0,0,0,0,1], 
-  [1,0,1,1,1,1,1,1,1,1,0,1], 
-  [1,0,1,0,0,0,0,0,0,0,0,1], 
-  [1,0,1,1,1,1,1,0,0,0,0,1],
-  [1,0,0,0,0,0,1,0,0,0,0,1], 
-  [0,0,0,0,0,0,1,0,0,0,0,1],
-  [1,1,1,0,0,0,1,1,1,0,0,1], 
-  [1,0,1,0,0,0,0,0,1,0,0,1], 
-  [1,0,1,1,1,1,1,1,1,0,0,1], 
-  [1,0,0,0,0,0,0,0,0,0,0,1], 
-  [1,1,1,1,1,1,1,1,1,1,1,1],
-];
-
-var g_map3 = [
-  [1,1,1,1,1,1,1,1,1,1,1,1],
-  [1,0,0,0,0,0,0,0,0,0,0,1], 
-  [1,0,0,0,1,1,1,1,1,0,0,1], 
-  [1,0,0,0,1,0,0,0,0,0,0,1], 
-  [1,0,0,0,1,0,1,1,1,1,0,1],
-  [1,1,1,1,1,0,0,0,0,0,0,1], 
-  [0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,1,1,1,1,0,0,0,0,0,0,1], 
-  [1,0,0,0,1,0,0,0,0,0,0,1], 
-  [1,0,0,0,1,1,1,1,1,0,0,1], 
-  [1,0,0,0,0,0,0,0,0,0,0,1], 
-  [1,1,1,1,1,1,1,1,1,1,1,1],
-];
-
-var g_map4 = [
-  [1,1,1,1,1,1,1,1,1,1,1,1],
-  [1,0,0,0,1,0,1,0,0,0,0,1], 
-  [1,0,1,0,1,0,1,0,1,0,0,1], 
-  [1,0,1,0,1,0,1,0,1,0,0,1], 
-  [1,0,1,0,1,0,1,0,1,0,0,1],
-  [1,1,1,0,1,0,1,0,1,0,0,1], 
-  [0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,1,1,0,1,0,0,0,0,0,0,1], 
-  [1,0,1,0,1,0,0,0,0,0,0,1], 
-  [1,0,1,0,1,1,1,1,1,1,0,1], 
-  [1,0,0,0,0,0,0,0,0,0,0,1], 
-  [1,1,1,1,1,1,1,1,1,1,1,1],
-];
-
-// To pick a random game map 
-function getRandomMap() {
-  var randomNumber = Math.floor(Math.random() * 5);
-  switch(randomNumber) {
-    case 0:
-      return g_map;
-    case 1:
-      return g_map1;
-    case 2:
-      return g_map2;
-    case 3:
-      return g_map3;
-    case 4:
-      return g_map4;
-  }
-}
-
-var picked = getRandomMap();
-
-function resetMap() {
-  picked = getRandomMap(); 
-  renderScene(); 
-}
 
 
 
 function drawMap(){
-  for (var x = 0; x < 12; x++){
-    for (var y = 0; y < 12; y++){
-      if (picked[x][y] == 1){
+  for (var x = 0; x < 32; x++){
+    for (var y = 0; y < 32; y++){
+      if (g_map[x][y] == 1){
         var body = new Cube(); 
         body.textureNum = 2; 
         // Adjust translation to fit within the scene
-        body.matrix.translate(5.5 - x, -0.73, -5.2 + y); 
-        body.matrix.scale(0.7, 0.9, 0.7); 
+        body.matrix.translate(15.5 - x, -0.73, -15.5+ y); 
+        body.matrix.scale(1, 0.9, 1); 
         body.render(); 
       }
     }
@@ -670,7 +647,7 @@ function renderScene() {
   var viewMat = new Matrix4();
   viewMat.setLookAt(eye.elements[0], eye.elements[1], eye.elements[2], at.elements[0], at.elements[1], at.elements[2], up.elements[0], up.elements[1], up.elements[2]);
   gl.uniformMatrix4fv(u_ViewMatrix, false, viewMat.elements);
-  console.log("Eye coordinates:", eye[0]);
+  // console.log("Eye coordinates:", eye[0]);
 
 
   // Update other matrices as needed
@@ -686,16 +663,6 @@ function renderScene() {
   // Clear <canvas>
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-  // drawTriangle3D([-1.0, 0.0, 0.0,  -0.5, -1.0, 1.0,   0.0, 0.0, 0.0]);
-
-  // var grass = new Cube(); 
-  // grass.color = [1.0, 0.0, 0.0, 1.0]; 
-  // grass.textureNum = 1; 
-
-  // grass.matrix.translate(-0.9, -1, -0.09); 
-  // // grass.matrix.rotate(-5,1,0,0);
-  // grass.matrix.scale(100, 0.2, 100); 
-  // grass.render();
 
   drawMap();
   //draw floor
@@ -703,7 +670,7 @@ function renderScene() {
   grass.color = [1.0, 0.0, 0.0, 1.0]; 
   grass.textureNum=1;
   grass.matrix.translate(0, -.75, 0.0);  
-  grass.matrix.scale(15, 0, 15); 
+  grass.matrix.scale(32, 0.1, 32); 
   grass.matrix.translate(-.5, 0, -.5);
   grass.render();
   //draw sky
