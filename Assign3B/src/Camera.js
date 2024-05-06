@@ -1,10 +1,10 @@
 class Camera {
     constructor() {
         this.type = "Camera";
-        this.eye = new Vector3([0, 0.5, -6]);
+        this.eye = new Vector3([0, 0.5, -14]);
         this.at = new Vector3([0, 0, 0]);
         this.up = new Vector3([0, 1, 0]);
-        this.move = 0.1;
+        this.move = 0.8;
     }
     // FROM 3.6B video: 
 
@@ -122,12 +122,12 @@ class Camera {
 
     // Turn camera up
     turnUp() {
-        this.at.elements[1] += 0.1;
+        this.at.elements[1] += 0.3;
         // console.log("LOOK UP");
     }
 
     // Turn camera down
     turnDown() {
-        this.at.elements[1] -= 0.1;
+        this.at.elements[1] -= 0.3;
     }
 }
