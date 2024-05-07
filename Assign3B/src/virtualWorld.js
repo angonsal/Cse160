@@ -68,6 +68,7 @@ let u_Sampler2;
 let u_Sampler3; 
 let u_whichTexture; 
 
+
 // WRITING SO I DONT FORGET: Game to find animal; when animal is found, user clikcs button and the animal will 
 // move to a new random location in the maze.
 function setupWebGL() {
@@ -378,6 +379,7 @@ function addActionsHTMLUI(){
     at.elements = [0, 0, 0];
     up.elements = [0, 1, 0];
     g_globalAngle = 0;
+    spawns = []; 
     // holdX = 0;
     // holdY = 0;
     // resetMap(); 
@@ -394,7 +396,7 @@ function main() {
   addActionsHTMLUI();
   initTextures(gl,0); 
   call();
-    
+
   // Specify the color for clearing <canvas>
   gl.clearColor(0.85, 0.75, 1.0, 1.0);
   
@@ -437,6 +439,55 @@ function tick(){
 
   requestAnimationFrame(tick);
 }
+let spawns = []
+
+
+function addBlocks(camera){
+  let d = camera.getForward(); 
+  let x = camera.eye.elements[0] + d.elements[0] ; 
+  let z = camera.eye.elements[2] + d.elements[2] ;
+
+  let boundXn = Math.floor(x + 16); 
+  let boundZn = Math.floor(z + 19); 
+  let boundX = Math.abs(boundXn); 
+  let boundZ = Math.abs(boundZn); 
+
+
+  if ( boundX < g_map.length &&  boundZ < g_map.length < g_map[boundX].length) {
+    if (g_map[boundX][boundZ] == 0) {
+      g_map[boundX][boundZ] = 3; 
+      let block = new Cube(); 
+      block.textureNum = 3; 
+      block.matrix.translate(boundX - 16, -0.85, boundZ + (-16)); 
+      spawns.push(block); 
+      renderScene(); 
+    }
+  }
+}
+
+// function deleteBlock(camera){
+//   let d = camera.getForward(); 
+//   let x = camera.eye.elements[0] + d.elements[0];
+//   let z = camera.eye.elements[2] + d.elements[2];
+
+//   let boundX = Math.floor(x + 15.5); 
+//   let boundZ = Math.floor(z + 20); 
+
+//   if ( boundX < g_map.length &&  boundZ < g_map.length <g_map[boundX].length) {
+//     for (var i in spawns){
+//       if (g_map[boundX][boundZ] == 1) {
+//         g_map[boundX][boundZ] = 3; 
+//         spawn[i]==0;  
+//       }
+
+//     }
+    
+//   }
+// }
+
+
+
+
 
 function updateAnimationAngles(){
   if(g_animation1){
@@ -490,6 +541,12 @@ function keydown(ev) {
         g_camera.turnDown();
         // prevent webpage from moving
         ev.preventDefault();
+        break;
+      case "l":
+        addBlocks(g_camera); 
+        break;
+      case "x":
+        spawns = [];    
         break;
   }
   renderScene();
@@ -682,11 +739,13 @@ function renderScene() {
   //draw sky
   var skybox = new Cube();
   skybox.color = [1.0, 0.0, 0.0, 1.0]; 
-  skybox.textureNum=0;  
+  skybox.textureNum=3;  
   skybox.matrix.scale(50, 50, 50); 
   skybox.matrix.translate(-.5, -.5, -.5);
   skybox.render();
 
+
+  spawns.forEach(block => block.render()); 
 
 
   var duration = performance.now() - startTime;
