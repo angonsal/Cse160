@@ -457,7 +457,7 @@ function addBlocks(camera) {
   }
   
   // create the cube 
-  g_map[boundX][boundZ] = 1; 
+  g_map[boundX][boundZ] = 2; 
   const block = new Cube(); 
   block.textureNum = 3; 
   block.matrix.translate(boundX - 16.5, -0.85, boundZ + (-16.5)); 
