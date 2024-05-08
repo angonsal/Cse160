@@ -456,7 +456,7 @@ function addBlocks(camera) {
     return;
   }
   
-  // create the cube 
+  // else create the cube 
   g_map[boundX][boundZ] = 2; 
   const block = new Cube(); 
   block.textureNum = 3; 
@@ -465,27 +465,29 @@ function addBlocks(camera) {
   renderScene(); 
 }
 
-// function deleteBlock(camera){
-//   let d = camera.getForward(); 
-//   let x = camera.eye.elements[0] + d.elements[0];
-//   let z = camera.eye.elements[2] + d.elements[2];
+function deleteBlocks(camera) {
+  const d = camera.getForward(); 
 
-//   let boundXn = Math.floor(x + 16); 
-//   let boundZn = Math.floor(z + 19); 
-//   let boundX = Math.abs(boundXn); 
-//   let boundZ = Math.abs(boundZn); 
+  const [x, z] = [camera.eye.elements[0] + d.elements[0], camera.eye.elements[2] + d.elements[2]];
 
-//   if ( boundX < g_map.length &&  boundZ < g_map.length <g_map[boundX].length) {
-//     for (var i in spawns){
-//       if (g_map[boundX][boundZ] == 1) {
-//         g_map[boundX][boundZ] = 3; 
-//         spawn[i]==0;  
-//       }
+  const boundX = Math.floor(Math.abs(x + 16)); 
+  const boundZ = Math.floor(Math.abs(z + 17)); 
 
-//     }
-    
-//   }
-// }
+  if (boundX >= g_map.length || boundZ >= g_map[boundX].length || g_map[boundX][boundZ] === 0) {
+    return; 
+  }
+  
+  g_map[boundX][boundZ] = 0; 
+
+  spawns = spawns.filter(block => {
+    const [blockX, y, blockZ] = block.matrix.elements;
+    return !(Math.floor(blockX) === boundX - 16.5 && Math.floor(blockZ) === boundZ + 0);
+  });
+  
+
+  renderScene(); 
+}
+
 
 
 
@@ -548,7 +550,8 @@ function keydown(ev) {
         addBlocks(g_camera); 
         break;
       case "x":
-        spawns = [];    
+        // spawns = [];  
+        deleteBlocks(g_camera);   
         break;
   }
   renderScene();
