@@ -451,6 +451,11 @@ function addBlocks(camera) {
   const boundX = Math.floor(Math.abs(x + 16)); 
   const boundZ = Math.floor(Math.abs(z + 19)); 
 
+  // return if not bounds 
+  if (g_map[boundX][boundZ] !== 0) {
+    return;
+  }
+
     // else create the cube 
     g_map[boundX][boundZ] = 2; 
     const block = new Cube(); 
@@ -469,11 +474,16 @@ function deleteBlocks(camera) {
 
   const boundX = Math.floor(Math.abs(x + 16.5)); 
   const boundZ = Math.floor(Math.abs(z + 17)); 
+
+  if (g_map[boundX][boundZ] !== 1) {
+    return;
+  }
+  
   console.log("Original x:", x);
   console.log("Original z:", z);
   console.log("BoundX:", boundX);
   console.log("BoundZ:", boundZ);
-
+  
   console.log(x);
   console.log(z);
 
