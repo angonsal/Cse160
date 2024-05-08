@@ -458,7 +458,7 @@ function addBlocks(camera){
       g_map[boundX][boundZ] = 3; 
       let block = new Cube(); 
       block.textureNum = 3; 
-      block.matrix.translate(boundX - 16, -0.85, boundZ + (-16)); 
+      block.matrix.translate(boundX - 17, -0.85, boundZ + (-17)); 
       spawns.push(block); 
       renderScene(); 
     }
@@ -470,8 +470,10 @@ function addBlocks(camera){
 //   let x = camera.eye.elements[0] + d.elements[0];
 //   let z = camera.eye.elements[2] + d.elements[2];
 
-//   let boundX = Math.floor(x + 15.5); 
-//   let boundZ = Math.floor(z + 20); 
+//   let boundXn = Math.floor(x + 16); 
+//   let boundZn = Math.floor(z + 19); 
+//   let boundX = Math.abs(boundXn); 
+//   let boundZ = Math.abs(boundZn); 
 
 //   if ( boundX < g_map.length &&  boundZ < g_map.length <g_map[boundX].length) {
 //     for (var i in spawns){
@@ -686,7 +688,6 @@ function drawMap(){
       if (g_map[x][y] == 1){
         var body = new Cube(); 
         body.textureNum = 2; 
-        // Adjust translation to fit within the scene
         body.matrix.translate(15.5 - x, -0.73, -15.5+ y); 
         body.matrix.scale(1, 0.9, 1); 
         body.render(); 
@@ -745,7 +746,9 @@ function renderScene() {
   skybox.render();
 
 
-  spawns.forEach(block => block.render()); 
+  for (let i = 0; i < spawns.length; i++) {
+    spawns[i].render();
+  }
 
 
   var duration = performance.now() - startTime;
