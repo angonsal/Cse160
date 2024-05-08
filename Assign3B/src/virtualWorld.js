@@ -442,27 +442,27 @@ function tick(){
 let spawns = []
 
 
-function addBlocks(camera){
-  let d = camera.getForward(); 
-  let x = camera.eye.elements[0] + d.elements[0] ; 
-  let z = camera.eye.elements[2] + d.elements[2] ;
+function addBlocks(camera) {
+  const d = camera.getForward(); 
 
-  let boundXn = Math.floor(x + 16); 
-  let boundZn = Math.floor(z + 19); 
-  let boundX = Math.abs(boundXn); 
-  let boundZ = Math.abs(boundZn); 
+  // gettign x and z values 
+  const [x, z] = [camera.eye.elements[0] + d.elements[0], camera.eye.elements[2] + d.elements[2]];
 
+  const boundX = Math.floor(Math.abs(x + 16)); 
+  const boundZ = Math.floor(Math.abs(z + 19)); 
 
-  if ( boundX < g_map.length &&  boundZ < g_map.length < g_map[boundX].length) {
-    if (g_map[boundX][boundZ] == 0) {
-      g_map[boundX][boundZ] = 3; 
-      let block = new Cube(); 
-      block.textureNum = 3; 
-      block.matrix.translate(boundX - 17, -0.85, boundZ + (-17)); 
-      spawns.push(block); 
-      renderScene(); 
-    }
+  // return if not bounds 
+  if (boundX >= g_map.length || boundZ >= g_map[boundX].length || g_map[boundX][boundZ] !== 0) {
+    return;
   }
+  
+  // create the cube 
+  g_map[boundX][boundZ] = 1; 
+  const block = new Cube(); 
+  block.textureNum = 3; 
+  block.matrix.translate(boundX - 16.5, -0.85, boundZ + (-16.5)); 
+  spawns.push(block); 
+  renderScene(); 
 }
 
 // function deleteBlock(camera){
