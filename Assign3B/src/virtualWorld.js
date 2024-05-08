@@ -375,15 +375,15 @@ function addActionsHTMLUI(){
   // document.getElementById("on2").onclick = function() {g_animation2 = true};
   document.getElementById("reset").addEventListener('click', function() {
     // Reset camera position and orientation
-    eye.elements = [0, 0.5, -14];
+    eye.elements = [0, 0.2, -14];
     at.elements = [0, 0, 0];
     up.elements = [0, 1, 0];
     g_globalAngle = 0;
     spawns = []; 
     // holdX = 0;
     // holdY = 0;
-    // resetMap(); 
     renderScene();
+    
 });
 
 
@@ -445,9 +445,9 @@ let spawns = []
 function addBlocks(camera) {
   const d = camera.getForward(); 
 
-  // gettign x and z values 
+  // gettign x and z values; no need for y because blocks only on floor  
   const [x, z] = [camera.eye.elements[0] + d.elements[0], camera.eye.elements[2] + d.elements[2]];
-
+  
   const boundX = Math.floor(Math.abs(x + 16)); 
   const boundZ = Math.floor(Math.abs(z + 19)); 
 
@@ -455,39 +455,43 @@ function addBlocks(camera) {
   if (boundX >= g_map.length || boundZ >= g_map[boundX].length || g_map[boundX][boundZ] !== 0) {
     return;
   }
-  
-  // else create the cube 
-  g_map[boundX][boundZ] = 2; 
-  const block = new Cube(); 
-  block.textureNum = 3; 
-  block.matrix.translate(boundX - 16.5, -0.85, boundZ + (-16.5)); 
-  spawns.push(block); 
-  renderScene(); 
-}
 
+    // else create the cube 
+    g_map[boundX][boundZ] = 2; 
+    const block = new Cube(); 
+    block.textureNum = 3; 
+    block.matrix.translate(boundX - 16.5, -0.85, boundZ + (-16.5)); 
+    spawns.push(block); 
+    renderScene(); 
+  }
+
+
+  // TO DO: FIX 
 function deleteBlocks(camera) {
   const d = camera.getForward(); 
 
   const [x, z] = [camera.eye.elements[0] + d.elements[0], camera.eye.elements[2] + d.elements[2]];
 
-  const boundX = Math.floor(Math.abs(x + 16)); 
+  const boundX = Math.floor(Math.abs(x + 16.5)); 
   const boundZ = Math.floor(Math.abs(z + 17)); 
+  console.log("Original x:", x);
+  console.log("Original z:", z);
+  console.log("BoundX:", boundX);
+  console.log("BoundZ:", boundZ);
+
 
   if (boundX >= g_map.length || boundZ >= g_map[boundX].length || g_map[boundX][boundZ] === 0) {
     return; 
   }
-  
-  g_map[boundX][boundZ] = 0; 
+  console.log(x);
+  console.log(z);
 
-  spawns = spawns.filter(block => {
-    const [blockX, y, blockZ] = block.matrix.elements;
-    return !(Math.floor(blockX) === boundX - 16.5 && Math.floor(blockZ) === boundZ + 0);
-  });
-  
+  console.log(boundX);
+  console.log(boundZ);
+  g_map[boundX][boundZ] = 0; 
 
   renderScene(); 
 }
-
 
 
 
@@ -549,9 +553,12 @@ function keydown(ev) {
       case "l":
         addBlocks(g_camera); 
         break;
-      case "x":
+      case "p":
         // spawns = [];  
         deleteBlocks(g_camera);   
+        break;
+      case "x":
+        spawns = [];  
         break;
   }
   renderScene();
@@ -748,6 +755,12 @@ function renderScene() {
   skybox.matrix.translate(-.5, -.5, -.5);
   skybox.render();
 
+  var bunny = new Cube();
+  bunny.color = [1.0, 0.0, 0.0, 1.0]; 
+  bunny.textureNum=0;  
+  bunny.matrix.scale(1, 1, 1); 
+  bunny.matrix.translate(-.5, -.5, -.5);
+  bunny.render();
 
   for (let i = 0; i < spawns.length; i++) {
     spawns[i].render();
@@ -756,6 +769,20 @@ function renderScene() {
 
   var duration = performance.now() - startTime;
   sendTextToHTML(" ms: " + Math.floor(duration) + " fps: " + Math.floor(10000/duration), "numdot");
+}
+
+var g_timerRunning = false;
+var g_startTime = 0;
+var g_elapsedTime = 0;
+
+function startTimer() {
+    g_timerRunning = true;
+    g_startTime = performance.now();
+}
+
+function stopTimer() {
+    g_timerRunning = false;
+    g_elapsedTime = performance.now() - g_startTime;
 }
 
 function sendTextToHTML(text, htmlID){
