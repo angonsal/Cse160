@@ -115,7 +115,7 @@ function initTextures(gl, n) {
   }
   // Register the event handler to be called on loading an image
   image.onload = function(){ sendTexture(image); };
-  image.src = '../resources/sky1.jpeg';
+  image.src = '../resources/meme.jpeg';
 
 
   var image2 = new Image();  // Create the image object
@@ -375,14 +375,7 @@ function addActionsHTMLUI(){
   // document.getElementById("on2").onclick = function() {g_animation2 = true};
   document.getElementById("reset").addEventListener('click', function() {
     // Reset camera position and orientation
-    eye.elements = [0, 0.2, -14];
-    at.elements = [0, 0, 0];
-    up.elements = [0, 1, 0];
-    g_globalAngle = 0;
-    spawns = []; 
-    // holdX = 0;
-    // holdY = 0;
-    renderScene();
+    g_animation1 = true;
     
 });
 
@@ -479,16 +472,16 @@ function deleteBlocks(camera) {
     return;
   }
   
-  console.log("Original x:", x);
-  console.log("Original z:", z);
-  console.log("BoundX:", boundX);
-  console.log("BoundZ:", boundZ);
+  // console.log("Original x:", x);
+  // console.log("Original z:", z);
+  // console.log("BoundX:", boundX);
+  // console.log("BoundZ:", boundZ);
   
-  console.log(x);
-  console.log(z);
+  // console.log(x);
+  // console.log(z);
 
-  console.log(boundX);
-  console.log(boundZ);
+  // console.log(boundX);
+  // console.log(boundZ);
   g_map[boundX][boundZ] = 0; 
 
   renderScene(); 
@@ -500,11 +493,12 @@ function deleteBlocks(camera) {
 
 function updateAnimationAngles(){
   if(g_animation1){
-    g_joint_A = (45*Math.sin(g_seconds));
+    g_joint_A = (8*Math.sin(g_seconds));
+    g_joint_B = (-8*Math.sin(g_seconds));
   }
-  if(g_animation2){
-    g_joint_B = (45*Math.sin(g_seconds));
-  } 
+  // if(g_animation2){
+  //   g_joint_B = (-8*Math.sin(g_seconds));
+  // } 
 
 }
 
@@ -756,12 +750,23 @@ function renderScene() {
   skybox.matrix.translate(-.5, -.5, -.5);
   skybox.render();
 
-  var bunny = new Cube();
-  bunny.color = [1.0, 0.0, 0.0, 1.0]; 
-  bunny.textureNum=0;  
-  bunny.matrix.scale(1, 1, 1); 
-  bunny.matrix.translate(-.5, -.5, -.5);
-  bunny.render();
+  var meme = new Cube();
+  meme.color = [1.0, 0.0, 0.0, 1.0]; 
+  meme.textureNum=0;  
+  meme.matrix.scale(5, 5, 0.1); 
+  meme.matrix.translate(-1, 0.35, 5);
+  meme.matrix.rotate(-g_joint_A,0,0,1);
+  meme.matrix.translate(-g_joint_A, -.5, -0.5);
+  meme.render();
+
+  var meme1 = new Cube();
+  meme1.color = [1.0, 0.0, 0.0, 1.0]; 
+  meme1.textureNum=0;  
+  meme1.matrix.scale(5, 5, 0.1); 
+  meme1.matrix.translate(-2.5, 0.35, 28);
+  meme1.matrix.rotate(-g_joint_B,0,0,1);
+  meme1.matrix.translate(-g_joint_B, -.5, 5);
+  meme1.render();
 
   for (let i = 0; i < spawns.length; i++) {
     spawns[i].render();
