@@ -1,10 +1,12 @@
 class Camera {
     constructor() {
         this.type = "Camera";
-        this.eye = new Vector3([0, 0.5, -14]);
+        this.eye = new Vector3([0, 0.2, -14]);
         this.at = new Vector3([0, 0, 0]);
         this.up = new Vector3([0, 1, 0]);
-        this.move = 0.8;
+        this.move = 0.9;
+        this.move1 = 0.2;
+    
     }
     // FROM 3.6B video: 
 
@@ -24,6 +26,13 @@ class Camera {
 
         // Debug
         // console.log("FORWARDS");
+    }
+    getForward(){
+        let d = new Vector3();
+        d.set(this.at);
+        d.sub(this.eye);
+        d.normalize();
+        return d; 
     }
 
     // Move the camera backward
@@ -49,7 +58,7 @@ class Camera {
         d.set(this.at);
         d.sub(this.eye);
         d.normalize();
-        d.mul(this.move);
+        d.mul(this.move1);
         let s = Vector3.cross(this.up, d);
         this.at.add(s);
         this.eye.add(s);
@@ -63,7 +72,7 @@ class Camera {
         d.set(this.eye);
         d.sub(this.at);
         d.normalize();
-        d.mul(this.move);
+        d.mul(this.move1);
         let s = Vector3.cross(this.up, d);
         this.at.add(s);
         this.eye.add(s);
@@ -99,7 +108,7 @@ class Camera {
         d.elements[0] = radius * Math.cos(theta);
         d.elements[2] = radius * Math.sin(theta);
         this.at.set(d);
-        this.at.add(this.eye);
+        this.at.add(d);
         
     }
 
@@ -116,9 +125,9 @@ class Camera {
         d.elements[0] = radius * Math.cos(theta);
         d.elements[2] = radius * Math.sin(theta);
         this.at.set(d);
-        this.at.add(this.eye);
-        
+        this.at.add(d);
     }
+
 
     // Turn camera up
     turnUp() {
