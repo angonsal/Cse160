@@ -471,7 +471,7 @@ function deleteBlocks(camera) {
 
   const [x, z] = [camera.eye.elements[0] + d.elements[0], camera.eye.elements[2] + d.elements[2]];
 
-  const boundX = Math.floor(Math.abs(x + 16.5)); 
+  const boundX = Math.floor(Math.abs(x - 16.5)); 
   const boundZ = Math.floor(Math.abs(z + 17)); 
 
   if (g_map[boundX][boundZ] !== 1) {
@@ -716,7 +716,7 @@ var at = g_camera.at;
 var up = g_camera.up;
 
 let poorJosh = false;
-let alive = true;
+let oops = false;
 
 function renderScene() {
   var startTime = performance.now();
@@ -771,23 +771,23 @@ function renderScene() {
   // console.log( Math.round(meme.matrix.elements[12]));
   meme.render();
 
-  // var meme1 = new Cube();
-  // meme1.color = [1.0, 0.0, 0.0, 1.0]; 
-  // meme1.textureNum=0;  
-  // meme1.matrix.scale(5, 5, 0.1); 
-  // meme1.matrix.translate(-2.5, 0.35, 28);
-  // meme1.matrix.rotate(-g_joint_B,0,0,1);
-  // meme1.matrix.translate(-g_joint_B, -.5, 5);
-  // meme1.render();
+  var meme1 = new Cube();
+  meme1.color = [1.0, 0.0, 0.0, 1.0]; 
+  meme1.textureNum=0;  
+  meme1.matrix.scale(5, 5, 0.1); 
+  meme1.matrix.translate(-2.5, 0.35, 28);
+  meme1.matrix.rotate(-g_joint_B,0,0,1);
+  meme1.matrix.translate(-g_joint_B, -.5, 5);
+  meme1.render();
 
-  // var meme2 = new Cube();
-  // meme2.color = [1.0, 0.0, 0.0, 1.0]; 
-  // meme2.textureNum=0;  
-  // meme2.matrix.scale(5, 5, 0.1); 
-  // meme2.matrix.translate(-1.75, 0.35, 40);
-  // meme2.matrix.rotate(-g_joint_C,0,0,1);
-  // meme2.matrix.translate(-g_joint_C, -.5, 5);
-  // meme2.render();
+  var meme2 = new Cube();
+  meme2.color = [1.0, 0.0, 0.0, 1.0]; 
+  meme2.textureNum=0;  
+  meme2.matrix.scale(5, 5, 0.1); 
+  meme2.matrix.translate(-1.75, 0.35, 40);
+  meme2.matrix.rotate(-g_joint_C,0,0,1);
+  meme2.matrix.translate(-g_joint_C, -.5, 5);
+  meme2.render();
 
 
   for (let i = 0; i < spawns.length; i++) {
@@ -796,26 +796,34 @@ function renderScene() {
 
   // console.log(meme.matrix.elements, ":CHECK"); 
   if (!poorJosh) {
-    var threshholdZ = 0.01;
-    var threshholdX = 0.5;
+    var threshholdZ = 0.1;
+    var threshholdX = 0.8;
     var cameraZpos =  Math.round(g_camera.eye.elements[2]); 
-    var meme1Z = Math.round(meme.matrix.elements[14]); 
     var cameraXpos = Math.round(g_camera.eye.elements[0]); 
+    var meme1Z = Math.round(meme.matrix.elements[14]); 
     var meme1X = Math.round(meme.matrix.elements[12]); 
+    var meme2Z = Math.round(meme1.matrix.elements[14]); 
+    var meme2X = Math.round(meme1.matrix.elements[12]); 
+    var meme3Z = Math.round(meme2.matrix.elements[14]); 
+    var meme3X = Math.round(meme2.matrix.elements[12]); 
 
     // console.log(cameraZpos, meme1Z, cameraXpos, meme1X); 
      if (Math.abs(cameraZpos) - Math.abs(meme1Z) <= Math.abs(threshholdZ) && Math.abs(cameraXpos) - Math.abs(meme1X) <= Math.abs(threshholdX)){
-        console.log("YIPPEE");   
-        alive = false; 
+        console.log("YIPPEE"); 
+        //alert("You died and built: ", blockCount, "blocks.");
+        oops = true;   
+    
     }
-}
-
-function reset(){
-  spawns = []; 
-  g_camera.eye = ([0, 0.2, -14]);
-  g_camera.at = ([0, 0, 0]);
-  g_camera.up =  ([0, 1, 0]);
-
+    if (Math.abs(cameraZpos) - Math.abs(meme2Z) <= Math.abs(threshholdZ) && Math.abs(cameraXpos) - Math.abs(meme2X) <= Math.abs(threshholdX)){
+      console.log("YIPPEE");  
+      oops = true;    
+      // alert("You died and built: ", blockCount, "blocks.");
+    }
+    if (Math.abs(cameraZpos) - Math.abs(meme3Z) <= Math.abs(threshholdZ) && Math.abs(cameraXpos) - Math.abs(meme3X) <= Math.abs(threshholdX)){
+      console.log("YIPPEE"); 
+      oops = true;     
+      // alert("You died and built: ", blockCount, "blocks.");
+    }
 }
 
 
@@ -823,9 +831,6 @@ function reset(){
   sendTextToHTML(" ms: " + Math.floor(duration) + " fps: " + Math.floor(10000/duration), "numdot");
 }
 
-if (alive = false){ 
-  alert("You died and built: ", blockCount, "blocks.");
-}
 
 
 // function startTimer() {
