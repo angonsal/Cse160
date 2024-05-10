@@ -356,6 +356,7 @@ let g_selectedSegment = 10;
 let g_globalAngle = 0;
 let g_joint_A = 0;
 let g_joint_B = 0;
+let g_joint_C = 0; 
 let g_animation1 = false; 
 let g_animation2 = false; 
 
@@ -432,8 +433,9 @@ function tick(){
 
   requestAnimationFrame(tick);
 }
-let spawns = []
 
+let blockCount = 0; 
+let spawns = []; 
 
 function addBlocks(camera) {
   const d = camera.getForward(); 
@@ -454,8 +456,12 @@ function addBlocks(camera) {
     const block = new Cube(); 
     block.textureNum = 3; 
     block.matrix.translate(boundX - 16.5, -0.85, boundZ + (-16.5)); 
-    spawns.push(block); 
+    spawns.push(block);
+    blockCount += 1; 
+    console.log("Block Count", blockCount); 
     renderScene(); 
+
+
   }
 
 
@@ -494,7 +500,9 @@ function deleteBlocks(camera) {
 function updateAnimationAngles(){
   if(g_animation1){
     g_joint_A = (8*Math.sin(g_seconds));
-    g_joint_B = (-8*Math.sin(g_seconds));
+    g_joint_B = (-2*Math.sin(g_seconds));
+    g_joint_C = (4*Math.sin(g_seconds));
+
   }
   // if(g_animation2){
   //   g_joint_B = (-8*Math.sin(g_seconds));
@@ -707,6 +715,9 @@ var eye = g_camera.eye;
 var at = g_camera.at;
 var up = g_camera.up;
 
+let poorJosh = false;
+let alive = true;
+
 function renderScene() {
   var startTime = performance.now();
 
@@ -716,8 +727,6 @@ function renderScene() {
   var viewMat = new Matrix4();
   viewMat.setLookAt(eye.elements[0], eye.elements[1], eye.elements[2], at.elements[0], at.elements[1], at.elements[2], up.elements[0], up.elements[1], up.elements[2]);
   gl.uniformMatrix4fv(u_ViewMatrix, false, viewMat.elements);
-  // console.log("Eye coordinates:", eye[0]);
-
 
   // Update other matrices as needed
   var projMat = new Matrix4();
@@ -731,7 +740,6 @@ function renderScene() {
 
   // Clear <canvas>
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-
 
   drawMap();
   //draw floor
@@ -757,39 +765,78 @@ function renderScene() {
   meme.matrix.translate(-1, 0.35, 5);
   meme.matrix.rotate(-g_joint_A,0,0,1);
   meme.matrix.translate(-g_joint_A, -.5, -0.5);
+  // console.log(Math.round(g_camera.eye.elements[2])); 
+  // console.log( Math.round(meme.matrix.elements[14]));
+  // console.log(Math.round(g_camera.eye.elements[0])); 
+  // console.log( Math.round(meme.matrix.elements[12]));
   meme.render();
 
-  var meme1 = new Cube();
-  meme1.color = [1.0, 0.0, 0.0, 1.0]; 
-  meme1.textureNum=0;  
-  meme1.matrix.scale(5, 5, 0.1); 
-  meme1.matrix.translate(-2.5, 0.35, 28);
-  meme1.matrix.rotate(-g_joint_B,0,0,1);
-  meme1.matrix.translate(-g_joint_B, -.5, 5);
-  meme1.render();
+  // var meme1 = new Cube();
+  // meme1.color = [1.0, 0.0, 0.0, 1.0]; 
+  // meme1.textureNum=0;  
+  // meme1.matrix.scale(5, 5, 0.1); 
+  // meme1.matrix.translate(-2.5, 0.35, 28);
+  // meme1.matrix.rotate(-g_joint_B,0,0,1);
+  // meme1.matrix.translate(-g_joint_B, -.5, 5);
+  // meme1.render();
+
+  // var meme2 = new Cube();
+  // meme2.color = [1.0, 0.0, 0.0, 1.0]; 
+  // meme2.textureNum=0;  
+  // meme2.matrix.scale(5, 5, 0.1); 
+  // meme2.matrix.translate(-1.75, 0.35, 40);
+  // meme2.matrix.rotate(-g_joint_C,0,0,1);
+  // meme2.matrix.translate(-g_joint_C, -.5, 5);
+  // meme2.render();
+
 
   for (let i = 0; i < spawns.length; i++) {
     spawns[i].render();
   }
+
+  // console.log(meme.matrix.elements, ":CHECK"); 
+  if (!poorJosh) {
+    var threshholdZ = 0.01;
+    var threshholdX = 0.5;
+    var cameraZpos =  Math.round(g_camera.eye.elements[2]); 
+    var meme1Z = Math.round(meme.matrix.elements[14]); 
+    var cameraXpos = Math.round(g_camera.eye.elements[0]); 
+    var meme1X = Math.round(meme.matrix.elements[12]); 
+
+    // console.log(cameraZpos, meme1Z, cameraXpos, meme1X); 
+     if (Math.abs(cameraZpos) - Math.abs(meme1Z) <= Math.abs(threshholdZ) && Math.abs(cameraXpos) - Math.abs(meme1X) <= Math.abs(threshholdX)){
+        console.log("YIPPEE");   
+        alive = false; 
+    }
+}
+
+function reset(){
+  spawns = []; 
+  g_camera.eye = ([0, 0.2, -14]);
+  g_camera.at = ([0, 0, 0]);
+  g_camera.up =  ([0, 1, 0]);
+
+}
 
 
   var duration = performance.now() - startTime;
   sendTextToHTML(" ms: " + Math.floor(duration) + " fps: " + Math.floor(10000/duration), "numdot");
 }
 
-var g_timerRunning = false;
-var g_startTime = 0;
-var g_elapsedTime = 0;
-
-function startTimer() {
-    g_timerRunning = true;
-    g_startTime = performance.now();
+if (alive = false){ 
+  alert("You died and built: ", blockCount, "blocks.");
 }
 
-function stopTimer() {
-    g_timerRunning = false;
-    g_elapsedTime = performance.now() - g_startTime;
-}
+
+// function startTimer() {
+//     g_timerRunning = true;
+//     g_startTime = performance.now();
+// }
+
+// function stopTimer() {
+//     g_timerRunning = false;
+//     g_elapsedTime = performance.now() - g_startTime;
+// }
 
 function sendTextToHTML(text, htmlID){
   var htmlElm = document.getElementById(htmlID); 
