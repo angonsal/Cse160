@@ -701,7 +701,7 @@ function drawMap(){
       if (g_map[x][y] == 1){
         var body = new Cube(); 
         body.textureNum = 2; 
-        body.matrix.translate(15.5 - x, -0.73, -15.5+ y); 
+        body.matrix.translate(15 - x, -0.7, -15+ y); 
         body.matrix.scale(1, 0.9, 1); 
         body.render(); 
       }
@@ -716,7 +716,7 @@ var at = g_camera.at;
 var up = g_camera.up;
 
 let poorJosh = false;
-let oops = false;
+var oops = false; 
 
 function renderScene() {
   var startTime = performance.now();
@@ -807,23 +807,39 @@ function renderScene() {
     var meme3Z = Math.round(meme2.matrix.elements[14]); 
     var meme3X = Math.round(meme2.matrix.elements[12]); 
 
+    // this.eye = new Vector3([0, 0.2, -12]);
+    // this.at = new Vector3([0, 0, 0]);
+    // this.up = new Vector3([0, 1, 0]);
+
+
     // console.log(cameraZpos, meme1Z, cameraXpos, meme1X); 
      if (Math.abs(cameraZpos) - Math.abs(meme1Z) <= Math.abs(threshholdZ) && Math.abs(cameraXpos) - Math.abs(meme1X) <= Math.abs(threshholdX)){
-        console.log("YIPPEE"); 
-        //alert("You died and built: ", blockCount, "blocks.");
-        oops = true;   
-    
+        // console.log("YIPPEE"); 
+
+        if (oops == false){
+          oops = true;
+          alert("YOU DIED");
+          window.location.reload(true);
+        }
+      
     }
     if (Math.abs(cameraZpos) - Math.abs(meme2Z) <= Math.abs(threshholdZ) && Math.abs(cameraXpos) - Math.abs(meme2X) <= Math.abs(threshholdX)){
-      console.log("YIPPEE");  
-      oops = true;    
-      // alert("You died and built: ", blockCount, "blocks.");
+      if (oops == false){
+        oops = true;
+        alert("YOU DIED");
+        window.location.reload(true);
+      }
+     
     }
     if (Math.abs(cameraZpos) - Math.abs(meme3Z) <= Math.abs(threshholdZ) && Math.abs(cameraXpos) - Math.abs(meme3X) <= Math.abs(threshholdX)){
-      console.log("YIPPEE"); 
-      oops = true;     
-      // alert("You died and built: ", blockCount, "blocks.");
+      if (oops == false){
+        oops = true;
+        alert("YOU DIED");
+        window.location.reload(true);
+      }
+      
     }
+    
 }
 
 
@@ -831,17 +847,8 @@ function renderScene() {
   sendTextToHTML(" ms: " + Math.floor(duration) + " fps: " + Math.floor(10000/duration), "numdot");
 }
 
+// console.log("OOPS:", oops); 
 
-
-// function startTimer() {
-//     g_timerRunning = true;
-//     g_startTime = performance.now();
-// }
-
-// function stopTimer() {
-//     g_timerRunning = false;
-//     g_elapsedTime = performance.now() - g_startTime;
-// }
 
 function sendTextToHTML(text, htmlID){
   var htmlElm = document.getElementById(htmlID); 

@@ -60,7 +60,7 @@
   </style>
     
   </head>
-
+  <h1> Ashley Gonsalves</h1>
   <body onload="main()">
     <canvas id="webgl" width="700" height="700">
     Please use a browser that supports "canvas"
@@ -70,17 +70,19 @@
     <p id = "numdot"> XXX </p>
    
 
-    <button type="button" id="reset">I found it!</button>
-    <!-- <button type="button" id="addBlockBtn">Add</button>
-    <button type="button" id="deleteBlockBtn">Delete</button> -->
+    <button type="button" id="reset">Start</button>
+    <audio id="rawr">
+      <source src="resources/metalGear.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+    
 
     
     <p>
     <div class="instructions">
-      <p>Welcome! Try to find the bunny, he keeps running away :0! Once you find it, click the 'I found it!' button. He may 
-      or may not run away again...</p>
+      <p>Welcome! Try to build the garden without getting touched by the monster! Delete all the grassy blocks and replace them with the magical blocks. </p>
       
-      <p>To navigate: 
+      <p>To navigate: W - Forward, A - Left, S - Backwards, - D - Right; To look up or down, press the up or down arrows. To Place a block, press "L". To delete block, press "P". To erase all blocks created by you, press "X". 
 
       </p>
 
@@ -104,7 +106,7 @@
     <script src="Cube.js"></script>
     <script src="Pyramid.js"></script>
     <script src="Camera.js"></script>
-    <script src="OBJLoader.js"></script>
+    <!-- <script src="OBJLoader.js"></script> -->
     <script src="virtualWorld.js"></script>
 
 
