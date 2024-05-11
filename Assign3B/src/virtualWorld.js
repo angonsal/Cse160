@@ -377,6 +377,8 @@ function addActionsHTMLUI(){
   document.getElementById("reset").addEventListener('click', function() {
     // Reset camera position and orientation
     g_animation1 = true;
+    var audio = document.getElementById("rizz");
+    audio.play();
     
 });
 
@@ -499,9 +501,9 @@ function deleteBlocks(camera) {
 
 function updateAnimationAngles(){
   if(g_animation1){
-    g_joint_A = (8*Math.sin(g_seconds));
+    g_joint_A = (1*Math.sin(g_seconds));
     g_joint_B = (-2*Math.sin(g_seconds));
-    g_joint_C = (4*Math.sin(g_seconds));
+    g_joint_C = (10*Math.sin(g_seconds));
 
   }
   // if(g_animation2){
@@ -561,7 +563,9 @@ function keydown(ev) {
         deleteBlocks(g_camera);   
         break;
       case "x":
-        spawns = [];  
+        spawns = []; 
+        var audio = document.getElementById("yeet");
+        audio.play();
         break;
   }
   renderScene();
@@ -771,14 +775,14 @@ function renderScene() {
   // console.log( Math.round(meme.matrix.elements[12]));
   meme.render();
 
-  var meme1 = new Cube();
-  meme1.color = [1.0, 0.0, 0.0, 1.0]; 
-  meme1.textureNum=0;  
-  meme1.matrix.scale(5, 5, 0.1); 
-  meme1.matrix.translate(-2.5, 0.35, 28);
-  meme1.matrix.rotate(-g_joint_B,0,0,1);
-  meme1.matrix.translate(-g_joint_B, -.5, 5);
-  meme1.render();
+  // var meme1 = new Cube();
+  // meme1.color = [1.0, 0.0, 0.0, 1.0]; 
+  // meme1.textureNum=0;  
+  // meme1.matrix.scale(5, 5, 0.1); 
+  // meme1.matrix.translate(-2.5, 0.35, 28);
+  // meme1.matrix.rotate(-g_joint_B,0,0,1);
+  // meme1.matrix.translate(-g_joint_B, -.5, 5);
+  // meme1.render();
 
   var meme2 = new Cube();
   meme2.color = [1.0, 0.0, 0.0, 1.0]; 
@@ -796,14 +800,14 @@ function renderScene() {
 
   // console.log(meme.matrix.elements, ":CHECK"); 
   if (!poorJosh) {
-    var threshholdZ = 0.1;
-    var threshholdX = 0.8;
+    var threshholdZ = 2;
+    var threshholdX = 2;
     var cameraZpos =  Math.round(g_camera.eye.elements[2]); 
     var cameraXpos = Math.round(g_camera.eye.elements[0]); 
     var meme1Z = Math.round(meme.matrix.elements[14]); 
     var meme1X = Math.round(meme.matrix.elements[12]); 
-    var meme2Z = Math.round(meme1.matrix.elements[14]); 
-    var meme2X = Math.round(meme1.matrix.elements[12]); 
+    // var meme2Z = Math.round(meme1.matrix.elements[14]); 
+    // var meme2X = Math.round(meme1.matrix.elements[12]); 
     var meme3Z = Math.round(meme2.matrix.elements[14]); 
     var meme3X = Math.round(meme2.matrix.elements[12]); 
 
@@ -811,34 +815,35 @@ function renderScene() {
     // this.at = new Vector3([0, 0, 0]);
     // this.up = new Vector3([0, 1, 0]);
 
-
     // console.log(cameraZpos, meme1Z, cameraXpos, meme1X); 
      if (Math.abs(cameraZpos) - Math.abs(meme1Z) <= Math.abs(threshholdZ) && Math.abs(cameraXpos) - Math.abs(meme1X) <= Math.abs(threshholdX)){
         // console.log("YIPPEE"); 
-
+        var audio = document.getElementById("rawr");
+        audio.play();
         if (oops == false){
           oops = true;
-          alert("YOU DIED");
+          
+          alert("YOU DIED: " + blockCount + " BLOCKS BUILT");
           window.location.reload(true);
         }
       
     }
-    if (Math.abs(cameraZpos) - Math.abs(meme2Z) <= Math.abs(threshholdZ) && Math.abs(cameraXpos) - Math.abs(meme2X) <= Math.abs(threshholdX)){
-      if (oops == false){
-        oops = true;
-        alert("YOU DIED");
-        window.location.reload(true);
-      }
+    // if (Math.abs(cameraZpos) - Math.abs(meme2Z) <= Math.abs(threshholdZ) && Math.abs(cameraXpos) - Math.abs(meme2X) <= Math.abs(threshholdX)){
+    //   if (oops == false){
+    //     oops = true;
+    //     alert("YOU DIED");
+    //     window.location.reload(true);
+    //   }
      
-    }
-    if (Math.abs(cameraZpos) - Math.abs(meme3Z) <= Math.abs(threshholdZ) && Math.abs(cameraXpos) - Math.abs(meme3X) <= Math.abs(threshholdX)){
-      if (oops == false){
-        oops = true;
-        alert("YOU DIED");
-        window.location.reload(true);
-      }
-      
-    }
+    // }
+    // if (Math.abs(cameraZpos) - Math.abs(meme3Z) <= Math.abs(threshholdZ) && Math.abs(cameraXpos) - Math.abs(meme3X) <= Math.abs(threshholdX)){
+    //   if (oops == false){
+    //     oops = true;
+    //     alert("YOU DIED");
+    //     window.location.reload(true);
+    //   }
+
+    // }
     
 }
 
