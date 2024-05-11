@@ -98,7 +98,7 @@ class Camera {
     // d = (newX, newY)
 
     // atan not working
-    // "Math.atan2() is passed separate x and y arguments, 
+    // Googled it: "Math.atan2() is passed separate x and y arguments, 
     // while Math.atan() is passed the ratio of those two arguments. 
     // Math.atan2(y, x) differs from Math.atan(y / x) in the following cases"
 
