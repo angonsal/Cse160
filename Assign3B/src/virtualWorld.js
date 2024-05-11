@@ -473,7 +473,7 @@ function deleteBlocks(camera) {
 
   const [x, z] = [camera.eye.elements[0] + d.elements[0], camera.eye.elements[2] + d.elements[2]];
 
-  const boundX = Math.floor(Math.abs(x - 16.5)); 
+  const boundX = Math.floor(Math.abs(x - 16)); 
   const boundZ = Math.floor(Math.abs(z + 17)); 
 
   if (g_map[boundX][boundZ] !== 1) {
@@ -564,6 +564,7 @@ function keydown(ev) {
         break;
       case "x":
         spawns = []; 
+        blockCount = 0; 
         var audio = document.getElementById("yeet");
         audio.play();
         break;
@@ -822,7 +823,6 @@ function renderScene() {
         audio.play();
         if (oops == false){
           oops = true;
-          
           alert("YOU DIED: " + blockCount + " BLOCKS BUILT");
           window.location.reload(true);
         }
@@ -850,6 +850,7 @@ function renderScene() {
 
   var duration = performance.now() - startTime;
   sendTextToHTML(" ms: " + Math.floor(duration) + " fps: " + Math.floor(10000/duration), "numdot");
+  sendTextToHTML(" Blocks Made: "+ blockCount, "count");
 }
 
 // console.log("OOPS:", oops); 
