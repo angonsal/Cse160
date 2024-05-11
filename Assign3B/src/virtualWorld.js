@@ -24,6 +24,11 @@ var FSHADER_SOURCE = `
   uniform sampler2D u_Sampler1;
   uniform sampler2D u_Sampler2; 
   uniform sampler2D u_Sampler3; 
+  uniform sampler2D u_Sampler4;  
+  uniform sampler2D u_Sampler5; 
+  uniform sampler2D u_Sampler6; 
+
+
 
  
  
@@ -47,6 +52,15 @@ var FSHADER_SOURCE = `
     else if (u_whichTexture == 3) {
       gl_FragColor = texture2D(u_Sampler3, v_UV); 
     }
+    else if (u_whichTexture == 4) {
+      gl_FragColor = texture2D(u_Sampler4, v_UV); 
+    }
+    else if (u_whichTexture == 5) {
+      gl_FragColor = texture2D(u_Sampler5, v_UV); 
+    }
+    else if (u_whichTexture == 6) {
+      gl_FragColor = texture2D(u_Sampler6, v_UV); 
+    }
     else{
       gl_FragColor = vec4(1,.2,.2,1); 
     }
@@ -66,6 +80,9 @@ let u_Sampler0;
 let u_Sampler1; 
 let u_Sampler2; 
 let u_Sampler3; 
+let u_Sampler4;
+let u_Sampler5; 
+
 let u_whichTexture; 
 
 
@@ -108,6 +125,22 @@ function initTextures(gl, n) {
     console.log('Failed to get the storage location of u_Sampler3');
     return false;
   }
+  var u_Sampler4 = gl.getUniformLocation(gl.program, 'u_Sampler4');
+  if (!u_Sampler4) {
+    console.log('Failed to get the storage location of u_Sampler4');
+    return false;
+  }
+  var u_Sampler5 = gl.getUniformLocation(gl.program, 'u_Sampler5');
+  if (!u_Sampler5) {
+    console.log('Failed to get the storage location of u_Sampler5');
+    return false;
+  }
+  var u_Sampler6 = gl.getUniformLocation(gl.program, 'u_Sampler6');
+  if (!u_Sampler6) {
+    console.log('Failed to get the storage location of u_Sampler6');
+    return false;
+  }
+  
   var image = new Image();  // Create the image object
   if (!image) {
     console.log('Failed to create the image object');
@@ -144,6 +177,34 @@ function initTextures(gl, n) {
 
   image4.onload = function(){ sendTexture3(image4); }
   image4.src = '../resources/stars.png';
+
+  var image5 = new Image();  // Create the image object
+  if (!image5) {
+    console.log('Failed to create the image object');
+    return false;
+  }
+
+  image5.onload = function(){ sendTexture4(image5); }
+  image5.src = '../resources/garden.png';
+
+  var image6 = new Image();  // Create the image object
+  if (!image6) {
+    console.log('Failed to create the image object');
+    return false;
+  }
+
+  image6.onload = function(){ sendTexture5(image6); }
+  image6.src = '../resources/wood.jpeg';
+
+  var image7 = new Image();  // Create the image object
+  if (!image6) {
+    console.log('Failed to create the image object');
+    return false;
+  }
+
+  image7.onload = function(){ sendTexture6(image7); }
+  image7.src = '../resources/daisy.png';
+
 
 
 
@@ -248,6 +309,78 @@ function sendTexture3(image){
 }
 
 
+function sendTexture4(image) {
+  var texture = gl.createTexture();   // Create a texture object
+  if (!texture) {
+    console.log('Failed to create the texture object');
+    return false;
+  }
+
+  gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1); // Flip the image's y axis
+  // Enable texture unit0
+  gl.activeTexture(gl.TEXTURE4);
+
+  // Bind the texture object to the target
+  gl.bindTexture(gl.TEXTURE_2D, texture);
+
+  // Set the texture parameters
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+  // Set the texture image
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, image);
+  
+  // Set the texture unit 0 to the sampler
+  gl.uniform1i(u_Sampler4, 4);
+  
+}
+
+function sendTexture5(image) {
+  var texture = gl.createTexture();   // Create a texture object
+  if (!texture) {
+    console.log('Failed to create the texture object');
+    return false;
+  }
+
+  gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1); // Flip the image's y axis
+  // Enable texture unit0
+  gl.activeTexture(gl.TEXTURE5);
+
+  // Bind the texture object to the target
+  gl.bindTexture(gl.TEXTURE_2D, texture);
+
+  // Set the texture parameters
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+  // Set the texture image
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, image);
+  
+  // Set the texture unit 0 to the sampler
+  gl.uniform1i(u_Sampler5, 5);
+
+}
+
+function sendTexture6(image) {
+  var texture = gl.createTexture();   // Create a texture object
+  if (!texture) {
+    console.log('Failed to create the texture object');
+    return false;
+  }
+
+  gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1); // Flip the image's y axis
+  // Enable texture unit0
+  gl.activeTexture(gl.TEXTURE6);
+
+  // Bind the texture object to the target
+  gl.bindTexture(gl.TEXTURE_2D, texture);
+
+  // Set the texture parameters
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+  // Set the texture image
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, image);
+  
+  // Set the texture unit 0 to the sampler
+  gl.uniform1i(u_Sampler6, 6);
+
+}
+
 
 function connectVariablesToGLSL(){
   // Initialize shaders
@@ -330,6 +463,21 @@ function connectVariablesToGLSL(){
       console.log('Failed to get the storage location of u_Sampler3');
       return false;
   }
+  u_Sampler4 = gl.getUniformLocation(gl.program, 'u_Sampler4');
+  if (!u_Sampler4) {
+      console.log('Failed to get the storage location of u_Sampler4');
+      return false;
+  }
+  u_Sampler5 = gl.getUniformLocation(gl.program, 'u_Sampler5');
+  if (!u_Sampler5) {
+      console.log('Failed to get the storage location of u_Sampler5');
+      return false;
+  }
+  u_Sampler6 = gl.getUniformLocation(gl.program, 'u_Sampler6');
+  if (!u_Sampler6) {
+      console.log('Failed to get the storage location of u_Sampler6');
+      return false;
+  }
 
   var identityM = new Matrix4(); 
   gl.uniformMatrix4fv(u_ModelMatrix, false, identityM.elements);
@@ -379,6 +527,8 @@ function addActionsHTMLUI(){
     g_animation1 = true;
     var audio = document.getElementById("rizz");
     audio.play();
+    var audio2 = document.getElementById("roll");
+    audio2.play();
     
 });
 
@@ -454,9 +604,9 @@ function addBlocks(camera) {
   }
 
     // else create the cube 
-    g_map[boundX][boundZ] = 2; 
+    g_map[boundX][boundZ] = 3; 
     const block = new Cube(); 
-    block.textureNum = 3; 
+    block.textureNum = 4; 
     block.matrix.translate(boundX - 16.5, -0.85, boundZ + (-16.5)); 
     spawns.push(block);
     blockCount += 1; 
@@ -465,6 +615,33 @@ function addBlocks(camera) {
 
 
   }
+
+  function addBlocks2(camera) {
+    const d = camera.getForward(); 
+  
+    // gettign x and z values; no need for y because blocks only on floor  
+    const [x, z] = [camera.eye.elements[0] + d.elements[0], camera.eye.elements[2] + d.elements[2]];
+    
+    const boundX = Math.floor(Math.abs(x + 16)); 
+    const boundZ = Math.floor(Math.abs(z + 19)); 
+  
+    // return if not bounds 
+    if (g_map[boundX][boundZ] !== 0) {
+      return;
+    }
+  
+      // else create the cube 
+      g_map[boundX][boundZ] = 4; 
+      const block = new Cube(); 
+      block.textureNum = 6; 
+      block.matrix.translate(boundX - 16.5, -0.85, boundZ + (-16.5)); 
+      spawns.push(block);
+      blockCount += 1; 
+      console.log("Block Count", blockCount); 
+      renderScene(); 
+  
+  
+    }
 
 
   // TO DO: FIX 
@@ -557,6 +734,9 @@ function keydown(ev) {
         break;
       case "l":
         addBlocks(g_camera); 
+        break;
+      case "m":
+        addBlocks2(g_camera); 
         break;
       case "p":
         // spawns = [];  
@@ -665,12 +845,12 @@ function call() {
 
 var g_map = [
   [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,2,0,0,2,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,2,0,0,2,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,2,0,0,2,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,2,0,0,2,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
   [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
   [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
   [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
@@ -689,16 +869,18 @@ var g_map = [
   [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
   [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
   [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,1],
+  [1,0,0,0,0,0,0,0,0,0,0,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,1],
   [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 ];
 
-
+// double checking
+// console.log("LENGTH:", g_map.length); 
+// console.log("COLUMNS:", g_map[0].length); 
 
 function drawMap(){
   for (var x = 0; x < 32; x++){
@@ -710,8 +892,15 @@ function drawMap(){
         body.matrix.scale(1, 0.9, 1); 
         body.render(); 
       }
+      if (g_map[x][y] == 2){
+        var body = new Cube(); 
+        body.textureNum = 5; 
+        body.matrix.translate(15 - x, -0.7, -15+ y); 
+        body.matrix.scale(1, 0.2, 1); 
+        body.render();
     }
   }
+}
 }
 
 
@@ -823,7 +1012,7 @@ function renderScene() {
         audio.play();
         if (oops == false){
           oops = true;
-          alert("YOU DIED: " + blockCount + " BLOCKS BUILT");
+          alert("YOU FAILED: " + blockCount + " FLOWERS PLANTED");
           window.location.reload(true);
         }
       
@@ -850,7 +1039,7 @@ function renderScene() {
 
   var duration = performance.now() - startTime;
   sendTextToHTML(" ms: " + Math.floor(duration) + " fps: " + Math.floor(10000/duration), "numdot");
-  sendTextToHTML(" Blocks Made: "+ blockCount, "count");
+  sendTextToHTML(" Flowers Planted: "+ blockCount, "count");
 }
 
 // console.log("OOPS:", oops); 

@@ -21,6 +21,7 @@ class Camera {
         d.mul(this.move);
         this.eye.add(d);
         this.at.add(d);
+        this.eye.elements[1] = 0.2;
 
         // Debug
         // console.log("FORWARDS");
@@ -48,6 +49,7 @@ class Camera {
         d.mul(this.move);
         this.at.add(d);
         this.eye.add(d);
+        this.eye.elements[1] = 0.2;
         
     }
 
@@ -64,6 +66,7 @@ class Camera {
         let s = Vector3.cross(this.up, d);
         this.at.add(s);
         this.eye.add(s);
+        this.eye.elements[1] = 0.2;
         
     }
 
@@ -78,6 +81,7 @@ class Camera {
         let s = Vector3.cross(this.up, d);
         this.at.add(s);
         this.eye.add(s);
+        this.eye.elements[1] = 0.2;
        
     }
     // 3.6c Videos 

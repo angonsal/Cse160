@@ -6,41 +6,73 @@
     
     <!-- button font  -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=DM+Serif+Display:ital@0;1&family=Jacquard+12+Charted&family=Sofia&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=DM+Serif+Display:ital@0;1&family=Jacquard+12+Charted&display=swap" rel="stylesheet">
     <style>
       body {
-          font-family: 'Times New Roman', serif;
+          font-family:'Times New Roman', Times, serif; 
           color: #333; 
-          background-color: #dfc5e4; 
+          background-color: #f1d8f6; 
          
       }
 
       .margin-text {
           margin-left: 20px;
           margin-right: 20px;
+          margin-bottom: 40px;
       }
 
       .instructions {
             font-size: 18px;
             color: #1c0323;
-            margin-top: 10px;
+            margin-top: 60px;
             position: absolute;
             top: 0;
             left: 720px;
             right: 10px; 
+            font-family: "Sofia", cursive;
+            
         }
+      
+      .stats{
+        
+        font-family: "Sofia", cursive;
+      }
 
       h2 {
           color: #1c0323; 
+          font-family: "DM Serif Display", serif;
       }
 
       
       h3 {
           color: #1c0323;
+          font-family: "DM Serif Display", serif;
       }
      
       p {
           line-height: 1.15; 
+          font-family: "DM Serif Display", serif;
+          
       }
+
+      h1 {
+        font-family: 'Press Start 2P', cursive;
+        color: #72a98b; 
+      }
+
+      h4 {
+        font-family: "Sofia", cursive;
+        color: #587e69; 
+      }
+
+      h5{
+        font-family:'Times New Roman', Times, serif; 
+        color: #333; 
+        font-size: large;
+      }
+
+      
 
       button {
             font-family: 'Press Start 2P', cursive;
@@ -60,15 +92,16 @@
   </style>
     
   </head>
-  <h1> Ashley Gonsalves</h1>
+  <h1> Welcome to your garden!</h1>
   <body onload="main()">
     <canvas id="webgl" width="700" height="700">
     Please use a browser that supports "canvas"
     </canvas>
     <p>
-
-    <p id = "numdot"> XXX </p>
-    <p id = "count"> XXX </p>
+    <div class="stats">
+    <h4 id = "numdot"> XXX </h4>
+    <h4 id = "count"> XXX </h4>
+    </div>
    
 
     <button type="button" id="reset">Start</button>
@@ -86,14 +119,20 @@
       <source src="../resources/hehe.mp3" type="audio/mpeg">
       Your browser does not support the audio element.
     </audio>
+
+    <audio id="roll">
+      <source src="../resources/sneakyRickRoll.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
     
 
-    
     <p>
     <div class="instructions">
-      <p>Welcome! Try to build the garden without getting touched by the monster! Delete all the grassy blocks and replace them with the magical blocks. </p>
+      <h4>Welcome back to your beautiful garden! Oh no... what is going on?!! It looks like Josh Hutcherson has taken over and has destroyed all your flowers! 
+          Plant them again without getting caught by him! You can delete the grassy blocks (surrounding the area), and you can add flowers! Remember to always 
+          face Josh... Do not turn your back on him. There are some empty planter boxes in your garden... Press the 'Start' button and fill them up. </h4>
       
-      <p>To navigate: W - Forward, A - Left, S - Backwards, - D - Right; To look up or down, press the up or down arrows. To Place a block, press "L". To delete block, press "P". To erase all blocks created by you, press "X". 
+      <p>To navigate: <br> W - Forward <br> A - Left <br> S - Backwards <br> D - Right <br> To look up or down, press the up or down arrows <br> To place a lovley tulip block, press "L" <br> To place a magnificent daisy block, press "M" <br> To delete a grassy block, press "P" <br> To erase all blocks created by you, press "X". 
 
       </p>
 
@@ -101,10 +140,16 @@
 
     <div class="margin-text">
       <h2> Ashley Gonsalves</h2>
-      <p> angonsal@ucsc.edu</p>
+      <h5> angonsal@ucsc.edu</h5>
       <h3> Notes To Grader</h3>
-      <p> This assignment was really fun! I initially struggled creating the camera class, but the 3.6 videos were 
-        incredibly helpful and the only reason I was able to implememt it correctly.   </p>
+      <body> This assignment was really difficult but I ended up enjoying it. The hardest part was 
+          initially implementing the camera. Because of the 3.6 videos, I was able to figure it out. The videos
+          for this assignment were incredibly helpful. I implemented a mini game: Try to plant as many flowers as you can
+          without getting attacked by the monster (Josh Hutcherson, this was a meme back in December). I added blocks of grass and dirt
+          to surround the map. I also added some flattened wooden cubes to act as planter boxes. You can delete the outer grassy blocks
+          and you can add flowers! To make this a more relaxing and interactive game, I added music and sound effects: When you click the start button, 
+          it starts off with the Whistle song, then plays some peaceful medival music.
+        </body>
 
     </div>
 
