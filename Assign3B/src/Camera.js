@@ -1,12 +1,10 @@
 class Camera {
     constructor() {
         this.type = "Camera";
-        this.eye = new Vector3([0, 0.2, -14]);
+        this.eye = new Vector3([0, 0.2, -12]);
         this.at = new Vector3([0, 0, 0]);
         this.up = new Vector3([0, 1, 0]);
-        this.move = 0.9;
-        this.move1 = 0.2;
-    
+        this.move = 0.8;
     }
     // FROM 3.6B video: 
 
@@ -27,12 +25,16 @@ class Camera {
         // Debug
         // console.log("FORWARDS");
     }
-    getForward(){
+
+    getForward() {
         let d = new Vector3();
         d.set(this.at);
         d.sub(this.eye);
         d.normalize();
         return d; 
+
+        // Debug
+        // console.log("FORWARDS");
     }
 
     // Move the camera backward
@@ -58,7 +60,7 @@ class Camera {
         d.set(this.at);
         d.sub(this.eye);
         d.normalize();
-        d.mul(this.move1);
+        d.mul(this.move);
         let s = Vector3.cross(this.up, d);
         this.at.add(s);
         this.eye.add(s);
@@ -72,7 +74,7 @@ class Camera {
         d.set(this.eye);
         d.sub(this.at);
         d.normalize();
-        d.mul(this.move1);
+        d.mul(this.move);
         let s = Vector3.cross(this.up, d);
         this.at.add(s);
         this.eye.add(s);
@@ -92,9 +94,9 @@ class Camera {
     // d = (newX, newY)
 
     // atan not working
-    // Math.atan2() is passed separate x and y arguments, 
+    // "Math.atan2() is passed separate x and y arguments, 
     // while Math.atan() is passed the ratio of those two arguments. 
-    // Math.atan2(y, x) differs from Math.atan(y / x) in the following cases
+    // Math.atan2(y, x) differs from Math.atan(y / x) in the following cases"
 
     panLeft() {
         let d = new Vector3();
@@ -108,7 +110,7 @@ class Camera {
         d.elements[0] = radius * Math.cos(theta);
         d.elements[2] = radius * Math.sin(theta);
         this.at.set(d);
-        this.at.add(d);
+        this.at.add(this.eye);
         
     }
 
@@ -125,9 +127,9 @@ class Camera {
         d.elements[0] = radius * Math.cos(theta);
         d.elements[2] = radius * Math.sin(theta);
         this.at.set(d);
-        this.at.add(d);
+        this.at.add(this.eye);
+        
     }
-
 
     // Turn camera up
     turnUp() {
