@@ -6,7 +6,7 @@ import { MTLLoader } from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/lo
 
 // Setting up  
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const camera = new THREE.PerspectiveCamera(80, window.innerWidth / window.innerHeight, 0.1, 1000);
 camera.position.set(40, 8);
 const canvas = document.querySelector('#c');
 const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('c') });
@@ -75,28 +75,123 @@ scene.add(right);
 const boxBuild = new THREE.BoxGeometry(8, 10, 15);
 const boxColor = new THREE.MeshBasicMaterial({ color: 0xD2B48C  });
 const box = new THREE.Mesh(boxBuild, boxColor);
-box.position.set(7, 2.3, 20);
+box.position.set(-20, 2.3, 30);
 scene.add(box);
+
+const boxBuild1 = new THREE.BoxGeometry(8, 10, 15);
+const boxColor1 = new THREE.MeshBasicMaterial({ color: 0xD2B48C  });
+const box1 = new THREE.Mesh(boxBuild, boxColor);
+box1.position.set(-20, 2.3, -30);
+scene.add(box1);
 
 //bludgers
 const bludger1Build = new THREE.SphereGeometry(2, 32, 32);
 const bludger1Color = new THREE.MeshBasicMaterial({ color: 0x4A3739 }); 
 const bludger1 = new THREE.Mesh(bludger1Build, bludger1Color);
-bludger1.position.set(7, 9, 17);
+bludger1.position.set(-20, 9, 27);
 scene.add(bludger1);
 
 const bludger2Build = new THREE.SphereGeometry(2, 32, 32);
 const bludger2Color = new THREE.MeshBasicMaterial({ color: 0x4A3739 }); 
 const bludger2 = new THREE.Mesh(bludger2Build, bludger2Color);
-bludger2.position.set(7, 9, 23);
+bludger2.position.set(-20, 9, 33);
 scene.add(bludger2);
+
+const bludger3Build = new THREE.SphereGeometry(2, 32, 32);
+const bludger3Color = new THREE.MeshBasicMaterial({ color: 0x4A3739 }); 
+const bludger3 = new THREE.Mesh(bludger3Build, bludger3Color);
+bludger3.position.set(-20, 9, -27);
+scene.add(bludger3);
+
+const bludger4Build = new THREE.SphereGeometry(2, 32, 32);
+const bludger4Color = new THREE.MeshBasicMaterial({ color: 0x4A3739 }); 
+const bludger4 = new THREE.Mesh(bludger4Build, bludger4Color);
+bludger4.position.set(-20, 9, -33);
+scene.add(bludger4);
 
 // quaffle
 const quaffleBuild = new THREE.SphereGeometry(2.5, 32, 32);
 const quaffleColor = new THREE.MeshBasicMaterial({ color: 0x3B0B0B }); 
 const quaffle = new THREE.Mesh(quaffleBuild, quaffleColor);
-quaffle.position.set(6, 12, 20);
+quaffle.position.set(-19, 12, 30);
 scene.add(quaffle);
+
+// quaffle
+const quaffleBuild1 = new THREE.SphereGeometry(2.5, 32, 32);
+const quaffleColor1 = new THREE.MeshBasicMaterial({ color: 0x3B0B0B }); 
+const quaffle1 = new THREE.Mesh(quaffleBuild1, quaffleColor1);
+quaffle1.position.set(-19, 12, -30);
+scene.add(quaffle1);
+
+// Sorcerers stone
+const stoneBuild = new THREE.DodecahedronGeometry(2);
+const stoneColor = new THREE.MeshBasicMaterial({ color: 0x770B0B }); 
+const stone = new THREE.Mesh(stoneBuild, stoneColor);
+stone.position.set(-25, 9, -53);
+scene.add(stone);
+
+// Right table
+const table1Build = new THREE.CylinderGeometry(0.5, 0.5, 8);
+const table1Color = new THREE.MeshBasicMaterial({ color: 0x8B4513 }); 
+const table1 = new THREE.Mesh(table1Build, table1Color);
+table1.position.set(-23, 3.3, -50);
+scene.add(table1);
+
+const table2Build = new THREE.CylinderGeometry(0.5, 0.5, 8);
+const table2Color = new THREE.MeshBasicMaterial({ color: 0x8B4513 }); 
+const table2 = new THREE.Mesh(table2Build, table2Color);
+table2.position.set(-23, 3.3, -60);
+scene.add(table2);
+
+const table3Build = new THREE.CylinderGeometry(0.5, 0.5, 8);
+const table3Color = new THREE.MeshBasicMaterial({ color: 0x8B4513 }); 
+const table3 = new THREE.Mesh(table3Build, table3Color);
+table3.position.set(-35, 3.3, -50);
+scene.add(table3);
+
+const table4Build = new THREE.CylinderGeometry(0.5, 0.5, 8);
+const table4Color = new THREE.MeshBasicMaterial({ color: 0x8B4513 }); 
+const table4 = new THREE.Mesh(table4Build, table4Color);
+table4.position.set(-35, 3.3, -60);
+scene.add(table4);
+
+const tableTopBuild = new THREE.BoxGeometry(15, 1.5, 15);
+const tableTopColor = new THREE.MeshBasicMaterial({ color: 0x8B4513 }); 
+const tableTop = new THREE.Mesh(tableTopBuild, tableTopColor);
+tableTop.position.set(-28, 7, -53);
+scene.add(tableTop);
+
+// Left Table 
+
+const table1Build1 = new THREE.CylinderGeometry(0.5, 0.5, 8);
+const table1Color1 = new THREE.MeshBasicMaterial({ color: 0x8B4513 }); 
+const table11 = new THREE.Mesh(table1Build1, table1Color1);
+table11.position.set(-23, 3.3, 50);
+scene.add(table11);
+
+const table2Build1 = new THREE.CylinderGeometry(0.5, 0.5, 8);
+const table2Color1 = new THREE.MeshBasicMaterial({ color: 0x8B4513 }); 
+const table21 = new THREE.Mesh(table2Build1, table2Color1);
+table21.position.set(-23, 3.3, 60);
+scene.add(table21);
+
+const table3Build1 = new THREE.CylinderGeometry(0.5, 0.5, 8);
+const table3Color1 = new THREE.MeshBasicMaterial({ color: 0x8B4513 }); 
+const table31 = new THREE.Mesh(table3Build1, table3Color1);
+table31.position.set(-35, 3.3, 50);
+scene.add(table31);
+
+const table4Build1 = new THREE.CylinderGeometry(0.5, 0.5, 8);
+const table4Color1 = new THREE.MeshBasicMaterial({ color: 0x8B4513 }); 
+const table41 = new THREE.Mesh(table4Build1, table4Color1);
+table41.position.set(-35, 3.3, 60);
+scene.add(table41);
+
+const tableTopBuild1 = new THREE.BoxGeometry(15, 1.5, 15);
+const tableTopColor1 = new THREE.MeshBasicMaterial({ color: 0x8B4513 }); 
+const tableTop1 = new THREE.Mesh(tableTopBuild1, tableTopColor1);
+tableTop1.position.set(-28, 7, 53);
+scene.add(tableTop1);
 
 
 //Orbit controls 
@@ -126,7 +221,7 @@ mtlLoader.load('../resources/models/Orange cat/12221_Cat_v1_l3.mtl',
         objectsloader.load('../resources/models/Orange cat/12221_Cat_v1_l3.obj',
             function (cat) {
                 cat.position.set(-20, -1, 5); 
-                cat.scale.set(0.1, 0.1, 0.1);
+                cat.scale.set(0.15, 0.15, 0.15);
                 cat.rotation.set(11, 0, 8);
                 scene.add(cat);
 
@@ -150,12 +245,26 @@ const woody = textureLoader.load('../resources/images/wood.jpeg');
 wood.material.map = woody;
 leftWood.material.map = woody; 
 rightWood.material.map = woody; 
+table1.material.map = woody; 
+table2.material.map = woody; 
+table3.material.map = woody; 
+table4.material.map = woody; 
+tableTop.material.map = woody; 
+table11.material.map = woody; 
+table21.material.map = woody; 
+table31.material.map = woody; 
+table41.material.map = woody; 
+tableTop1.material.map = woody; 
 
 const ballBox = textureLoader.load('../resources/images/ballBox.png');
 box.material.map = ballBox; 
 
 const leather = textureLoader.load('../resources/images/leather.png');
 quaffle.material.map = leather; 
+quaffle1.material.map = leather; 
+
+const shineyStone = textureLoader.load('../resources/images/stone.jpeg');
+stone.material.map = shineyStone;
 
 
 animate();
