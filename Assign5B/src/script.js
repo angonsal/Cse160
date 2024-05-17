@@ -237,12 +237,6 @@ mtlLoader.load('../resources/models/Orange cat/12221_Cat_v1_l3.mtl',
                 lightcat.position.set(20, 10, 5); 
                 lightcat.target = cat; 
                 scene.add(lightcat);
-                
-
-                //SOURCE OF POINT LIGHT 
-                // const lightcat1 = new THREE.PointLight(0xffffff, 1);
-                // lightcat1.target = cat; 
-                // scene.add(lightcat1);
             }
         );
     }
@@ -258,15 +252,10 @@ mtlLoader1.load('../resources/models/Winner/WinnerCup.mtl', function (materials)
         trophy.rotation.set(11, 14, 7.85);
         scene.add(trophy);
 
+        // SOURCE OF SPOT LIGHT 
         const trophyLight = new THREE.SpotLight(0xffff00, 0.5);
         trophyLight.target = trophy; 
         scene.add(trophyLight);
-
-        // // SOURCE OF DIRECTIONAL LIGHT
-        // const trophyLight = new THREE.DirectionalLight(0xffffff, 1);
-        // trophyLight.position.set(10, 10, 10); // Position the light
-        // trophyLight.target = trophy; // Point the light at the trophy
-        // scene.add(trophyLight);
     });
 });
 
@@ -280,11 +269,15 @@ mtlLoader2.load('../resources/models/Frog/12268_banjofrog_v1_L3.mtl',
                 frog.rotation.set(11, 0, 8);
                 scene.add(frog);
 
-                //SOURCE OF DIRECTIONAL LIGHT 
+                //SOURCE OF AMBIENT LIGHT 
                 const lightfrog = new THREE.AmbientLight(0xffffff, 0.1);
                 lightfrog.position.set(-10, 20, -10); 
                 lightfrog.target = frog; 
                 scene.add(lightfrog);
+
+                //SOURCE OF AMBIENT LIGHT 
+                const skyLight = new THREE.HemisphereLight(0xffff00, 0.1);
+                scene.add(skyLight);
                 
 
             }
