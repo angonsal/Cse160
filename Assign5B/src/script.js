@@ -213,7 +213,14 @@ function animate(time) {
 
 // Objects setup
 const mtlLoader = new MTLLoader();
+const mtlLoader1 = new MTLLoader();
+const mtlLoader2 = new MTLLoader();
+
 const objectsloader = new OBJLoader();
+const objectsloader1 = new OBJLoader();
+const objectsloader2 = new OBJLoader();
+
+
 
 mtlLoader.load('../resources/models/Orange cat/12221_Cat_v1_l3.mtl',
     function (materials) {
@@ -226,13 +233,71 @@ mtlLoader.load('../resources/models/Orange cat/12221_Cat_v1_l3.mtl',
                 scene.add(cat);
 
                 //SOURCE OF DIRECTIONAL LIGHT 
-                const lightcat = new THREE.DirectionalLight(0xffffff, 1);
+                const lightcat = new THREE.DirectionalLight(0xffffff, 0.5);
+                lightcat.position.set(20, 10, 5); 
                 lightcat.target = cat; 
                 scene.add(lightcat);
+                
+
+                //SOURCE OF POINT LIGHT 
+                // const lightcat1 = new THREE.PointLight(0xffffff, 1);
+                // lightcat1.target = cat; 
+                // scene.add(lightcat1);
             }
         );
     }
+
 );
+
+
+mtlLoader1.load('../resources/models/Winner/WinnerCup.mtl', function (materials) {
+    objectsloader1.setMaterials(materials);
+    objectsloader1.load('../resources/models/Winner/WinnerCup.obj', function (trophy) {
+        trophy.position.set(-28, 13, 50); 
+        trophy.scale.set(0.025, 0.025, 0.025);
+        trophy.rotation.set(11, 14, 7.85);
+        scene.add(trophy);
+
+        const trophyLight = new THREE.SpotLight(0xffff00, 0.5);
+        trophyLight.target = trophy; 
+        scene.add(trophyLight);
+
+        // // SOURCE OF DIRECTIONAL LIGHT
+        // const trophyLight = new THREE.DirectionalLight(0xffffff, 1);
+        // trophyLight.position.set(10, 10, 10); // Position the light
+        // trophyLight.target = trophy; // Point the light at the trophy
+        // scene.add(trophyLight);
+    });
+});
+
+mtlLoader2.load('../resources/models/Frog/12268_banjofrog_v1_L3.mtl',
+    function (materials) {
+        objectsloader2.setMaterials(materials);
+        objectsloader2.load('../resources/models/Frog/12268_banjofrog_v1_L3.obj',
+            function (frog) {
+                frog.position.set(-20, -1, -7); 
+                frog.scale.set(0.5, 0.5, 0.5);
+                frog.rotation.set(11, 0, 8);
+                scene.add(frog);
+
+                //SOURCE OF DIRECTIONAL LIGHT 
+                const lightfrog = new THREE.AmbientLight(0xffffff, 0.1);
+                lightfrog.position.set(-10, 20, -10); 
+                lightfrog.target = frog; 
+                scene.add(lightfrog);
+                
+
+            }
+        );
+    }
+
+);
+
+
+
+
+
+
 
 
 
