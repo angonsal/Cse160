@@ -275,7 +275,7 @@ mtlLoader2.load('../resources/models/Frog/12268_banjofrog_v1_L3.mtl',
                 lightfrog.target = frog; 
                 scene.add(lightfrog);
 
-                //SOURCE OF AMBIENT LIGHT 
+                //SOURCE OF HEMISPHERE LIGHT 
                 const skyLight = new THREE.HemisphereLight(0xffff00, 0.1);
                 scene.add(skyLight);
                 
