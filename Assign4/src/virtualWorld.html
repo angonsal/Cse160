@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>3D World</title>
+    <style>
+      .margin-text {
+        margin-left: 20px;
+        margin-right: 20px;
+      }
+
+  </style>
+    
+  </head>
+
+  <body onload="main()">
+    <canvas id="webgl" width="800" height="800">
+    Please use a browser that supports "canvas"
+    </canvas>
+    <p>
+
+    <p id = "numdot"> XXX </p>
+   
+
+
+    <!-- <p>
+    Joint 1 <input type="range" min="-20" max="38" value="0" class="slider" id="jointASlide">
+    <p>
+    Joint 2 <input type="range" min="0" max="45" value="0" class="slider" id="jointBSlide"> -->
+    <p>
+    Camera Angle <input type="range" min="-180" max="180" value="-40" class="slider" id="angleSlide">
+    <p>
+    <button type="button" id="On">Normals ON</button>
+    <button type="button" id="Off">Normals OFF</button>
+    <!-- <button type="button" id="on2">Animation ON2</button>
+    <button type="button" id="off2">Animation OFF1</button> -->
+
+    
+    <p>
+
+    <div class="margin-text">
+      <h2> Ashley Gonsalves</h2>
+      <p> angonsal@ucsc.edu</p>
+      <h3> Notes To Grader</h3>
+      <p> This assignment was really fun! I struggled with getting the textures to work, but after rewatching the 
+        videos I was able to figure it out. I added a skybox and grass, both with textures. I also added two blocks
+      with a mario block texture, one with a star texture, and 2 of solid color. I am going to 
+    try to implement a small game using this block in the next portion of the assignment.   </p>
+
+
+
+    </div>
+
+
+    <script src="../lib/webgl-utils.js"></script>
+    <script src="../lib/webgl-debug.js"></script>
+    <script src="../lib/cuon-utils.js"></script>
+    <script src="../lib/cuon-matrix-cse160.js"></script>
+    <script src="Triangle.js"></script>
+    <script src="Cube.js"></script>
+    <script src="virtualWorld.js"></script>
+
+
+  </body>
+</html>
