@@ -393,6 +393,8 @@ let g_joint_A = 0;
 let g_joint_B = 0;
 let g_animation1 = false; 
 let g_animation2 = false; 
+let g_animation3 = false; 
+
 let g_normals = false; 
 
 
@@ -411,8 +413,8 @@ function addActionsHTMLUI(){
    // On and off animation buttons 
   document.getElementById("On").onclick = function() {g_normals = true}; 
   document.getElementById("Off").onclick = function() {g_normals = false};
-  // document.getElementById("off2").onclick = function() {g_animation2 = false}; 
-  // document.getElementById("on2").onclick = function() {g_animation2 = true};
+  document.getElementById("off2").onclick = function() {g_animation3 = false}; 
+  document.getElementById("on2").onclick = function() {g_animation3 = true};
 
 }
   
@@ -474,8 +476,10 @@ function updateAnimationAngles(){
   }
   if(g_animation2){
     g_joint_B = (45*Math.sin(g_seconds));
-  } 
-
+  }
+  if(g_animation3){
+    g_lightPos[0]=Math.cos(g_seconds); 
+  }
 }
 
 var lastX = null; 
