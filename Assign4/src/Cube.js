@@ -7,7 +7,7 @@ class Cube{
     this.matrix = new Matrix4();
 	
 	//Default
-	this.textureNum = 1; 
+	this.textureNum = -2; 
   }
   render(){
    	var rgba = this.color; 

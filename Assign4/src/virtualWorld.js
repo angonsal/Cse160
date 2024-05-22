@@ -8,6 +8,7 @@ attribute vec2 a_UV;
 attribute vec3 a_normal; 
 varying vec2 v_UV; 
 varying vec3 v_Normal; 
+varying vec4 v_VertPos; 
 uniform mat4 u_ModelMatrix;
 uniform mat4 u_GlobalRotateMatrix;
 uniform mat4 u_ViewMatrix;
@@ -16,6 +17,7 @@ void main() {
   gl_Position = u_ProjectionMatrix * u_ViewMatrix * u_GlobalRotateMatrix * u_ModelMatrix * a_Position;
   v_UV = a_UV; 
   v_Normal = a_normal; 
+  v_VertPos = u_ModelMatrix * a_Position; 
 }`
 
 // Fragment shader program
@@ -23,15 +25,17 @@ var FSHADER_SOURCE = `
   precision mediump float;
   varying vec2 v_UV; 
   varying vec3 v_Normal; 
-
+  varying vec4 v_VertPos; 
   uniform vec4 u_FragColor;
   uniform sampler2D u_Sampler0;
   uniform sampler2D u_Sampler1;
   uniform sampler2D u_Sampler2; 
   uniform sampler2D u_Sampler3; 
-
-
+  uniform vec3 u_lightPos;
   uniform int u_whichTexture; 
+
+
+  
   void main() {
     if (u_whichTexture == -3){
       gl_FragColor = vec4((v_Normal+1.0)/2.0, 1.0);
@@ -58,6 +62,16 @@ var FSHADER_SOURCE = `
       gl_FragColor = vec4(1,.2,.2,1); 
     }
 
+    vec3 lightVector = vec3(v_VertPos) - u_lightPos; 
+    float r = length(lightVector); 
+    if (r <1.0){
+      gl_FragColor = vec4(1,0,0,1); 
+    }
+    else if (r<2.0){
+      gl_FragColor = vec4(0,1,0,1); 
+
+    }
+
   }`
 
 // Global 
@@ -73,7 +87,9 @@ let u_Sampler0;
 let u_Sampler1; 
 let u_Sampler2; 
 let u_Sampler3; 
+let u_lightPos; 
 
+let g_lightPos = [0,1,-2]; 
 
 let u_whichTexture; 
 
@@ -276,7 +292,7 @@ function connectVariablesToGLSL(){
   }
 
   a_normal = gl.getAttribLocation(gl.program, 'a_normal');
-  if (a_normal < 0) {
+  if (!a_normal) {
     console.log('Failed to get the storage location of a_normal');
     return;
   }
@@ -319,6 +335,13 @@ function connectVariablesToGLSL(){
     console.log('Failed to get the storage location of u_GlobalRotateMatrix');
     return;
   }
+
+  u_lightPos = gl.getUniformLocation(gl.program, 'u_lightPos');
+  if (!u_lightPos) {
+    console.log('Failed to get the storage location of u_lightPos');
+    return;
+  }
+
 
   u_Sampler0 = gl.getUniformLocation(gl.program, 'u_Sampler0');
     if (!u_Sampler0) {
@@ -379,9 +402,13 @@ function addActionsHTMLUI(){
   // document.getElementById("jointBSlide").addEventListener('mousemove', function() {g_joint_B = this.value; renderScene(); });
 
   // Angle Slider 
-  document.getElementById("angleSlide").addEventListener('mousemove', function() {g_globalAngle = this.value; renderScene(); });
+  document.getElementById("angleSlide").addEventListener('mousemove', function(ev) {g_globalAngle = this.value; renderScene(); });
+  document.getElementById("lightSlideX").addEventListener('mousemove', function(ev) {g_lightPos[0]= this.value/100; renderScene(); });
+  document.getElementById("lightSlideY").addEventListener('mousemove', function(ev) {g_lightPos[1] = this.value/100; renderScene(); });
+  document.getElementById("lightSlideZ").addEventListener('mousemove', function(ev) {g_lightPos[2] = this.value/100; renderScene(); });
 
-  // On and off animation buttons 
+
+   // On and off animation buttons 
   document.getElementById("On").onclick = function() {g_normals = true}; 
   document.getElementById("Off").onclick = function() {g_normals = false};
   // document.getElementById("off2").onclick = function() {g_animation2 = false}; 
@@ -514,7 +541,6 @@ function handleMouseMove(event) {
   renderScene(); 
 }
 
-
 function call() {
   canvas.addEventListener('mousedown', handleMouseDown);
   document.addEventListener('mouseup', handleMouseUp);
@@ -551,8 +577,13 @@ function renderScene(){
   // // grass.matrix.rotate(-5,1,0,0);
   // grass.matrix.scale(100, 0.2, 100); 
   // grass.render();
-
-
+  gl.uniform3f(u_lightPos, g_lightPos[0], g_lightPos[1], g_lightPos[2]); 
+  var light = new Cube(); 
+  light.color = [2,2,0,1]; 
+  light.matrix.translate(g_lightPos[0], g_lightPos[1], g_lightPos[2]); 
+  light.matrix.scale(.1, .1, .1); 
+  light.matrix.translate(-0.5, 1, -0.5); 
+  light.render(); 
   //draw floor
   var grass = new Cube();
   grass.color = [1.0, 0.0, 0.0, 1.0]; 
@@ -607,6 +638,10 @@ function renderScene(){
   box2.matrix.scale(0.3, 0.3, 0.3); 
   box2.matrix.translate(0, -3.6, -0.2); 
   box2.render();
+  
+  var sun = new Sphere(); 
+  sun.matrix.translate(0, 0.5, -2); 
+  sun.render();
 
   var box3 = new Cube(); 
   box3.color = [0.8,0.7,0.6,1]; 
