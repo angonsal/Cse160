@@ -14,7 +14,7 @@
   </head>
 
   <body onload="main()">
-    <canvas id="webgl" width="800" height="800">
+    <canvas id="webgl" width="600" height="600">
     Please use a browser that supports "canvas"
     </canvas>
     <p>
@@ -29,16 +29,18 @@
     <p>
     Camera Angle <input type="range" min="-180" max="180" value="-40" class="slider" id="angleSlide">
     <p>
-    Light X <input type="range" min="-180" max="180" value="-40" class="slider" id="lightSlideX">
+    Light X <input type="range" min="-180" max="180" value="-180" class="slider" id="lightSlideX">
     <p>
-    Light Y <input type="range" min="-180" max="180" value="-40" class="slider" id="lightSlideY">
+    Light Y <input type="range" min="-180" max="180" value="-180" class="slider" id="lightSlideY">
     <p>
-    Light Z <input type="range" min="-180" max="180" value="-40" class="slider" id="lightSlideZ">
+    Light Z <input type="range" min="-180" max="180" value="-180" class="slider" id="lightSlideZ">
     <p>
     <button type="button" id="On">Normals ON</button>
     <button type="button" id="Off">Normals OFF</button>
     <button type="button" id="on2">Animation ON</button>
     <button type="button" id="off2">Animation OFF</button>
+    <button type="button" id="on3">Light ON</button>
+    <button type="button" id="off3">Light OFF</button>
 
     
     <p>
@@ -62,6 +64,7 @@
     <script src="Sphere.js"></script>
     <script src="Cube.js"></script>
     <script src="Camera.js"></script>
+    <script src="Pyramid.js"></script>
     <script src="virtualWorld.js"></script>
 
 

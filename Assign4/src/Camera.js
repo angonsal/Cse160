@@ -1,9 +1,9 @@
 class Camera {
     constructor() {
         this.type = "Camera";
-        this.eye = new Vector3([0, 0.2, -12]);
+        this.eye = new Vector3([2, 1, -5]);
         this.at = new Vector3([0, 0, 0]);
-        this.up = new Vector3([0, 1, 0]);
+        this.up = new Vector3([0, 4, 0]);
         this.move = 0.8;
     }
     // FROM 3.6B video: 
