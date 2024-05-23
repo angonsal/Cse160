@@ -33,6 +33,8 @@ var FSHADER_SOURCE = `
   uniform sampler2D u_Sampler3; 
   uniform vec3 u_lightPos;
   uniform vec3 u_cameraPos;
+  uniform vec3 u_selectedColor;
+
   uniform bool u_lightOn;
 
   uniform int u_whichTexture; 
@@ -40,29 +42,30 @@ var FSHADER_SOURCE = `
 
   
   void main() {
+    vec4 baseColor;
     if (u_whichTexture == -3){
-      gl_FragColor = vec4((v_Normal+1.0)/2.0, 1.0);
+      baseColor = vec4((v_Normal+1.0)/2.0, 1.0);
     }
     else if (u_whichTexture == -2){
-      gl_FragColor = u_FragColor;
+      baseColor = u_FragColor;
     }
     else if (u_whichTexture == -1) {
-      gl_FragColor = vec4(v_UV, 1,1);
+      baseColor = vec4(v_UV, 1,1);
     }
     else if (u_whichTexture == 0) {
-      gl_FragColor = texture2D(u_Sampler0, v_UV); 
+      baseColor = texture2D(u_Sampler0, v_UV); 
     }
     else if (u_whichTexture == 1) {
-      gl_FragColor = texture2D(u_Sampler1, v_UV); 
+      baseColor = texture2D(u_Sampler1, v_UV); 
     }
     else if (u_whichTexture == 2) {
-      gl_FragColor = texture2D(u_Sampler2, v_UV); 
+      baseColor = texture2D(u_Sampler2, v_UV); 
     }
     else if (u_whichTexture == 3) {
-      gl_FragColor = texture2D(u_Sampler3, v_UV); 
+      baseColor = texture2D(u_Sampler3, v_UV); 
     }
     else{
-      gl_FragColor = vec4(1,.2,.2,1); 
+      baseColor = vec4(1,.2,.2,1); 
     }
 
     vec3 lightVector = u_lightPos - vec3(v_VertPos);
@@ -89,13 +92,16 @@ var FSHADER_SOURCE = `
       // eye
       vec3 E = normalize(u_cameraPos - vec3(v_VertPos));
 
-      float specular = pow(max(dot(E,R), 0.0), 64.0) * 0.8;
-      vec3 diffuse = vec3(1.0, 1.0, 0.9) * vec3(gl_FragColor) * nDotL * 0.7; 
-      vec3 ambient = vec3(gl_FragColor) * 0.2;
+      float specular = pow(max(dot(E,R), 0.0), 10.0) * 0.5;
+      vec3 diffuse = vec3(baseColor) * nDotL * u_selectedColor;      
+      vec3 ambient = vec3(baseColor) * 0.3;
       if(u_lightOn){
-            gl_FragColor = vec4(specular+diffuse+ambient, 1.0);
+        gl_FragColor = vec4(specular+diffuse+ambient, baseColor.a);
       }
-    }`
+      else {
+        gl_FragColor = baseColor; 
+      }
+  
   
 
     // Red and Green visual 
@@ -115,7 +121,7 @@ var FSHADER_SOURCE = `
     // // gl_FragColor.a = 1.0; 
 
 
-  // }`
+  }`
 
 // Global 
 let canvas; 
@@ -133,8 +139,11 @@ let u_Sampler3;
 let u_lightPos; 
 let u_cameraPos; 
 let u_lightOn; 
+let u_selectedColor; 
+
 
 let g_lightPos = [0,1,-2]; 
+let g_selectedColor = [1.0, 1.0, 1.0, 1.0];
 let u_whichTexture; 
 
 function setupWebGL() {
@@ -398,6 +407,12 @@ function connectVariablesToGLSL(){
     return;
   }
 
+  u_selectedColor = gl.getUniformLocation(gl.program, 'u_selectedColor');
+  if (!u_selectedColor) {
+    console.log('Failed to get the storage location of u_selectedColor');
+    return;
+  }
+
   u_Sampler0 = gl.getUniformLocation(gl.program, 'u_Sampler0');
     if (!u_Sampler0) {
         console.log('Failed to get the storage location of u_Sampler0');
@@ -439,7 +454,6 @@ const CIRCLE = 2;
 
 
 //more global variables 
-let g_selectedColor = [1.0, 1.0, 1.0, 1.0];
 let g_SelectedSize = 5; 
 let g_selectedType = POINT; 
 let g_selectedSegment = 10;
@@ -470,6 +484,12 @@ function addActionsHTMLUI(){
   document.getElementById("lightSlideX").addEventListener('mousemove', function(ev) {g_lightPos[0]= this.value/100; renderScene(); });
   document.getElementById("lightSlideY").addEventListener('mousemove', function(ev) {g_lightPos[1] = this.value/100; renderScene(); });
   document.getElementById("lightSlideZ").addEventListener('mousemove', function(ev) {g_lightPos[2] = this.value/100; renderScene(); });
+  document.getElementById("RedSlide").addEventListener('mousemove', function() {g_selectedColor[0] = this.value/100; renderScene(); });
+  document.getElementById("GreenSlide").addEventListener('mousemove', function() {g_selectedColor[1] = this.value/100; renderScene(); });
+  document.getElementById("BlueSlide").addEventListener('mousemove', function() {g_selectedColor[2] = this.value/100; renderScene(); });
+
+
+
 
 
    // On and off animation buttons 
@@ -658,10 +678,12 @@ function renderScene(){
   // grass.render();
   gl.uniform3f(u_lightPos, g_lightPos[0], g_lightPos[1], g_lightPos[2]); 
   gl.uniform3f(u_cameraPos, eye[0], eye[1], eye[2]); 
+  gl.uniform3f(u_selectedColor, g_selectedColor[0], g_selectedColor[1], g_selectedColor[2]); 
   gl.uniform1i(u_lightOn, g_lightOn); 
 
   var light = new Cube(); 
-  light.color = [2,2,0,1]; 
+  light.color = [g_selectedColor[0],g_selectedColor[1],g_selectedColor[2],1]; 
+  // light.color = [1,0.5,0.5,1]; 
   light.matrix.translate(g_lightPos[0], g_lightPos[1], g_lightPos[2]); 
   light.matrix.scale(-.1, -.1, -.1); 
   light.matrix.translate(-0.5, -0.5, -0.5); 
