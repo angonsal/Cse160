@@ -552,16 +552,17 @@ function addActionsHTMLUI(){
 
 
    // On and off animation buttons 
-  document.getElementById("On").onclick = function() {g_normals = true}; 
-  document.getElementById("Off").onclick = function() {g_normals = false};
-  document.getElementById("off2").onclick = function() {g_animation3 = false}; 
-  document.getElementById("on2").onclick = function() {g_animation3 = true};
+  document.getElementById("On").onclick = function() {g_normals = true; }; 
+  document.getElementById("Off").onclick = function() {g_normals = false; };
+  document.getElementById("off2").onclick = function() {g_animation3 = false; g_animation1 = false}; 
+  document.getElementById("on2").onclick = function() {g_animation3 = true; g_animation1 = true};
   document.getElementById("off3").onclick = function() {g_lightOn = false}; 
   document.getElementById("on3").onclick = function() {g_lightOn = true};
   document.getElementById("off4").onclick = function() {g_spotLight = false}; 
   document.getElementById("on4").onclick = function() {g_spotLight = true};
   document.getElementById("off5").onclick = function() {g_RedGreen = false}; 
   document.getElementById("on5").onclick = function() {g_RedGreen = true};
+
 
 }
   
