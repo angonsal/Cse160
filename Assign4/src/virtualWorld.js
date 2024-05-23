@@ -34,8 +34,12 @@ var FSHADER_SOURCE = `
   uniform vec3 u_lightPos;
   uniform vec3 u_cameraPos;
   uniform vec3 u_selectedColor;
+  uniform vec3 u_spotLightDir;
+  uniform vec3 u_spotLightPos; 
+
 
   uniform bool u_lightOn;
+  uniform bool u_spotLight;
 
   uniform int u_whichTexture; 
 
@@ -69,6 +73,7 @@ var FSHADER_SOURCE = `
     }
 
     vec3 lightVector = u_lightPos - vec3(v_VertPos);
+    vec3 spotLightVector = normalize(u_spotLightPos - vec3(v_VertPos));
     float r = length(lightVector);
 
       // Red and Green visual
@@ -84,19 +89,34 @@ var FSHADER_SOURCE = `
       //N dot L
       vec3 L = normalize(lightVector);
       vec3 N = normalize(v_Normal);
+      vec3 Ls = normalize(spotLightVector);
+
       float nDotL = max(dot(N,L), 0.0);
+      float nDotLs = max(dot(N, Ls), 0.0);
 
       // Reflection
       vec3 R = reflect(-L,N);
+      vec3 Rs = reflect(-Ls,N);
 
       // eye
       vec3 E = normalize(u_cameraPos - vec3(v_VertPos));
 
       float specular = pow(max(dot(E,R), 0.0), 10.0) * 0.5;
-      vec3 diffuse = vec3(baseColor) * nDotL * u_selectedColor;      
+      float specularS = pow(max(dot(E,Rs), 0.0), 10.0) * 0.5;
+
+      vec3 diffuse = vec3(baseColor) * nDotL * u_selectedColor;  
+      vec3 diffuseS = vec3(baseColor) * nDotLs * u_selectedColor;      
+    
       vec3 ambient = vec3(baseColor) * 0.3;
       if(u_lightOn){
         gl_FragColor = vec4(specular+diffuse+ambient, baseColor.a);
+      }
+      else if (u_spotLight){
+        gl_FragColor = vec4(specularS + diffuseS + ambient, baseColor.a);
+        float spotEffect = dot(spotLightVector, normalize(u_spotLightDir));
+          if (spotEffect > 0.7) {
+            gl_FragColor.rgb *= spotEffect;
+          }
       }
       else {
         gl_FragColor = baseColor; 
@@ -139,11 +159,16 @@ let u_Sampler3;
 let u_lightPos; 
 let u_cameraPos; 
 let u_lightOn; 
+let u_spotLight; 
+let u_spotLightDir; 
 let u_selectedColor; 
+let u_spotLightPos; 
 
 
 let g_lightPos = [0,1,-2]; 
 let g_selectedColor = [1.0, 1.0, 1.0, 1.0];
+let g_spotLightDir = [-1, 2.5, 0.0];
+let g_spotLightPos = [0.5,2,-1]; 
 let u_whichTexture; 
 
 function setupWebGL() {
@@ -395,9 +420,28 @@ function connectVariablesToGLSL(){
     return;
   }
 
+
   u_lightOn = gl.getUniformLocation(gl.program, 'u_lightOn');
   if (!u_lightOn) {
     console.log('Failed to get the storage location of u_lightOn');
+    return;
+  }
+  
+  u_spotLight = gl.getUniformLocation(gl.program, 'u_spotLight');
+  if (!u_spotLight) {
+    console.log('Failed to get the storage location of u_spotLight');
+    return;
+  }
+
+  u_spotLightPos = gl.getUniformLocation(gl.program, 'u_spotLightPos');
+  if (!u_spotLightPos) {
+    console.log('Failed to get the storage location of u_spotLightPos');
+    return;
+  }
+
+  u_spotLightDir = gl.getUniformLocation(gl.program, 'u_spotLightDir');
+  if (!u_spotLightDir) {
+    console.log('Failed to get the storage location of u_spotLightDir');
     return;
   }
 
@@ -472,6 +516,8 @@ let g_animation3 = false;
 
 let g_normals = false; 
 let g_lightOn = true; 
+let g_spotLight = false; 
+
 
 
 function addActionsHTMLUI(){
@@ -499,6 +545,8 @@ function addActionsHTMLUI(){
   document.getElementById("on2").onclick = function() {g_animation3 = true};
   document.getElementById("off3").onclick = function() {g_lightOn = false}; 
   document.getElementById("on3").onclick = function() {g_lightOn = true};
+  document.getElementById("off4").onclick = function() {g_spotLight = false}; 
+  document.getElementById("on4").onclick = function() {g_spotLight = true};
 
 }
   
@@ -679,7 +727,9 @@ function renderScene(){
   gl.uniform3f(u_lightPos, g_lightPos[0], g_lightPos[1], g_lightPos[2]); 
   gl.uniform3f(u_cameraPos, eye[0], eye[1], eye[2]); 
   gl.uniform3f(u_selectedColor, g_selectedColor[0], g_selectedColor[1], g_selectedColor[2]); 
+  gl.uniform3f(u_spotLightDir, g_spotLightDir[0], g_spotLightDir[1], g_spotLightDir[2]);
   gl.uniform1i(u_lightOn, g_lightOn); 
+  gl.uniform1i(u_spotLight, g_spotLight); 
 
   var light = new Cube(); 
   light.color = [g_selectedColor[0],g_selectedColor[1],g_selectedColor[2],1]; 
@@ -688,6 +738,14 @@ function renderScene(){
   light.matrix.scale(-.1, -.1, -.1); 
   light.matrix.translate(-0.5, -0.5, -0.5); 
   light.render(); 
+
+  var spotLight = new Cube(); 
+  spotLight.color = [g_selectedColor[0],g_selectedColor[1],g_selectedColor[2],1]; 
+  // light.color = [1,0.5,0.5,1]; 
+  spotLight.matrix.translate(g_spotLightPos[0], g_spotLightPos[1], g_spotLightPos[2]); 
+  spotLight.matrix.scale(-.1, -.1, -.1); 
+  spotLight.matrix.translate(-0.5, -0.5, -0.5); 
+  spotLight.render(); 
   //draw floor
   var grass = new Cube();
   grass.color = [1.0, 0.0, 0.0, 1.0]; 
