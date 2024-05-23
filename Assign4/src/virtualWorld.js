@@ -39,6 +39,8 @@ var FSHADER_SOURCE = `
 
 
   uniform bool u_lightOn;
+  uniform bool u_RedGreen;
+
   uniform bool u_spotLight;
 
   uniform int u_whichTexture; 
@@ -75,6 +77,8 @@ var FSHADER_SOURCE = `
     vec3 lightVector = u_lightPos - vec3(v_VertPos);
     vec3 spotLightVector = normalize(u_spotLightPos - vec3(v_VertPos));
     float r = length(lightVector);
+
+
 
       // Red and Green visual
       // if (r <1.0){
@@ -122,15 +126,16 @@ var FSHADER_SOURCE = `
         gl_FragColor = baseColor; 
       }
   
-  
-
-    // Red and Green visual 
-    // if (r <1.0){
-    //   gl_FragColor = vec4(1,0,0,1); 
-    // }
-    // else if (r<2.0){
-    //   gl_FragColor = vec4(0,1,0,1); 
-    // }
+      // Red Green Visual 
+      if (u_RedGreen){
+        if (r <1.0){
+          gl_FragColor = vec4(1,0,0,1); 
+        }
+        else if (r<2.0){
+          gl_FragColor = vec4(0,1,0,1); 
+        }
+      }
+    
 
     // Light falloff 1/r*2
     // gl_FragColor = vec4(vec3(gl_FragColor)/(r*r),1); 
@@ -163,6 +168,7 @@ let u_spotLight;
 let u_spotLightDir; 
 let u_selectedColor; 
 let u_spotLightPos; 
+let u_RedGreen; 
 
 
 let g_lightPos = [0,1,-2]; 
@@ -444,6 +450,12 @@ function connectVariablesToGLSL(){
     console.log('Failed to get the storage location of u_spotLightDir');
     return;
   }
+  
+  u_RedGreen = gl.getUniformLocation(gl.program, 'u_RedGreen');
+  if (!u_RedGreen) {
+    console.log('Failed to get the storage location of u_RedGreen');
+    return;
+  }
 
   u_cameraPos = gl.getUniformLocation(gl.program, 'u_cameraPos');
   if (!u_cameraPos) {
@@ -517,6 +529,7 @@ let g_animation3 = false;
 let g_normals = false; 
 let g_lightOn = true; 
 let g_spotLight = false; 
+let g_RedGreen = false; 
 
 
 
@@ -547,6 +560,8 @@ function addActionsHTMLUI(){
   document.getElementById("on3").onclick = function() {g_lightOn = true};
   document.getElementById("off4").onclick = function() {g_spotLight = false}; 
   document.getElementById("on4").onclick = function() {g_spotLight = true};
+  document.getElementById("off5").onclick = function() {g_RedGreen = false}; 
+  document.getElementById("on5").onclick = function() {g_RedGreen = true};
 
 }
   
@@ -730,6 +745,8 @@ function renderScene(){
   gl.uniform3f(u_spotLightDir, g_spotLightDir[0], g_spotLightDir[1], g_spotLightDir[2]);
   gl.uniform1i(u_lightOn, g_lightOn); 
   gl.uniform1i(u_spotLight, g_spotLight); 
+  gl.uniform1i(u_RedGreen, g_RedGreen); 
+
 
   var light = new Cube(); 
   light.color = [g_selectedColor[0],g_selectedColor[1],g_selectedColor[2],1]; 
