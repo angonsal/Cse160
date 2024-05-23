@@ -778,7 +778,7 @@ function renderScene(){
   if (g_normals){
     skybox.textureNum = -3; 
   }
-  skybox.matrix.scale(-10, -10, -10); 
+  skybox.matrix.scale(-10, 10, -10); 
   skybox.matrix.translate(-.5, -.5, -.5);
   skybox.render();
 
@@ -825,6 +825,7 @@ function renderScene(){
   }
   // console.log("Light: ", g_lightOn);
   sun.matrix.translate(-2, 1.5, 3); 
+  sun.matrix.rotate(0, 90, 0, 0);
   sun.render();
 
   var box3 = new Cube(); 
