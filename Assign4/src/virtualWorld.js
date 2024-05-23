@@ -65,27 +65,37 @@ var FSHADER_SOURCE = `
       gl_FragColor = vec4(1,.2,.2,1); 
     }
 
-    if (u_lightOn){
+    vec3 lightVector = u_lightPos - vec3(v_VertPos);
+    float r = length(lightVector);
 
-      vec3 lightVector = u_lightPos - vec3(v_VertPos); 
-      float r = length(lightVector); 
+      // Red and Green visual
+      // if (r <1.0){
+      //    gl_FragColor = vec4(1,0,0,1);
+      // } else if (r<2.0){
+      //    gl_FragColor = vec4(0,1,0,1);
+      // }
 
-      //N dot L 
-      vec3 L = normalize(lightVector); 
-      vec3 N = normalize(v_Normal); 
+      // Light falloff 1/r^2
+      // gl_FragColor = vec4(vec3(gl_FragColor)/(r*r),1);
+
+      //N dot L
+      vec3 L = normalize(lightVector);
+      vec3 N = normalize(v_Normal);
       float nDotL = max(dot(N,L), 0.0);
 
-      // Reflect 
-      vec3 R = reflect(-L, N);
+      // Reflection
+      vec3 R = reflect(-L,N);
 
-      // eye 
+      // eye
       vec3 E = normalize(u_cameraPos - vec3(v_VertPos));
 
-      float specular = pow(max(dot(E, R), 0.0), 64.0) * 0.8;
+      float specular = pow(max(dot(E,R), 0.0), 64.0) * 0.8;
       vec3 diffuse = vec3(1.0, 1.0, 0.9) * vec3(gl_FragColor) * nDotL * 0.7; 
-      vec3 ambient = vec3(gl_FragColor) * 0.2; 
-      gl_FragColor = vec4(specular + diffuse + ambient, 1.0);
-    } 
+      vec3 ambient = vec3(gl_FragColor) * 0.2;
+      if(u_lightOn){
+            gl_FragColor = vec4(specular+diffuse+ambient, 1.0);
+      }
+    }`
   
 
     // Red and Green visual 
@@ -105,7 +115,7 @@ var FSHADER_SOURCE = `
     // // gl_FragColor.a = 1.0; 
 
 
-  }`
+  // }`
 
 // Global 
 let canvas; 
@@ -712,12 +722,12 @@ function renderScene(){
   box2.render();
   
   var sun = new Sphere(); 
-  sun.textureNum = -2;
+  sun.textureNum = 3;
   if (g_normals){
     sun.textureNum = -3; 
   }
   // console.log("Light: ", g_lightOn);
-  sun.matrix.translate(0, 0.5, -2); 
+  sun.matrix.translate(-2, 1.5, 3); 
   sun.render();
 
   var box3 = new Cube(); 
