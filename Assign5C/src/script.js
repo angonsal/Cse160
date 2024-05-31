@@ -7,7 +7,7 @@ import { MTLLoader } from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/lo
 // Setting up  
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(80, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.set(40, 8);
+camera.position.set(60, 8);
 const canvas = document.querySelector('#c');
 const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('c') });
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -24,11 +24,11 @@ const texture = loader.load("../resources/images/quid.jpeg", () => {
 
 
 // Grass
-const grassBuild = new THREE.BoxGeometry(90, 2, 250);
+const grassBuild = new THREE.BoxGeometry(200, 2, 1000);
 const grassColor = new THREE.MeshBasicMaterial({ color: 0x005300  });
 const grass = new THREE.Mesh(grassBuild, grassColor);
 scene.add(grass);
-grass.position.set(0, -2, 0)
+grass.position.set(50, -2, -1)
 
 
 // wood
@@ -217,10 +217,13 @@ function animate(time) {
 const mtlLoader = new MTLLoader();
 const mtlLoader1 = new MTLLoader();
 const mtlLoader2 = new MTLLoader();
+const mtlLoaderTree = new MTLLoader();
 
 const objectsloader = new OBJLoader();
 const objectsloader1 = new OBJLoader();
 const objectsloader2 = new OBJLoader();
+const objectsloaderTree = new OBJLoader();
+
 
 
 
@@ -230,7 +233,7 @@ mtlLoader.load('../resources/models/Orange cat/12221_Cat_v1_l3.mtl',
         objectsloader.load('../resources/models/Orange cat/12221_Cat_v1_l3.obj',
             function (cat) {
                 cat.position.set(-20, -1, 5); 
-                cat.scale.set(0.15, 0.15, 0.15);
+                cat.scale.set(0.1, 0.1, 0.1);
                 cat.rotation.set(11, 0, 8);
                 scene.add(cat);
 
@@ -249,13 +252,13 @@ mtlLoader.load('../resources/models/Orange cat/12221_Cat_v1_l3.mtl',
 mtlLoader1.load('../resources/models/Winner/WinnerCup.mtl', function (materials) {
     objectsloader1.setMaterials(materials);
     objectsloader1.load('../resources/models/Winner/WinnerCup.obj', function (trophy) {
-        trophy.position.set(-28, 13, 50); 
-        trophy.scale.set(0.025, 0.025, 0.025);
+        trophy.position.set(-28, 12, 50); 
+        trophy.scale.set(0.02, 0.02, 0.02);
         trophy.rotation.set(11, 14, 7.85);
         scene.add(trophy);
 
         // SOURCE OF SPOT LIGHT 
-        const trophyLight = new THREE.SpotLight(0xffff00, 0.5);
+        const trophyLight = new THREE.SpotLight(0xffff00, 0.2);
         trophyLight.target = trophy; 
         scene.add(trophyLight);
     });
@@ -278,11 +281,40 @@ mtlLoader2.load('../resources/models/Frog/12268_banjofrog_v1_L3.mtl',
                 scene.add(lightfrog);
 
                 //SOURCE OF HEMISPHERE LIGHT 
-                const skyLight = new THREE.HemisphereLight(0xffff00, 0.1);
-                scene.add(skyLight);
+                // const skyLight = new THREE.HemisphereLight(0xffff00, 0.1);
+                // scene.add(skyLight);
                 
 
             }
+        );
+    }
+
+);
+
+mtlLoaderTree.load('../resources/models/low_poly_tree/Lowpoly_tree_sample.mtl',
+
+    function (materials) {
+        materials.preload();
+        objectsloaderTree.setMaterials(materials);
+        objectsloaderTree.load('../resources/models/low_poly_tree/Lowpoly_tree_sample.obj',
+            function (tree) {
+                
+                tree.position.set(-20, 2, 200); 
+                tree.scale.set(3, 3, 3);
+                tree.rotation.set(22, 0, 9.5);
+
+                const lighttree = new THREE.DirectionalLight(0xffffff, 1);
+                lighttree.position.set(-20, 10, 200); 
+                lighttree.target = tree; 
+                scene.add(lighttree);
+
+                scene.add(tree);
+
+
+                
+
+            }
+    
         );
     }
 
@@ -326,11 +358,19 @@ stone.material.map = shineyStone;
 function keydown(event) {
     switch (event.key) {
         case 'ArrowLeft':
-            camera.position.z += 0.8;
+            camera.position.z += 1;
             event.preventDefault();
             break;
         case 'ArrowRight':
-            camera.position.z -= 0.8;
+            camera.position.z -= 1;
+            event.preventDefault();
+            break;
+        case 'ArrowUp':
+            camera.position.x -= 1;
+            event.preventDefault();
+            break;
+        case 'ArrowDown':
+            camera.position.x += 1;
             event.preventDefault();
             break;
     }
