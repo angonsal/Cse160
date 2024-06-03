@@ -39,7 +39,7 @@ grass1.position.set(-60, -8, 220)
 
 
 const grassBuild2 = new THREE.BoxGeometry(200, 2, 200);
-const grassColor2 = new THREE.MeshBasicMaterial({ color: 0xCC7722  });
+const grassColor2 = new THREE.MeshBasicMaterial({ color: 0x005300  });
 const grass2 = new THREE.Mesh(grassBuild2, grassColor2);
 scene.add(grass2);
 grass2.position.set(-50, -1, -220)
@@ -55,6 +55,12 @@ const grassColor4 = new THREE.MeshBasicMaterial({ color: 0xF0F8FF  });
 const grass4 = new THREE.Mesh(grassBuild4, grassColor4);
 scene.add(grass4);
 grass4.position.set(200, -2, 0)
+
+const londonBuild = new THREE.BoxGeometry(200, 2, 200);
+const londonColor = new THREE.MeshBasicMaterial({ color: 0xF0F8FF  });
+const london = new THREE.Mesh(londonBuild, londonColor);
+scene.add(london);
+london.position.set(200, -2, -200)
 
 
 // wood
@@ -261,6 +267,8 @@ const mtlLoaderDragon = new MTLLoader();
 
 const mtlLoaderForest = new MTLLoader();
 const mtlLoaderForest2 = new MTLLoader();
+const mtlLoaderHouses = new MTLLoader();
+
 
 const mtlLoaderHogsmede = new MTLLoader();
 const mtlLoaderCloud = new MTLLoader();
@@ -268,14 +276,6 @@ const mtlLoaderCloud = new MTLLoader();
 const mtlLoaderUnicorn = new MTLLoader();
 const mtlLoaderUnicorn1 = new MTLLoader();
 const mtlLoaderUnicorn2 = new MTLLoader();
-
-
-
-
-
-
-
-
 
 
 
@@ -288,8 +288,10 @@ const objectsloaderHagrid = new OBJLoader();
 const objectsloaderDragon = new OBJLoader();
 const objectsloaderForest = new OBJLoader();
 const objectsloaderHogsmede = new OBJLoader();
+const objectsloaderHouses = new OBJLoader();
 const objectsloaderCloud = new OBJLoader();
 const objectsloaderUnicorn = new OBJLoader();
+
 
 
 
@@ -878,6 +880,51 @@ mtlLoaderUnicorn.load('../resources/models/Unicorn/materials.mtl',
 );
 
 
+mtlLoaderHouses.load('../resources/models/Snowy Houses/materials.mtl',
+
+    function (materials) {
+        materials.preload();
+        objectsloaderHouses.setMaterials(materials);
+        objectsloaderHouses.load('../resources/models/Snowy Houses/model.obj',
+            function (hagrid) {
+                
+                hagrid.position.set(250,15, -205); 
+                hagrid.scale.set(40, 40, 40);
+                hagrid.rotation.set(22, 0, 9.5);
+
+                scene.add(hagrid);
+                
+
+            }
+    
+        );
+    }
+
+);
+
+mtlLoaderHouses.load('../resources/models/Snowy Houses/materials.mtl',
+
+    function (materials) {
+        materials.preload();
+        objectsloaderHouses.setMaterials(materials);
+        objectsloaderHouses.load('../resources/models/Snowy Houses/model.obj',
+            function (hagrid) {
+                
+                hagrid.position.set(150,15, -205); 
+                hagrid.scale.set(40, 40, 40);
+                hagrid.rotation.set(22, 0, 9.5);
+
+                scene.add(hagrid);
+                
+
+            }
+    
+        );
+    }
+
+);
+
+
 
 // Texture setup
 const textureLoader = new THREE.TextureLoader();
@@ -937,3 +984,5 @@ function keydown(event) {
 }
 
 animate();
+// var audio = document.getElementById("pottah");
+// audio.play();
