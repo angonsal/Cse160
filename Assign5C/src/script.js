@@ -265,6 +265,12 @@ const mtlLoaderForest2 = new MTLLoader();
 const mtlLoaderHogsmede = new MTLLoader();
 const mtlLoaderCloud = new MTLLoader();
 
+const mtlLoaderUnicorn = new MTLLoader();
+const mtlLoaderUnicorn1 = new MTLLoader();
+const mtlLoaderUnicorn2 = new MTLLoader();
+
+
+
 
 
 
@@ -283,6 +289,8 @@ const objectsloaderDragon = new OBJLoader();
 const objectsloaderForest = new OBJLoader();
 const objectsloaderHogsmede = new OBJLoader();
 const objectsloaderCloud = new OBJLoader();
+const objectsloaderUnicorn = new OBJLoader();
+
 
 
 
@@ -790,6 +798,73 @@ mtlLoaderCloud.load('../resources/models/Cumulus Clouds 2/materials.mtl',
                 
                 hagrid.position.set(0,200, 0); 
                 hagrid.scale.set(100, 100, 100);
+                hagrid.rotation.set(22, Math.PI/2, 9.5);
+
+                scene.add(hagrid);
+                
+
+            }
+    
+        );
+    }
+
+);
+
+mtlLoaderUnicorn.load('../resources/models/Unicorn/materials.mtl',
+
+    function (materials) {
+        materials.preload();
+        objectsloaderUnicorn.setMaterials(materials);
+        objectsloaderUnicorn.load('../resources/models/Unicorn/model.obj',
+            function (hagrid) {
+                
+                hagrid.position.set(-160,5, 210); 
+                hagrid.scale.set(8, 8, 8);
+                hagrid.rotation.set(22, Math.PI/2, 9.5);
+
+                scene.add(hagrid);
+                
+
+            }
+    
+        );
+    }
+
+);
+
+
+mtlLoaderUnicorn.load('../resources/models/Unicorn/materials.mtl',
+
+    function (materials) {
+        materials.preload();
+        objectsloaderUnicorn.setMaterials(materials);
+        objectsloaderUnicorn.load('../resources/models/Unicorn/model.obj',
+            function (hagrid) {
+                
+                hagrid.position.set(30,5, -200); 
+                hagrid.scale.set(8, 8, 8);
+                hagrid.rotation.set(22, Math.PI/2, 9.5);
+
+                scene.add(hagrid);
+                
+
+            }
+    
+        );
+    }
+
+);
+
+mtlLoaderUnicorn.load('../resources/models/Unicorn/materials.mtl',
+
+    function (materials) {
+        materials.preload();
+        objectsloaderUnicorn.setMaterials(materials);
+        objectsloaderUnicorn.load('../resources/models/Unicorn/model.obj',
+            function (hagrid) {
+                
+                hagrid.position.set(-180,5, 32); 
+                hagrid.scale.set(8, 8, 8);
                 hagrid.rotation.set(22, Math.PI/2, 9.5);
 
                 scene.add(hagrid);
