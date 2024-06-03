@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Assignment 5C</title>
-    <h3>Ashley Gonsalves</h3>
-    <p>angonsal@ucsc.edu</p>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
     <h1>Welcome to the Wizarding World</h1>
     <p> Welcome to the Wizarding World of Harry Potter! We are pleased to meet you. 
       Currently, we are having a bit of trouble... Hagrid seems to have lost his unicorns! There are
@@ -13,25 +12,66 @@
       cat and toad. West of the quidditch field, we have the forbidden forest where darkness 
       and evil lurks... Right in front of the entrance, we can find Hagrid's Hut: The Keeper of Keys 
       and Grounds and Hogwarts! Travel north from the quidditch field, we meet Hagrid's pet dragon! 
-      He may look menacing, but he's actually vegetarian. Travel east from the quidditch feild, we have the
+      He may look menacing, but he's actually vegetarian. Travel east from the quidditch field, we have the
       magical forest! You can find magical rivers and beautiful trees. Travel south, and you will encounter 
-      the famous Hogsmede Village! Hogsmede is home to many local shops and fun excursions. 
+      the famous Hogsmede Village! Hogsmede is home to many local shops and fun excursions. Good luck!
 
-    <h4>Notes to Grader</h2>
+    <h2>Ashley Gonsalves</h2>
+    <p>angonsal@ucsc.edu</p>
+    <h3>Notes to Grader</h2>
       <p> For this project, I created parts of the Wizarding World from Harry Potter. I used 13 different .obj files and 
         over 30 shapes to make this scene. Some of the .obj files didn't use the colors I wanted, so I went into the .mtl files
-        and fixed them myself. In additon to using the mouse for orbit controls, you can also use the arrows keys. The main struggle
-        with the project was coming up with a creative story. Initially, I was planning on doing a basic quidditch field, but I 
-        felt that it would be a little boring, so I decided to add other Harry Potter locations as well. This project was really 
-        fun!  
-      
+        and fixed them myself. In additon to using the mouse for orbit controls, you can also use the arrow keys to move forward, back, left, right. The main struggle
+        I had with the project was coming up with a creative story. Initially, I was planning on doing a basic quidditch field, but I 
+        felt that it would be a little boring, so I decided to add other Harry Potter locations as well. The starting point 
+        is the quidditch field. Here we have the three quidditch rings in additon to the quidditch balls. There is a broom, a cat, and a
+        toad. On the sides, there is are tables: one with a trophy, and one with the sorcerers stone. West of the quidditch field, we have
+        the forbidden forest and Hagrid's hut. I used the low poly tree obj 6 times in this scene, and added a forest obj for some
+        more tree variation. North of the quidditch field, I added a dragon obj and the forest obj to replicate Hargid's pet dragon. East 
+        of the field is a magical forest. I created this scene using a waterfall obj, and I used the low poly tree obj 4 times. South of
+        the field, I used 3 objs to recreate Hogsmede village. If you look up in the sky, you will see clouds; this is also an obj. Additionally, 
+        there are three unicorn objs hiding somewhere. This is a small game I added; Hagrid lost his pet unicorns and the user has to find them. 
+        This project was really fun and it has enourgaed me to create more projects using three.js.   
       </p>
      </p>
     <style>
-      .margin-text {
-          margin-left: 100px;
-          margin-right: 100px;
-          margin-bottom: 40px;
+      @font-face {
+            font-family: HarryP;
+            src: url('../resources/font/HARRYP__.TTF');
+        } 
+      body {
+          background-color: #dac8a6; 
+      }
+      h1 { 
+          font-family: HarryP, sans-serif;
+          font-size: 100px;
+          margin-top: 20px;
+          margin-right: 20px;
+          margin-left: 20px;
+      }
+      
+      h2 { 
+          font-family: "Cormorant Garamond", serif;
+          margin-top: 20px;
+          margin-right: 20px;
+          margin-left: 20px;
+          font-weight: 800;
+      }
+      h3 { 
+          font-family: HarryP;
+          font-size: 30px;
+          margin-top: 20px;
+          margin-right: 20px;
+          margin-left: 20px;
+      }
+      p {
+          font-family: "Cormorant Garamond", serif;
+          margin-top: 20px;
+          margin-right: 20px;
+          margin-left: 20px;
+      }
+      li{
+        font-family: "Cormorant Garamond", serif;
       }
       canvas {
           border: 3px solid rgb(85, 2, 2); 
@@ -53,7 +93,19 @@
     <canvas id="c"></canvas>
     <script src="script.js" type="module"></script>
 
-    <p> Sources: </p>
-</body>
+    <h3>Sources</h3>
+    <ul>
+        <li>https://free3d.com/3d-models/obj (Used the cat, frog, trophy, and low poly tree from here)</li>
+        <li>Forest Hut by Maciek Krol [CC-BY] (https://creativecommons.org/licenses/by/3.0/) via Poly Pizza (https://poly.pizza/m/b4qOUUUD2L4)</li>
+        <li>Forest by Poly by Google [CC-BY] (https://creativecommons.org/licenses/by/3.0/) via Poly Pizza (https://poly.pizza/m/2_fv3tn3NG_)</li>
+        <li>Simple Broom by Garrett LeFever [CC-BY] (https://creativecommons.org/licenses/by/3.0/) via Poly Pizza (https://poly.pizza/m/5dJ0_Qe5DJp)</li>
+        <li>Cumulus Clouds 2 by S. Paul Michael [CC-BY] (https://creativecommons.org/licenses/by/3.0/) via Poly Pizza (https://poly.pizza/m/5ckRCisrnXh)</li>
+        <li>Unicorn by Thomas DR [CC-BY] (https://creativecommons.org/licenses/by/3.0/) via Poly Pizza (https://poly.pizza/m/6pM6hFiGolw)</li>
+        <li>Winter in the Hinterland by Matt Connors [CC-BY] (https://creativecommons.org/licenses/by/3.0/) via Poly Pizza (https://poly.pizza/m/bmDjSxceaEE) </li>
+        <li>Snowy Houses by Daniel Melchior [CC-BY] (https://creativecommons.org/licenses/by/3.0/) via Poly Pizza (https://poly.pizza/m/8L83PuGYC0Q)</li>
+        <li>Waterfall by Poly by Google [CC-BY] (https://creativecommons.org/licenses/by/3.0/) via Poly Pizza (https://poly.pizza/m/d-CLmf5N8OZ)</li>
+        <li>Dragon by Poly by Google [CC-BY] (https://creativecommons.org/licenses/by/3.0/) via Poly Pizza (https://poly.pizza/m/aQ6YU1JK1wC)</li>
+
+      </body>
 
 </html>
