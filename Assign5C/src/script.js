@@ -277,6 +277,9 @@ const mtlLoaderUnicorn = new MTLLoader();
 const mtlLoaderUnicorn1 = new MTLLoader();
 const mtlLoaderUnicorn2 = new MTLLoader();
 
+const mtlLoaderBroom = new MTLLoader();
+
+
 
 
 const objectsloader = new OBJLoader();
@@ -291,6 +294,8 @@ const objectsloaderHogsmede = new OBJLoader();
 const objectsloaderHouses = new OBJLoader();
 const objectsloaderCloud = new OBJLoader();
 const objectsloaderUnicorn = new OBJLoader();
+const objectsloaderBroom = new OBJLoader();
+
 
 
 
@@ -798,7 +803,7 @@ mtlLoaderCloud.load('../resources/models/Cumulus Clouds 2/materials.mtl',
         objectsloaderCloud.load('../resources/models/Cumulus Clouds 2/model.obj',
             function (hagrid) {
                 
-                hagrid.position.set(0,200, 0); 
+                hagrid.position.set(0,200, -100); 
                 hagrid.scale.set(100, 100, 100);
                 hagrid.rotation.set(22, Math.PI/2, 9.5);
 
@@ -923,6 +928,30 @@ mtlLoaderHouses.load('../resources/models/Snowy Houses/materials.mtl',
     }
 
 );
+
+
+mtlLoaderBroom.load('../resources/models/Simple Broom/materials.mtl',
+
+    function (materials) {
+        materials.preload();
+        objectsloaderHouses.setMaterials(materials);
+        objectsloaderHouses.load('../resources/models/Simple Broom/model.obj',
+            function (hagrid) {
+                
+                hagrid.position.set(10,-0.5, 20); 
+                hagrid.scale.set(8, 8, 8);
+                hagrid.rotation.set(22, 0, 9.5);
+
+                scene.add(hagrid);
+                
+
+            }
+    
+        );
+    }
+
+);
+
 
 
 
