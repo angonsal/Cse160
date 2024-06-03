@@ -7,7 +7,7 @@ import { MTLLoader } from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/lo
 // Setting up  
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(80, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.set(60, 8);
+camera.position.set(50, 8);
 const canvas = document.querySelector('#c');
 const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('c') });
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -24,11 +24,37 @@ const texture = loader.load("../resources/images/quid.jpeg", () => {
 
 
 // Grass
-const grassBuild = new THREE.BoxGeometry(200, 2, 1000);
+const grassBuild = new THREE.BoxGeometry(100, 2, 200);
 const grassColor = new THREE.MeshBasicMaterial({ color: 0x005300  });
 const grass = new THREE.Mesh(grassBuild, grassColor);
 scene.add(grass);
-grass.position.set(50, -2, -1)
+grass.position.set(0, -2, 0)
+
+//0X5F725D
+const grassBuild1 = new THREE.BoxGeometry(400, 15, 200);
+const grassColor1 = new THREE.MeshBasicMaterial({ color: 0X5F725D  });
+const grass1 = new THREE.Mesh(grassBuild1, grassColor1);
+scene.add(grass1);
+grass1.position.set(-60, -8, 220)
+
+
+const grassBuild2 = new THREE.BoxGeometry(200, 2, 200);
+const grassColor2 = new THREE.MeshBasicMaterial({ color: 0xCC7722  });
+const grass2 = new THREE.Mesh(grassBuild2, grassColor2);
+scene.add(grass2);
+grass2.position.set(-50, -1, -220)
+
+const grassBuild3 = new THREE.BoxGeometry(200, 15, 200);
+const grassColor3 = new THREE.MeshBasicMaterial({ color: 0X5F725D  });
+const grass3 = new THREE.Mesh(grassBuild3, grassColor3);
+scene.add(grass3);
+grass3.position.set(-200, -8, 0)
+
+const grassBuild4 = new THREE.BoxGeometry(200, 2, 200);
+const grassColor4 = new THREE.MeshBasicMaterial({ color: 0xF0F8FF  });
+const grass4 = new THREE.Mesh(grassBuild4, grassColor4);
+scene.add(grass4);
+grass4.position.set(200, -2, 0)
 
 
 // wood
@@ -209,6 +235,7 @@ function animate(time) {
     time *= 0.001; 
     middle.rotation.y = time;
 
+
     requestAnimationFrame(animate);
     renderer.render(scene, camera);
 }
@@ -218,11 +245,51 @@ const mtlLoader = new MTLLoader();
 const mtlLoader1 = new MTLLoader();
 const mtlLoader2 = new MTLLoader();
 const mtlLoaderTree = new MTLLoader();
+const mtlLoaderTree2 = new MTLLoader();
+const mtlLoaderTree3 = new MTLLoader();
+const mtlLoaderTree4 = new MTLLoader();
+const mtlLoaderTree5 = new MTLLoader();
+const mtlLoaderTree6 = new MTLLoader();
+const mtlLoaderTree7 = new MTLLoader();
+const mtlLoaderTree8 = new MTLLoader();
+const mtlLoaderTree9 = new MTLLoader();
+const mtlLoaderTree10 = new MTLLoader();
+
+const mtlLoaderWaterFall = new MTLLoader();
+const mtlLoaderHagrid = new MTLLoader();
+const mtlLoaderDragon = new MTLLoader();
+
+const mtlLoaderForest = new MTLLoader();
+const mtlLoaderForest2 = new MTLLoader();
+
+const mtlLoaderHogsmede = new MTLLoader();
+const mtlLoaderCloud = new MTLLoader();
+
+
+
+
+
+
+
+
 
 const objectsloader = new OBJLoader();
 const objectsloader1 = new OBJLoader();
 const objectsloader2 = new OBJLoader();
 const objectsloaderTree = new OBJLoader();
+const objectsloaderWaterFall = new OBJLoader();
+const objectsloaderHagrid = new OBJLoader();
+const objectsloaderDragon = new OBJLoader();
+const objectsloaderForest = new OBJLoader();
+const objectsloaderHogsmede = new OBJLoader();
+const objectsloaderCloud = new OBJLoader();
+
+
+
+
+
+
+
 
 
 
@@ -258,7 +325,7 @@ mtlLoader1.load('../resources/models/Winner/WinnerCup.mtl', function (materials)
         scene.add(trophy);
 
         // SOURCE OF SPOT LIGHT 
-        const trophyLight = new THREE.SpotLight(0xffff00, 0.2);
+        const trophyLight = new THREE.SpotLight(0xffff00, 0.0001);
         trophyLight.target = trophy; 
         scene.add(trophyLight);
     });
@@ -299,7 +366,7 @@ mtlLoaderTree.load('../resources/models/low_poly_tree/Lowpoly_tree_sample.mtl',
         objectsloaderTree.load('../resources/models/low_poly_tree/Lowpoly_tree_sample.obj',
             function (tree) {
                 
-                tree.position.set(-20, 2, 200); 
+                tree.position.set(-30, 2, 200); 
                 tree.scale.set(3, 3, 3);
                 tree.rotation.set(22, 0, 9.5);
 
@@ -311,6 +378,421 @@ mtlLoaderTree.load('../resources/models/low_poly_tree/Lowpoly_tree_sample.mtl',
                 scene.add(tree);
 
 
+                
+
+            }
+    
+        );
+    }
+
+);
+
+mtlLoaderTree2.load('../resources/models/low_poly_tree/Lowpoly_tree_sample.mtl',
+
+    function (materials) {
+        materials.preload();
+        objectsloaderTree.setMaterials(materials);
+        objectsloaderTree.load('../resources/models/low_poly_tree/Lowpoly_tree_sample.obj',
+            function (tree1) {
+                
+                tree1.position.set(0, 2, 200); 
+                tree1.scale.set(4, 4, 4);
+                tree1.rotation.set(22, 0, 9.5);
+
+                const lighttree1 = new THREE.DirectionalLight(0xffffff, 1);
+                lighttree1.position.set(-20, 10, 200); 
+                lighttree1.target = tree1; 
+                scene.add(lighttree1);
+
+                scene.add(tree1);
+
+
+                
+
+            }
+    
+        );
+    }
+
+);
+
+mtlLoaderTree3.load('../resources/models/low_poly_tree/Lowpoly_tree_sample.mtl',
+
+    function (materials) {
+        materials.preload();
+        objectsloaderTree.setMaterials(materials);
+        objectsloaderTree.load('../resources/models/low_poly_tree/Lowpoly_tree_sample.obj',
+            function (tree2) {
+                
+                tree2.position.set(50, 2, 200); 
+                tree2.scale.set(7, 7, 7);
+                tree2.rotation.set(22, 0, 9.5);
+
+                const lighttree2 = new THREE.DirectionalLight(0xffffff, 1);
+                lighttree2.position.set(-20, 10, 200); 
+                lighttree2.target = tree2; 
+                scene.add(lighttree2);
+
+                scene.add(tree2);
+
+
+                
+
+            }
+    
+        );
+    }
+
+);
+
+mtlLoaderTree4.load('../resources/models/low_poly_tree/Lowpoly_tree_sample.mtl',
+
+    function (materials) {
+        materials.preload();
+        objectsloaderTree.setMaterials(materials);
+        objectsloaderTree.load('../resources/models/low_poly_tree/Lowpoly_tree_sample.obj',
+            function (tree4) {
+                
+                tree4.position.set(100, 2, 200); 
+                tree4.scale.set(4, 4, 4);
+                tree4.rotation.set(22, 0, 9.5);
+
+                
+
+                scene.add(tree4);
+
+
+                
+
+            }
+    
+        );
+    }
+
+);
+
+mtlLoaderTree5.load('../resources/models/low_poly_tree/Lowpoly_tree_sample.mtl',
+
+    function (materials) {
+        materials.preload();
+        objectsloaderTree.setMaterials(materials);
+        objectsloaderTree.load('../resources/models/low_poly_tree/Lowpoly_tree_sample.obj',
+            function (tree5) {
+                
+                tree5.position.set(100, 2, 300); 
+                tree5.scale.set(4, 4, 4);
+                tree5.rotation.set(22, 0, 9.5);
+
+                const lighttree5 = new THREE.DirectionalLight(0xffffff, 1);
+                lighttree5.position.set(-20, 10, 300); 
+                lighttree5.target = tree5; 
+                scene.add(lighttree5);
+
+                scene.add(tree5);
+
+
+                
+
+            }
+    
+        );
+    }
+
+);
+
+mtlLoaderTree6.load('../resources/models/low_poly_tree/Lowpoly_tree_sample.mtl',
+
+    function (materials) {
+        materials.preload();
+        objectsloaderTree.setMaterials(materials);
+        objectsloaderTree.load('../resources/models/low_poly_tree/Lowpoly_tree_sample.obj',
+            function (hagrid) {
+                
+                hagrid.position.set(125, 2, 250); 
+                hagrid.scale.set(10, 10, 10);
+                hagrid.rotation.set(22, 0, 9.5);
+
+                
+
+                scene.add(hagrid);
+
+
+                
+
+            }
+    
+        );
+    }
+
+);
+
+
+//mtlLoaderCastle
+//objectsloaderCastle
+
+mtlLoaderWaterFall.load('../resources/models/Waterfall/Waterfall_1228.mtl',
+
+    function (materials) {
+        materials.preload();
+        objectsloaderWaterFall.setMaterials(materials);
+        objectsloaderWaterFall.load('../resources/models/Waterfall/Waterfall_1228.obj',
+            function (hagrid) {
+                
+                hagrid.position.set(-40, -11, -180); 
+                hagrid.scale.set(1, 1, 1);
+                hagrid.rotation.set(22, Math.PI, 9.45);
+
+                
+
+                scene.add(hagrid);
+
+
+                
+
+            }
+    
+        );
+    }
+
+);
+
+
+mtlLoaderTree7.load('../resources/models/low_poly_tree/Lowpoly_tree_sample.mtl',
+
+    function (materials) {
+        materials.preload();
+        objectsloaderTree.setMaterials(materials);
+        objectsloaderTree.load('../resources/models/low_poly_tree/Lowpoly_tree_sample.obj',
+            function (hagrid) {
+                
+                hagrid.position.set(-125, 2, -300); 
+                hagrid.scale.set(5, 5, 5);
+                hagrid.rotation.set(22, 0, 9.5);
+
+                
+
+                scene.add(hagrid);
+
+
+                
+
+            }
+    
+        );
+    }
+
+);
+
+mtlLoaderTree8.load('../resources/models/low_poly_tree/Lowpoly_tree_sample.mtl',
+
+    function (materials) {
+        materials.preload();
+        objectsloaderTree.setMaterials(materials);
+        objectsloaderTree.load('../resources/models/low_poly_tree/Lowpoly_tree_sample.obj',
+            function (hagrid) {
+                
+                hagrid.position.set(-75, 2, -300); 
+                hagrid.scale.set(3, 3, 3);
+                hagrid.rotation.set(22, 0, 9.5);
+
+               
+
+                scene.add(hagrid);
+
+
+                
+
+            }
+    
+        );
+    }
+
+);
+
+mtlLoaderTree9.load('../resources/models/low_poly_tree/Lowpoly_tree_sample.mtl',
+
+    function (materials) {
+        materials.preload();
+        objectsloaderTree.setMaterials(materials);
+        objectsloaderTree.load('../resources/models/low_poly_tree/Lowpoly_tree_sample.obj',
+            function (hagrid) {
+                
+                hagrid.position.set(-25, 2, -300); 
+                hagrid.scale.set(3, 3, 3);
+                hagrid.rotation.set(22, 0, 9.5);
+
+        
+
+                scene.add(hagrid);
+
+
+                
+
+            }
+    
+        );
+    }
+
+);
+
+mtlLoaderTree10.load('../resources/models/low_poly_tree/Lowpoly_tree_sample.mtl',
+
+    function (materials) {
+        materials.preload();
+        objectsloaderTree.setMaterials(materials);
+        objectsloaderTree.load('../resources/models/low_poly_tree/Lowpoly_tree_sample.obj',
+            function (hagrid) {
+                
+                hagrid.position.set(25, 2, -250); 
+                hagrid.scale.set(5, 5, 5);
+                hagrid.rotation.set(22, 0, 9.5);
+
+
+                scene.add(hagrid);
+
+
+                
+
+            }
+    
+        );
+    }
+
+);
+
+mtlLoaderHagrid.load('../resources/models/Forest Hut/materials.mtl',
+
+    function (materials) {
+        materials.preload();
+        objectsloaderHagrid.setMaterials(materials);
+        objectsloaderHagrid.load('../resources/models/Forest Hut/model.obj',
+            function (hagrid) {
+                
+                hagrid.position.set(-170, 35, 200); 
+                hagrid.scale.set(20, 20, 20);
+                hagrid.rotation.set(22, 0, 9.42);
+
+                const lighthagrid = new THREE.DirectionalLight(0xffffff, 1);
+                lighthagrid.position.set(-20, 10, 200); 
+                lighthagrid.target = hagrid; 
+                scene.add(lighthagrid);
+
+                scene.add(hagrid);
+
+
+                
+
+            }
+    
+        );
+    }
+
+);
+
+mtlLoaderDragon.load('../resources/models/Dragon/Mesh_Dragon.mtl',
+
+    function (materials) {
+        materials.preload();
+        objectsloaderDragon.setMaterials(materials);
+        objectsloaderDragon.load('../resources/models/Dragon/Mesh_Dragon.obj',
+            function (hagrid) {
+                
+                hagrid.position.set(-150, 25, 0); 
+                hagrid.scale.set(0.2, 0.2, 0.2);
+                hagrid.rotation.set(22, 0, 9.5);
+
+                scene.add(hagrid);
+                
+
+            }
+    
+        );
+    }
+
+);
+
+mtlLoaderForest.load('../resources/models/Forest/PUSHILIN_forest.mtl',
+
+    function (materials) {
+        materials.preload();
+        objectsloaderForest.setMaterials(materials);
+        objectsloaderForest.load('../resources/models/Forest/PUSHILIN_forest.obj',
+            function (hagrid) {
+                
+                hagrid.position.set(-200, 15.5, 0); 
+                hagrid.scale.set(75, 75, 75);
+                hagrid.rotation.set(22, 0, 9.5);
+
+                scene.add(hagrid);
+                
+
+            }
+    
+        );
+    }
+
+);
+
+
+mtlLoaderForest2.load('../resources/models/Forest/PUSHILIN_forest.mtl',
+
+    function (materials) {
+        materials.preload();
+        objectsloaderForest.setMaterials(materials);
+        objectsloaderForest.load('../resources/models/Forest/PUSHILIN_forest.obj',
+            function (hagrid) {
+                
+                hagrid.position.set(20, 15.5, 250); 
+                hagrid.scale.set(80, 80, 80);
+                hagrid.rotation.set(22, 0, 9.5);
+
+                scene.add(hagrid);
+                
+
+            }
+    
+        );
+    }
+
+);
+
+
+mtlLoaderHogsmede.load('../resources/models/Winter in the Hinterland/materials.mtl',
+
+    function (materials) {
+        materials.preload();
+        objectsloaderHogsmede.setMaterials(materials);
+        objectsloaderHogsmede.load('../resources/models/Winter in the Hinterland/model.obj',
+            function (hagrid) {
+                
+                hagrid.position.set(250, 50, 0); 
+                hagrid.scale.set(70, 70, 70);
+                hagrid.rotation.set(22, Math.PI/2, 9.5);
+
+                scene.add(hagrid);
+                
+
+            }
+    
+        );
+    }
+
+);
+
+
+mtlLoaderCloud.load('../resources/models/Cumulus Clouds 2/materials.mtl',
+
+    function (materials) {
+        materials.preload();
+        objectsloaderCloud.setMaterials(materials);
+        objectsloaderCloud.load('../resources/models/Cumulus Clouds 2/model.obj',
+            function (hagrid) {
+                
+                hagrid.position.set(0,200, 0); 
+                hagrid.scale.set(100, 100, 100);
+                hagrid.rotation.set(22, Math.PI/2, 9.5);
+
+                scene.add(hagrid);
                 
 
             }
@@ -352,25 +834,28 @@ quaffle1.material.map = leather;
 const shineyStone = textureLoader.load('../resources/images/stone.jpeg');
 stone.material.map = shineyStone;
 
+const hagrid = textureLoader.load('../resources/images/hagrid.jpeg'); 
+grass1.material.map = hagrid; 
+grass3.material.map = hagrid; 
 
 
 // Navigation
 function keydown(event) {
     switch (event.key) {
         case 'ArrowLeft':
-            camera.position.z += 1;
+            camera.position.z += 3;
             event.preventDefault();
             break;
         case 'ArrowRight':
-            camera.position.z -= 1;
+            camera.position.z -= 3;
             event.preventDefault();
             break;
         case 'ArrowUp':
-            camera.position.x -= 1;
+            camera.position.x -= 3;
             event.preventDefault();
             break;
         case 'ArrowDown':
-            camera.position.x += 1;
+            camera.position.x += 3;
             event.preventDefault();
             break;
     }
